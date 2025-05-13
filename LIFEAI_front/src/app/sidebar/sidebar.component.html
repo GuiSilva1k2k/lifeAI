@@ -1,0 +1,29 @@
+<nav class="sidebar">
+  <div class="logo-container">
+    <img src="assets/img/lifeAI_logo.png" alt="LifeAI Logo" class="logo-img">
+  </div>
+
+  <a routerLink="/home" routerLinkActive="active" title="Home">
+    <mat-icon>home</mat-icon>
+  </a>
+  <a routerLink="/rotina" routerLinkActive="active" title="Rotina">
+    <mat-icon>calendar_today</mat-icon>
+  </a>
+  <a routerLink="/chat-ia" routerLinkActive="active" title="Chat IA">
+    <mat-icon>message</mat-icon>
+  </a>
+  <a routerLink="/desemp" routerLinkActive="active" title="Desempenho">
+    <mat-icon>bar_chart</mat-icon>
+  </a>
+  <a routerLink="/config" routerLinkActive="active" title="Configurações">
+    <mat-icon>settings</mat-icon>
+  </a>
+
+  <a id="logout-link" title="Logout" (click)="logout()">
+    <mat-icon>logout</mat-icon>
+  </a>
+
+  <button class="floating-button" title="Ação rápida">
+    <mat-icon>help_outline</mat-icon>
+  </button>
+</nav>

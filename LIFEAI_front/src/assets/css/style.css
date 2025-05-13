@@ -1,0 +1,132 @@
+/* ===== RESET & ESTILOS GLOBAIS ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #0d1c27;
+  color: #ffffff;
+}
+
+.app-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  background-color: #081018;
+  width: 60px;
+  height: 100vh;
+  position: fixed;
+}
+
+.sidebar .logo-container {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.sidebar .logo-container .logo-img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+.sidebar a {
+  width: 40px;
+  height: 40px;
+  margin: 10px 0;
+  background-color: #075e54;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar a.active,
+.sidebar a:hover {
+  background-color: #00c853;
+}
+
+/* Ícones usando Material Icons */
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  font-feature-settings: 'liga';
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Botão Flutuante */
+.floating-button {
+  margin-top: auto;
+  margin-bottom: 20px;
+  background-color: #00c853;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.floating-button:hover {
+  background-color: #00a543;
+}
+
+/* Estilo do Logout */
+#logout-link {
+  background-color: #a52727 !important;
+}
+
+#logout-link:hover {
+  background-color: #b71c1c !important;
+}
+
+#logout-link.active {
+  background-color: #c62828 !important;
+}
+
+/* ===== CONTEÚDO PRINCIPAL ===== */
+.main-content {
+  margin-left: 60px;
+  padding: 20px;
+  width: calc(100% - 60px);
+  min-height: 100vh;
+  background-color: #0d1c27;
+}
+
+/* Media Query para dispositivos móveis */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 50px;
+  }
+  
+  .main-content {
+    margin-left: 50px;
+    width: calc(100% - 50px);
+  }
+}
