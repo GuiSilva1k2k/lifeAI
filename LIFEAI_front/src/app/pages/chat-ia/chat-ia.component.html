@@ -2,6 +2,57 @@
   <app-sidebar></app-sidebar>
 
   <main class="main-content">
-    <router-outlet></router-outlet>
+    <div class="chat-ia-container">
+      <!-- Mensagem inicial fixa -->
+      <div class="initial-message" *ngIf="!hasReplied">
+        <img src="assets/img/lifeAI_logo.png" alt="Logo" />
+        <h1>Como posso te ajudar hoje?</h1>
+        <p>
+          Escolha uma das áreas abaixo para começar sua jornada de bem-estar com
+          nossa IA.
+        </p>
+      </div>
+
+      <!-- Cards de opções -->
+      <div *ngIf="!hasReplied" class="card-options">
+        <div
+          *ngFor="let option of options"
+          class="card"
+          (click)="handleOptionClick(option.title)"
+        >
+          <h2>{{ option.title }}</h2>
+          <p>{{ option.subtitle }}</p>
+        </div>
+      </div>
+
+      <!-- Mensagens de chat -->
+      <div class="messages">
+        <div *ngFor="let msg of messages" class="message" [ngClass]="msg.from">
+          <span *ngIf="msg.loading" class="loading-dots"></span>
+
+          <ng-container *ngIf="!msg.loading">
+            <div>{{ msg.text }}</div>
+            <div class="timestamp">
+              {{ msg.timestamp | date : "shortTime" }}
+            </div>
+          </ng-container>
+        </div>
+      </div>
+
+      <!-- Input de texto -->
+      <form
+        class="input-bar"
+        (submit)="handleInputSubmit(); $event.preventDefault()"
+        autocomplete="off"
+      >
+        <input
+          type="text"
+          [(ngModel)]="inputText"
+          name="input"
+          placeholder="Digite sua resposta..."
+        />
+        <button type="submit">Enviar</button>
+      </form>
+    </div>
   </main>
 </div>

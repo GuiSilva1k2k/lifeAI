@@ -1,22 +1,26 @@
 <body class="page-dashboard">
-  <app-sidebar></app-sidebar> 
+  <app-sidebar></app-sidebar>
 
   <main class="dashboard">
-    <div class="topo-dashboard">
-      <section class="cards">
+    <!-- Agrupamento dos cards + IMC -->
+    <section class="topo-dashboard">
+      <div class="cards-superiores">
         <div class="card">
+          <span class="material-icons icon">local_fire_department</span>
           <h3>Consumo calórico</h3>
           <p>Valor: --</p>
         </div>
         <div class="card">
+          <span class="material-icons icon">bedtime</span>
           <h3>Qualidade do Sono</h3>
           <p>Valor: --</p>
         </div>
         <div class="card">
+          <span class="material-icons icon">opacity</span>
           <h3>Hidratação</h3>
           <p>Valor: --</p>
         </div>
-      </section>
+      </div>
 
       <aside class="imc-resumo">
         <h2>Resumo IMC</h2>
@@ -24,17 +28,14 @@
         <p>Altura: -- cm</p>
         <p>IMC: --</p>
       </aside>
-    </div>
+    </section>
 
     <section class="atividades">
-      <h2>Atividades realizadas</h2>
       <div class="grafico-placeholder">
         <app-grafico></app-grafico>
-        <!-- Colar a tag do componente de grafico aq -->
       </div>
     </section>
   </main>
 
   <router-outlet></router-outlet>
 </body>
-

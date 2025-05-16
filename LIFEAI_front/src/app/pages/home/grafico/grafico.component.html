@@ -1,7 +1,13 @@
-<canvas
-    baseChart
-    [data]="chartData"
-    [type]="chartType"
-    [options]="chartOptions">
-</canvas>
+<div class="grafico-header">
+  <h3>{{ chartTitle }}</h3>
+  <div class="view-toggle">
+    <button [class.active]="currentView === 'atividades'" (click)="switchView('atividades')">Atividades</button>
+    <button [class.active]="currentView === 'desempenho'" (click)="switchView('desempenho')">Desempenho</button>
+  </div>
+</div>
 
+<canvas baseChart
+  [data]="chartData"
+  [options]="chartOptions"
+  [type]="chartType">
+</canvas>

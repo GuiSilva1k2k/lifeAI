@@ -1,0 +1,119 @@
+body.page-dashboard .dashboard {
+  display: flex;
+  flex-direction: column;
+  padding: 20px clamp(20px, 5vw, 100px);
+  gap: 20px;
+}
+
+body.page-dashboard .topo-dashboard {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 100%;
+  align-items: flex-start;
+}
+
+body.page-dashboard .cards-superiores {
+  display: flex;
+  flex: 1;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Cards individuais */
+body.page-dashboard .card {
+  background: #13212f;
+  border-radius: 16px;
+  padding: 20px;
+  min-height: 140px;
+  text-align: center;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex: 1 1 200px;
+  max-width: 220px;
+}
+
+body.page-dashboard .card .icon {
+  font-size: 36px;
+  color: #00c8c8;
+}
+
+body.page-dashboard .card h3 {
+  font-size: 18px;
+  margin: 0;
+  color: #ffffff;
+}
+
+body.page-dashboard .card p {
+  font-size: 16px;
+  color: #cccccc;
+  margin: 0;
+}
+
+body.page-dashboard .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 4px 12px rgba(0, 200, 200, 0.3);
+}
+
+/* Card de IMC ao lado dos cards */
+body.page-dashboard .imc-resumo {
+  background: #13212f;
+  border-radius: 16px;
+  padding: 20px;
+  width: 100%;
+  max-width: 300px;
+  min-height: 300px;
+  text-align: center;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+body.page-dashboard .imc-resumo .imc-valor {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+body.page-dashboard .grafico-placeholder {
+  background: #243447;
+  border-radius: 12px;
+  width: 100%;
+  max-height: 400px;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #aaa;
+}
+
+body.page-dashboard .atividades {
+  width: 100%;
+  background: #13212f;
+  border-radius: 16px;
+  padding: 20px;
+  margin-top: 40px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+body.page-dashboard h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #00c8c8;
+}
+
+body.page-dashboard p {
+  color: #cccccc;
+  font-size: 14px;
+}
+
+.hidden {
+  display: none !important;
+}

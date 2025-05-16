@@ -1,0 +1,31 @@
+<div class="chat-fullscreen">
+  <div class="chat-container">
+    <div class="messages">
+      <div *ngFor="let msg of messages" class="message-row" [ngClass]="msg.from" [@fadeInUp]>
+        <img *ngIf="msg.from === 'bot'" src="assets/img/lifeAI_logo.png" class="avatar" />
+        <img *ngIf="msg.from === 'user'" src="https://cdn-icons-png.flaticon.com/512/847/847969.png" class="avatar" />
+
+        <div class="message-bubble">
+          <ng-container *ngIf="!msg.loading; else typing">
+            {{ msg.text }}
+            <div class="timestamp">{{ msg.timestamp | date:'shortTime' }}</div>
+          </ng-container>
+          <ng-template #typing>
+            <span class="typing-indicator"><span></span><span></span><span></span></span>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+
+    <div class="options" *ngIf="getOptions().length">
+      <button *ngFor="let option of getOptions()" (click)="handleOption(option)">
+        {{ option }}
+      </button>
+    </div>
+
+    <div class="input-bar">
+      <input [(ngModel)]="inputText" type="text" placeholder="Digite sua mensagem..." />
+      <button (click)="handleUserInput()">Enviar</button>
+    </div>
+  </div>
+</div>

@@ -7,6 +7,7 @@ import { IndexComponent } from './pages/index/index.component';
 import { RotinaComponent } from './pages/rotina/rotina.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { GraficoComponent } from './pages/home/grafico/grafico.component';
+import { ChatbotComponent } from './pages/chatbot/chatbot.component'; 
 
 export const routes: Routes = [
   { path: '', component: IndexComponent },
@@ -15,6 +16,7 @@ export const routes: Routes = [
   { path: 'config', component: ConfigComponent },
   { path: 'desemp', component: DesempComponent },
   { path: 'rotina', component: RotinaComponent },
-  { path: 'side', component: SidebarComponent},
-  { path: 'grafico', component: GraficoComponent},
-];
+  { path: 'side', component: SidebarComponent },
+  { path: 'grafico', component: GraficoComponent },
+  { path: 'chatbot', component: ChatbotComponent },
+]
