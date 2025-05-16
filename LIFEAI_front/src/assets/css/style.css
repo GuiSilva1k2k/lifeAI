@@ -192,7 +192,8 @@ body.page-dashboard .imc-resumo .imc-valor {
 body.page-dashboard .grafico-placeholder {
   background: #243447;
   border-radius: 12px;
-  height: 160px;
+  width: 500px;
+  height: auto;
   display: flex;
   align-items: center;
   justify-content: center;

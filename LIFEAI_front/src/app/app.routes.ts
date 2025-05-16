@@ -6,6 +6,7 @@ import { DesempComponent } from './pages/desemp/desemp.component';
 import { IndexComponent } from './pages/index/index.component';
 import { RotinaComponent } from './pages/rotina/rotina.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { GraficoComponent } from './pages/home/grafico/grafico.component';
 
 export const routes: Routes = [
   { path: '', component: IndexComponent },
@@ -15,4 +16,5 @@ export const routes: Routes = [
   { path: 'desemp', component: DesempComponent },
   { path: 'rotina', component: RotinaComponent },
   { path: 'side', component: SidebarComponent},
+  { path: 'grafico', component: GraficoComponent},
 ];

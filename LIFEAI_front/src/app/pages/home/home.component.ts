@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { SidebarComponent } from '../../sidebar/sidebar.component';
+import { GraficoComponent } from "./grafico/grafico.component";
 
 @Component({
   selector: 'app-home',
@@ -11,8 +12,9 @@ import { SidebarComponent } from '../../sidebar/sidebar.component';
     CommonModule,
     RouterModule,
     MatIconModule,
-    SidebarComponent
-  ],
+    SidebarComponent,
+    GraficoComponent
+],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
