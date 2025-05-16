@@ -130,3 +130,94 @@ body {
     width: calc(100% - 50px);
   }
 }
+
+/* ===== PÁGINA DASHBOARD (main_page.html) ===== */
+body.page-dashboard .dashboard {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  padding-left: 100px;
+  gap: 20px;
+}
+
+body.page-dashboard .topo-dashboard {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  align-items: flex-start;
+}
+
+/* Cards (Calorias, Sono, Hidratação) */
+body.page-dashboard .cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  flex: 2;
+}
+
+body.page-dashboard .card {
+  background: #13212f;
+  border-radius: 16px;
+  padding: 20px;
+  min-height: 120px;
+  text-align: center;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+body.page-dashboard .card:hover {
+  transform: translateY(-5px);
+}
+
+body.page-dashboard .imc-resumo {
+  background: #13212f;
+  border-radius: 16px;
+  padding: 20px;
+  width: 300px;
+  height: 100%;
+  text-align: center;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 400px;
+}
+
+body.page-dashboard .imc-resumo .imc-valor {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+body.page-dashboard .grafico-placeholder {
+  background: #243447;
+  border-radius: 12px;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #aaa;
+}
+
+body.page-dashboard .atividades {
+  background: #13212f;
+  border-radius: 16px;
+  padding: 20px;
+  margin-top: 80px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+body.page-dashboard h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #00c8c8;
+}
+
+body.page-dashboard p {
+  color: #cccccc;
+  font-size: 14px;
+}
+
+.hidden {
+  display: none !important;
+}

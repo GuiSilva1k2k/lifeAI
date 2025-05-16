@@ -5,6 +5,7 @@ import { ConfigComponent } from './pages/config/config.component';
 import { DesempComponent } from './pages/desemp/desemp.component';
 import { IndexComponent } from './pages/index/index.component';
 import { RotinaComponent } from './pages/rotina/rotina.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 export const routes: Routes = [
   { path: '', component: IndexComponent },
@@ -12,5 +13,6 @@ export const routes: Routes = [
   { path: 'chat-ia', component: ChatIaComponent },
   { path: 'config', component: ConfigComponent },
   { path: 'desemp', component: DesempComponent },
-  { path: 'rotina', component: RotinaComponent }
+  { path: 'rotina', component: RotinaComponent },
+  { path: 'side', component: SidebarComponent},
 ];

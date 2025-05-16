@@ -1,73 +1,65 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LifeAI</title>
-  </head>
+<body class="page-index">
+  <header>
+    <nav>
+      <ul class="nav-menu">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Sobre nós</a></li>
+        <li><a href="#">Contato</a></li>
+      </ul>
+      <div class="nav-buttons">
+        <button class="nav-login" (click)="showForm('login')">Login</button>
+        <button class="nav-register" (click)="showForm('register')">Registrar</button>
+      </div>
+    </nav>
+  </header>
 
-  <body class="page-index">
-    <header>
-      <nav>
-        <ul class="nav-menu">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Sobre nós</a></li>
-          <li><a href="#">Contato</a></li>
-        </ul>
-        <div class="nav-buttons">
-          <button class="nav-login" (click)="showForm('login')">Login</button>
-          <button class="nav-register" (click)="showForm('register')">Registrar</button>
-        </div>
-      </nav>
-    </header>
+  <main class="container">
+    <section class="left-section">
+      <h1 class="brand">LifeAI</h1>
+      <p class="login-prompt">
+        Se você já tem uma<br/>
+        conta, <strong style="cursor: pointer;" (click)="showForm('login')">faça aqui o login!</strong>
+      </p>             
+    </section>
 
-    <main class="container">
-      <section class="left-section">
-        <h1 class="brand">LifeAI</h1>
-        <p class="login-prompt">
-          Se você já tem uma<br/>
-          conta, <strong style="cursor: pointer;" (click)="showForm('login')">faça aqui o login!</strong>
-        </p>             
-      </section>
+    <section class="center-section" style="display: flex; justify-content: center">
+      <img
+        src="assets/img/lifeAI_logo.png"
+        style="width: 285px; height: auto; max-width: 100%; object-fit: contain;"
+        alt="LifeAI Logo"
+      />
+    </section>
 
-      <section class="center-section" style="display: flex; justify-content: center">
-        <img
-          src="assets/img/lifeAI_logo.png"
-          style="width: 285px; height: auto; max-width: 100%; object-fit: contain;"
-          alt="LifeAI Logo"
-        />
-      </section>
+    <section class="right-section">
+      <form *ngIf="formType === 'login'" class="register-form">
+        <input type="email" placeholder="email" required />
+        <input type="password" placeholder="senha" required />
+        <a href="#" class="forgot-password">Esqueceu a senha?</a>
+        <button type="submit">Login</button>
+      </form>
 
-      <section class="right-section">
-        <form *ngIf="formType === 'login'" class="register-form">
-          <input type="email" placeholder="email" required />
-          <input type="password" placeholder="senha" required />
-          <a href="#" class="forgot-password">Esqueceu a senha?</a>
-          <button type="submit">Login</button>
-        </form>
+      <form *ngIf="formType === 'register'" class="register-form">
+        <input type="text" placeholder="usuário" required />
+        <input type="email" placeholder="email" required />
+        <input type="password" placeholder="senha" required />
+        <a href="#" class="forgot-password">Esqueceu a senha?</a>
+        <button type="submit">Registre-se</button>
+      </form>
 
-        <form *ngIf="formType === 'register'" class="register-form">
-          <input type="text" placeholder="usuário" required />
-          <input type="email" placeholder="email" required />
-          <input type="password" placeholder="senha" required />
-          <a href="#" class="forgot-password">Esqueceu a senha?</a>
-          <button type="submit">Registre-se</button>
-        </form>
+      <div class="divider">Ou continue com:</div>
 
-        <div class="divider">Ou continue com:</div>
+      <div class="social-buttons">
+        <button>
+          <img src="https://img.icons8.com/color/48/google-logo.png" alt="Google" />
+        </button>
+        <button>
+          <img src="htZZtps://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple" width="40" height="40" />
+        </button>
+        <button>
+          <img src="https://img.icons8.com/fluency/48/facebook-new.png" alt="Facebook" />
+        </button>
+      </div>
+    </section>
+  </main>
+</body>
 
-        <div class="social-buttons">
-          <button>
-            <img src="https://img.icons8.com/color/48/google-logo.png" alt="Google" />
-          </button>
-          <button>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple" width="40" height="40" />
-          </button>
-          <button>
-            <img src="https://img.icons8.com/fluency/48/facebook-new.png" alt="Facebook" />
-          </button>
-        </div>
-      </section>
-    </main>
-  </body>
-</html>
