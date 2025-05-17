@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../../api/registro.service';
+import { AuthService } from '../../api/autenticacaoUser.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
@@ -28,13 +28,9 @@ export class IndexComponent {
   errorMsg = '';
   successMsg = '';
 
-  // Login
-  loginEmail = '';
-  loginPassword = '';
-
   constructor(private authService: AuthService, private router: Router) {}
 
-  onRegisterSubmit(): void {
+  onRegister(): void {
     const userData = {
       username: this.username,
       email: this.email,
@@ -54,15 +50,18 @@ export class IndexComponent {
     });
   }
 
-  onLoginSubmit(): void {
-    const loginData = {
-      email: this.loginEmail,
-      password: this.loginPassword,
-    };
-  }
+  onLogin(): void {
+    const data = { email: this.email, password: this.password };
 
-    // Aqui você deve chamar o service que faz login (não implementado no exemplo)
-    // Exemplo:
-    // this.authService.loginUser(loginData).subscribe( ... )
+    this.authService.loginUser(data).subscribe({
+      next: (res) => {
+        console.log('Login bem-sucedido!', res);
+        this.router.navigate(['chatbot/']);
+      },
+      error: (err) => {
+        console.error('Erro no login:', err);
+      }
+    });
+  }
   
 }
