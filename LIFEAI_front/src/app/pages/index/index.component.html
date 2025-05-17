@@ -31,20 +31,21 @@
     </section>
 
     <section class="right-section">
-      <form *ngIf="formType === 'login'" class="register-form">
-        <input type="email" placeholder="email" required />
-        <input type="password" placeholder="senha" required />
+      <form name="loginForm" *ngIf="formType === 'login'" (ngSubmit)="onLoginSubmit()" class="register-form">
+        <input type="email" [(ngModel)]="loginEmail" name="loginEmail" placeholder="Email" required />
+        <input type="password" [(ngModel)]="loginPassword" name="loginPassword" placeholder="Senha" required />
         <a href="#" class="forgot-password">Esqueceu a senha?</a>
         <button type="submit">Login</button>
       </form>
 
-      <form *ngIf="formType === 'register'" class="register-form">
-        <input type="text" placeholder="usuário" required />
-        <input type="email" placeholder="email" required />
-        <input type="password" placeholder="senha" required />
+      <form name="registerForm" *ngIf="formType === 'register'" (ngSubmit)="onRegisterSubmit()" class="register-form">
+        <input type="text" [(ngModel)]="username" name="username" placeholder="Usuário" required />
+        <input type="email" [(ngModel)]="email" name="email" placeholder="Email" required />
+        <input type="password" [(ngModel)]="password" name="password" placeholder="Senha" required />
         <a href="#" class="forgot-password">Esqueceu a senha?</a>
         <button type="submit">Registre-se</button>
       </form>
+
 
       <div class="divider">Ou continue com:</div>
 
