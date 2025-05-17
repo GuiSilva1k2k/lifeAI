@@ -1,0 +1,118 @@
+/* ===== SIDEBAR COMPONENT ===== */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 1.25rem;
+  background-color: #081018;
+  width: 3.75rem;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+/* Logo */
+.logo-container {
+  margin: 1.25rem 0;
+  text-align: center;
+}
+
+.logo-img {
+  width: 3.125rem;
+  height: 3.125rem;
+  object-fit: contain;
+}
+
+/* Links da Sidebar */
+.sidebar a {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: 0.625rem 0;
+  background-color: #075e54;
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  transition: background-color 0.3s ease;
+  overflow: visible;
+}
+
+.sidebar a.active,
+.sidebar a:hover {
+  background-color: #00c853;
+}
+
+/* Ícones */
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  line-height: 1;
+  text-align: center;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Botão Flutuante */
+.floating-button {
+  margin-top: auto;
+  margin-bottom: 1.25rem;
+  background-color: #00c853;
+  color: white;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.floating-button:hover {
+  background-color: #00a543;
+}
+
+/* Logout */
+#logout-link {
+  background-color: #a52727 !important;
+}
+
+#logout-link:hover {
+  background-color: #b71c1c !important;
+}
+
+#logout-link.active {
+  background-color: #c62828 !important;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 3.125rem;
+  }
+
+  .sidebar a {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  .floating-button {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  .material-icons {
+    font-size: 1.25rem;
+  }
+}

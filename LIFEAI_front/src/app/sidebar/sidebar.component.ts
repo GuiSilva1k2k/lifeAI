@@ -1,17 +1,23 @@
 import { Component, AfterViewInit, ElementRef, Renderer2 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatIconModule],
+  imports: [CommonModule, RouterModule, MatIconModule, HttpClientModule],
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements AfterViewInit {
-  constructor(private el: ElementRef, private renderer: Renderer2) {}
+  constructor(
+    private el: ElementRef,
+    private renderer: Renderer2,
+    private http: HttpClient,
+    private router: Router
+  ) {}
 
   ngAfterViewInit(): void {
     const links: NodeListOf<HTMLElement> = this.el.nativeElement.querySelectorAll('.sidebar a[routerLink]');
@@ -25,7 +31,17 @@ export class SidebarComponent implements AfterViewInit {
 
   logout(): void {
     if (confirm('Você realmente deseja sair?')) {
-      console.log('Logout confirmado — a lógica real será feita no backend');
+      this.http.post('http://localhost:8000/logout/', {}).subscribe({
+        next: () => {
+          localStorage.removeItem('token');
+          alert('Usuário deslogado com sucesso.');
+          this.router.navigate(['/']);
+        },
+        error: err => {
+          console.error('Erro ao fazer logout:', err);
+          alert('Erro ao sair. Tente novamente.');
+        }
+      });
     }
   }
 }

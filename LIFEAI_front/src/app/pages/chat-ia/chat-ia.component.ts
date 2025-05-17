@@ -1,4 +1,9 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  ViewChild,
+  AfterViewChecked
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -25,7 +30,10 @@ import {
     ])
   ]
 })
-export class ChatIaComponent {
+export class ChatIaComponent implements AfterViewChecked {
+  @ViewChild('messagesContainer') private messagesContainer!: ElementRef;
+  @ViewChild('inputField') inputField!: ElementRef;
+
   messages: { from: 'bot' | 'user', text: string; loading?: boolean; timestamp?: Date }[] = [];
   inputText = '';
   hasReplied = false;
@@ -58,6 +66,29 @@ export class ChatIaComponent {
     // Mensagem inicial está fixa no HTML
   }
 
+  ngAfterViewChecked() {
+    this.scrollToBottom();
+  }
+
+  private scrollToBottom(): void {
+    try {
+      this.messagesContainer.nativeElement.scrollTop =
+        this.messagesContainer.nativeElement.scrollHeight;
+    } catch (err) {
+      console.error('Erro ao rolar para o final:', err);
+    }
+  }
+
+  private focusAndSelectInput(): void {
+    setTimeout(() => {
+      if (this.inputField) {
+        const inputEl = this.inputField.nativeElement as HTMLInputElement;
+        inputEl.focus();
+        inputEl.select();
+      }
+    }, 50);
+  }
+
   sendBotMessage(text: string, delay = 500) {
     const loadingMsg = { from: 'bot', text: '', loading: true } as any;
     this.messages.push(loadingMsg);
@@ -66,11 +97,14 @@ export class ChatIaComponent {
       loadingMsg.loading = false;
       loadingMsg.text = text;
       loadingMsg.timestamp = new Date();
+      this.scrollToBottom();
+      this.focusAndSelectInput(); // <-- foca após resposta da IA
     }, delay);
   }
 
   sendUserMessage(text: string) {
     this.messages.push({ from: 'user', text, timestamp: new Date() });
+    this.scrollToBottom();
   }
 
   handleUserInput() {
@@ -85,9 +119,10 @@ export class ChatIaComponent {
       this.selectedTopic = input;
       this.sendBotMessage(`Entendido! Vamos falar sobre ${input.toLowerCase()}.`);
     } else {
-      // Aqui você pode integrar com sua IA
       this.callAIResponse(input);
     }
+
+    this.focusAndSelectInput(); // <-- foca após envio
   }
 
   handleOptionClick(optionTitle: string) {
@@ -97,22 +132,17 @@ export class ChatIaComponent {
     this.hasReplied = true;
     this.selectedTopic = optionTitle;
     this.sendBotMessage(`Perfeito! Vamos falar sobre ${optionTitle.toLowerCase()}.`);
+    this.focusAndSelectInput(); // <-- foca após clique no card
   }
 
   handleInputSubmit() {
     this.handleUserInput();
   }
 
-  /**
-   * Este método é onde você poderá integrar sua IA futuramente.
-   * Pode fazer uma chamada HTTP para uma API externa.
-   */
   callAIResponse(userInput: string) {
-    // Exemplo simulado (futuro: substitua com HTTP request)
-    this.sendBotMessage(`(IA responderia aqui com base em "${userInput}" no contexto de "${this.selectedTopic}")`, 800);
-
-    // Exemplo futuro:
-    // this.http.post('/api/ia', { input: userInput, topic: this.selectedTopic })
-    //   .subscribe(response => this.sendBotMessage(response.text));
+    this.sendBotMessage(
+      `(IA responderia aqui com base em "${userInput}" no contexto de "${this.selectedTopic}")`,
+      800
+    );
   }
 }

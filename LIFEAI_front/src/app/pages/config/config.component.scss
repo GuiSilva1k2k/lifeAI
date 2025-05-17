@@ -1,0 +1,92 @@
+.config-page {
+  height: 100%;
+  padding: 2rem;
+  color: #fff;
+  background-color: #0e1b24;
+  font-family: "Segoe UI", sans-serif;
+  box-sizing: border-box;
+
+  .title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    color: #9ca3af;
+    margin-bottom: 2rem;
+  }
+
+  .setting-section {
+    background-color: #14232d;
+    border-radius: 0.75rem;
+    border: 1px solid #1f2d36;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+
+    &.disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .section-toggle {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #1a2b36;
+      }
+
+      .toggle-left {
+        display: flex;
+        align-items: center;
+
+        .material-icons {
+          margin-right: 0.5rem;
+        }
+
+        .label {
+          font-size: 1rem;
+        }
+      }
+
+      .expand-icon {
+        font-size: 28px;
+        color: #00ff9d;
+        transition: transform 0.3s ease;
+
+        &.rotated {
+          transform: rotate(180deg);
+        }
+      }
+
+      .toggle-icon {
+        font-size: 36px;
+        transition: color 0.3s ease;
+
+        &.active {
+          color: #00ff9d;
+        }
+
+        &:not(.active) {
+          color: #6b7280;
+        }
+      }
+
+      .status {
+        font-size: 28px;
+        color: #00ff9d;
+      }
+    }
+
+    .section-content {
+      padding: 0 1rem 1rem 1rem;
+      font-size: 0.875rem;
+      color: #d1d5db;
+    }
+  }
+}

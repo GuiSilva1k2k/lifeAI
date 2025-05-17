@@ -35,12 +35,9 @@
             ],
             "styles": [
               "@angular/material/prebuilt-themes/azure-blue.css",
-              "src/styles.scss",
-              "src/assets/css/style.css"
+              "src/styles.scss"
             ],
-            "scripts": [
-              "src/assets/js/script.js"
-            ],
+            "scripts": [],
             "stylePreprocessorOptions": {
               "includePaths": ["src/assets/scss"]
             }
@@ -106,7 +103,7 @@
               "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.scss"
             ],
-            "scripts": ["src/assets/js/script.js"],
+            "scripts": [],
             "karmaConfig": "karma.conf.js"
           }
         },
@@ -119,5 +116,7 @@
       }
     }
   },
-  "cli": {"analytics": false}
+  "cli": {
+    "analytics": false
+  }
 }

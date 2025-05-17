@@ -3,8 +3,12 @@
     <img src="assets/img/lifeAI_logo.png" alt="LifeAI Logo" class="logo-img">
   </div>
 
+  <!-- Principal -->
   <a routerLink="/home" routerLinkActive="active" title="Home">
     <mat-icon>home</mat-icon>
+  </a>
+  <a routerLink="/exercicios" routerLinkActive="active" title="Exercícios">
+    <mat-icon>fitness_center</mat-icon>
   </a>
   <a routerLink="/rotina" routerLinkActive="active" title="Rotina">
     <mat-icon>calendar_today</mat-icon>
@@ -12,17 +16,18 @@
   <a routerLink="/chat-ia" routerLinkActive="active" title="Chat IA">
     <mat-icon>message</mat-icon>
   </a>
-  <a routerLink="/desemp" routerLinkActive="active" title="Desempenho">
-    <mat-icon>bar_chart</mat-icon>
-  </a>
+
+  <!-- Configurações -->
   <a routerLink="/config" routerLinkActive="active" title="Configurações">
     <mat-icon>settings</mat-icon>
   </a>
 
+  <!-- Logout -->
   <a id="logout-link" title="Logout" (click)="logout()">
     <mat-icon>logout</mat-icon>
   </a>
 
+  <!-- Ajuda (flutuante) -->
   <button class="floating-button" title="Ação rápida">
     <mat-icon>help_outline</mat-icon>
   </button>

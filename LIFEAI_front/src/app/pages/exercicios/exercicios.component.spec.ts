@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DesempComponent } from './desemp.component';
+import { DesempComponent } from './exercicios.component';
 
 describe('DesempComponent', () => {
   let component: DesempComponent;

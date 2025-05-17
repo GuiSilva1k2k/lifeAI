@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -64,3 +64,8 @@ class LoginView(APIView):
             })
         else:
             return Response({"error": "Senha incorreta."}, status=status.HTTP_401_UNAUTHORIZED)
+
+class LogoutView(APIView):
+    def post(self, request):
+        logout(request)
+        return Response({"message": "Logout realizado com sucesso."}, status=status.HTTP_200_OK)

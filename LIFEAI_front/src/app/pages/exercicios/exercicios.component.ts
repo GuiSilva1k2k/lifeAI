@@ -4,10 +4,10 @@ import { RouterModule } from '@angular/router';
 import { SidebarComponent } from '../../sidebar/sidebar.component';
 
 @Component({
-  selector: 'app-desempenho',
+  selector: 'app-exercicios',
   standalone: true,
   imports: [CommonModule, RouterModule, SidebarComponent],
-  templateUrl: './desemp.component.html',
-  styleUrls: ['./desemp.component.scss']
+  templateUrl: './exercicios.component.html',
+  styleUrls: ['./exercicios.component.scss']
 })
-export class DesempComponent {}
+export class ExerciciosComponent {}

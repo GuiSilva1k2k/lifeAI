@@ -1,4 +1,9 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  ElementRef,
+  AfterViewInit
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -23,7 +28,9 @@ import {
     ])
   ]
 })
-export class ChatbotComponent {
+export class ChatbotComponent implements AfterViewInit {
+  @ViewChild('inputField') inputField!: ElementRef;
+
   messages: { from: 'bot' | 'user', text: string; loading?: boolean; timestamp?: Date }[] = [];
   step = 0;
   inputText = '';
@@ -31,6 +38,19 @@ export class ChatbotComponent {
 
   ngOnInit() {
     this.sendBotMessage('Olá! Qual o seu nome?');
+  }
+
+  ngAfterViewInit() {
+    this.focusInput();
+  }
+
+  private focusInput() {
+    setTimeout(() => {
+      if (this.inputField) {
+        this.inputField.nativeElement.focus();
+        this.inputField.nativeElement.select();
+      }
+    }, 0);
   }
 
   sendBotMessage(text: string, delay = 500) {
@@ -41,6 +61,7 @@ export class ChatbotComponent {
       loadingMsg.loading = false;
       loadingMsg.text = text;
       loadingMsg.timestamp = new Date();
+      this.focusInput(); // Foco após resposta do bot
     }, delay);
   }
 
@@ -76,6 +97,7 @@ export class ChatbotComponent {
 
     this.inputText = '';
     this.step++;
+    this.focusInput(); // Foco após resposta do usuário
   }
 
   handleOption(option: string) {

@@ -5,7 +5,7 @@
     <div class="chat-ia-container">
       <!-- Mensagem inicial fixa -->
       <div class="initial-message" *ngIf="!hasReplied">
-        <img src="assets/img/lifeAI_logo.png" alt="Logo" />
+        <img src="assets/img/lifeAI_logo.png" alt="Logo LifeAI" />
         <h1>Como posso te ajudar hoje?</h1>
         <p>
           Escolha uma das áreas abaixo para começar sua jornada de bem-estar com
@@ -26,8 +26,13 @@
       </div>
 
       <!-- Mensagens de chat -->
-      <div class="messages">
-        <div *ngFor="let msg of messages" class="message" [ngClass]="msg.from">
+      <div class="messages" #messagesContainer>
+        <div
+          *ngFor="let msg of messages"
+          class="message"
+          [ngClass]="msg.from"
+          [@fadeInUp]
+        >
           <span *ngIf="msg.loading" class="loading-dots"></span>
 
           <ng-container *ngIf="!msg.loading">
@@ -46,6 +51,7 @@
         autocomplete="off"
       >
         <input
+          #inputField
           type="text"
           [(ngModel)]="inputText"
           name="input"

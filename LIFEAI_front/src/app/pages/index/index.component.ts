@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../api/autenticacaoUser.service';
 import { Router } from '@angular/router';
@@ -7,28 +7,33 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-index',
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule
-  ],
+  imports: [CommonModule, FormsModule],
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.scss']
 })
-export class IndexComponent {
+export class IndexComponent implements OnInit {
   formType: 'login' | 'register' = 'login';
 
-  showForm(type: 'login' | 'register') {
-    this.formType = type;
-  }
-
-  // Registro
+  // Registro/Login
   username = '';
   email = '';
   password = '';
+
   errorMsg = '';
   successMsg = '';
 
   constructor(private authService: AuthService, private router: Router) {}
+
+  ngOnInit(): void {
+    // Exibe por padrão o formulário de registro
+    this.showForm('register');
+  }
+
+  showForm(type: 'login' | 'register'): void {
+    this.formType = type;
+    this.errorMsg = '';
+    this.successMsg = '';
+  }
 
   onRegister(): void {
     const userData = {
@@ -59,9 +64,13 @@ export class IndexComponent {
         this.router.navigate(['chatbot/']);
       },
       error: (err) => {
-        console.error('Erro no login:', err);
+        this.errorMsg = err.error.message || 'Erro no login.';
+        this.successMsg = '';
       }
     });
   }
-  
+
+  isActive(button: 'login' | 'register'): boolean {
+    return this.formType === button;
+  }
 }

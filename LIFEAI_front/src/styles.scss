@@ -1,4 +1,129 @@
-/* You can add global styles to this file, and also import other style files */
+/* ============================================
+   GLOBAL STYLES - styles.scss
+   ============================================ */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* Fonte base e estilos iniciais */
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/* ===== RESET & ESTILOS GLOBAIS ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: #00c853 #081018;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #0d1c27;
+  color: #ffffff;
+  min-width: 320px;
+  overflow-x: hidden;
+  line-height: 1.5;
+}
+
+/* ===== CONTEÚDO PRINCIPAL ===== */
+.main-content {
+  margin-left: 3.75rem;
+  padding: 1.25rem;
+  width: calc(100% - 3.75rem);
+  min-height: 100vh;
+  background-color: #0d1c27;
+  max-width: 100%;
+  overflow-x: hidden;
+  position: relative;
+  z-index: 0;
+}
+
+/* ===== CARDS ===== */
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  overflow: visible;
+  position: relative;
+}
+
+.card {
+  background-color: #0f2634;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  z-index: 1;
+  flex: 1 1 clamp(250px, 30%, 320px); /* Adaptável */
+  min-width: 0; /* Permite encolher melhor em telas pequenas */
+}
+
+.card:hover {
+  transform: scale(1.04);
+  box-shadow: 0 8px 24px rgba(0, 200, 83, 0.3);
+  z-index: 10;
+}
+
+/* ===== SCROLLBAR PADRONIZADA ===== */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-track {
+  background: #081018;
+  border-radius: 10px;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #00c853;
+  border-radius: 10px;
+  border: 2px solid #081018;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #00a543;
+}
+
+/* ===== GRÁFICO RESPONSIVO ===== */
+.chart-container {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  height: auto;
+  padding: 1rem 0;
+}
+
+/* ===== RESPONSIVIDADE GLOBAL ===== */
+@media (max-width: 1024px) {
+  .card {
+    flex: 1 1 45%;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 3.125rem;
+    width: calc(100% - 3.125rem);
+    padding: 1rem;
+  }
+
+  .cards-container {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  .card {
+    flex: 1 1 100%;
+    width: 100%;
+    padding: 1.25rem;
+  }
+}

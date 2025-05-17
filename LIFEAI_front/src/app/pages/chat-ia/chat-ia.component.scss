@@ -17,7 +17,7 @@
   color: #fff;
   font-family: 'Inter', sans-serif;
   position: relative;
-  overflow-y: auto;
+  overflow: hidden; /* REMOVA o overflow-y: auto */
   box-sizing: border-box;
 }
 
@@ -46,7 +46,7 @@
   margin: 0;
 }
 
-/* Cards de opções */
+/* Cards de opções - pirâmide invertida (3 em cima, 2 centralizados embaixo) */
 .card-options {
   display: flex;
   flex-wrap: wrap;
@@ -54,6 +54,7 @@
   width: 100%;
   max-width: 750px;
   margin-bottom: 3rem;
+  position: relative;
 }
 
 .card-options .card {
@@ -66,9 +67,9 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
   cursor: pointer;
   transition: transform 0.2s ease, background-color 0.2s;
-  width: 220px;
-  margin: 0.75rem;
   text-align: left;
+  margin: 0.75rem;
+  flex: 0 0 220px;
 }
 
 .card-options .card:hover {
@@ -87,9 +88,16 @@
   color: #ccc;
 }
 
+/* Pirâmide invertida: 3 cards em cima */
+.card-options .card:nth-child(-n+3) {
+  align-self: flex-start;
+  margin-top: 0;
+}
+
+/* 2 cards embaixo centralizados */
 .card-options .card:nth-child(4),
 .card-options .card:nth-child(5) {
-  margin-top: 1rem;
+  margin-top: 2rem;
 }
 
 /* Responsivo */
@@ -102,6 +110,7 @@
   .card-options .card {
     width: 100%;
     max-width: 300px;
+    margin-top: 1rem !important;
   }
 }
 
@@ -111,8 +120,10 @@
   flex-direction: column;
   width: 100%;
   max-width: 100%;
+  overflow-y: auto;
+  flex: 1;
   padding: 0 2rem;
-  margin-bottom: 100px;
+  margin-bottom: 80px; /* Espaço para não encostar no input */
   box-sizing: border-box;
   gap: 1rem;
 }
@@ -212,4 +223,3 @@ button:hover {
   text-align: right;
   opacity: 0.9; 
 }
-
