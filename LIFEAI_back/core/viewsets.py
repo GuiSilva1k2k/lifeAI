@@ -3,7 +3,8 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login, logout
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, permissions
+from core import serializers
 
 class RegisterView(APIView):
     def post(self, request):
@@ -69,3 +70,36 @@ class LogoutView(APIView):
     def post(self, request):
         logout(request)
         return Response({"message": "Logout realizado com sucesso."}, status=status.HTTP_200_OK)
+
+class ImcCreateAPIView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request):
+        serializer = ImcSerializer(data=request.data)
+        if serializers.ImcSerializer.is_valid():
+            peso = serializer.validated_data['peso']
+            altura = serializer.validated_data['altura']
+            imc_valor = peso / (altura ** 2)
+
+            # Classificação do IMC
+            if imc_valor < 18.5:
+                classificacao = "Abaixo do peso"
+            elif 18.5 <= imc_valor < 25:
+                classificacao = "Peso normal"
+            elif 25 <= imc_valor < 30:
+                classificacao = "Sobrepeso"
+            else:
+                classificacao = "Obesidade"
+
+            imc_obj = serializer.save(
+                id_usuario=request.user,
+                imc_res=imc_valor,
+                classificacao=classificacao
+            )
+            return Response({
+                'mensagem': 'IMC registrado com sucesso.',
+                'id': imc_obj.id,
+                'imc': imc_valor,
+                'classificacao': classificacao
+            }, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
