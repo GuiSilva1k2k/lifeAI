@@ -1,0 +1,79 @@
+:host {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+:host ::ng-deep mat-calendar {
+  width: 100%;
+  max-width: 100%;
+  display: block;
+  background-color: #0f202a;
+  border-radius: 1rem;
+  color: #e0f2f1;
+  box-sizing: border-box;
+  padding: 1rem;
+  transition: all 0.3s ease;
+}
+
+:host ::ng-deep .mat-calendar-header,
+:host ::ng-deep .mat-calendar-content,
+:host ::ng-deep .mat-calendar-table-header th,
+:host ::ng-deep .mat-calendar-body-cell,
+:host ::ng-deep .mat-calendar-body-cell-content {
+  color: #e0f2f1 !important;
+  transition: color 0.3s ease;
+}
+
+:host ::ng-deep .mat-calendar-body-disabled {
+  color: rgba(255, 255, 255, 0.25) !important;
+}
+
+:host ::ng-deep .mat-calendar-body-selected {
+  background-color: #00c853 !important;
+  color: #0e1b24 !important;
+  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-radius: 50%;
+}
+
+:host ::ng-deep .mat-calendar-body-today:not(.mat-calendar-body-selected) {
+  border: 2px solid #00e676 !important;
+  border-radius: 50%;
+  transition: border-color 0.3s ease;
+}
+
+:host ::ng-deep .mat-calendar-previous-button,
+:host ::ng-deep .mat-calendar-next-button,
+:host ::ng-deep .mat-calendar-period-button {
+  color: #80cbc4 !important;
+  transition: color 0.3s ease;
+}
+
+:host ::ng-deep .mat-calendar-body-cell:hover .mat-calendar-body-cell-content:not(.mat-calendar-body-disabled) {
+  background-color: rgba(0, 200, 83, 0.15);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.data-selecionada {
+  margin-top: 1rem;
+  color: #00e676;
+  font-weight: 500;
+  font-size: 1rem;
+  background-color: rgba(0, 200, 83, 0.05);
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  animation: fadeInUp 0.4s ease-out forwards;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,60 @@
+h2 {
+  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 600;
+  background: linear-gradient(to right, #00e676, #00c853);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+
+  &::before {
+    content: "✅";
+    font-size: 1.5rem;
+    color: #00c853;
+  }
+}
+
+.checklist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  color: white;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  padding: 0.3rem 0.6rem;
+
+  .mat-checkbox-frame {
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    background-color: #00c853;
+  }
+
+  .mat-checkbox-label {
+    padding-left: 0.5rem;
+    transition: color 0.3s, text-decoration 0.3s;
+  }
+
+  .mat-checkbox-checked + .mat-checkbox-label,
+  &.mat-checkbox-checked .mat-checkbox-label {
+    color: #a5f2c2;
+    text-decoration: line-through;
+    opacity: 0.8;
+  }
+
+  &:hover {
+    background-color: rgba(0, 200, 83, 0.08);
+    transition: background-color 0.2s ease;
+  }
+}

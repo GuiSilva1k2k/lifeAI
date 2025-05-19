@@ -1,40 +1,45 @@
-/* ============================================
-   GLOBAL STYLES - styles.scss
-   ============================================ */
-
-/* Fonte base e estilos iniciais */
 html, body {
   height: 100%;
-}
-
-body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  padding: 0;
+  font-family: "Arial", sans-serif;
+  background-color: #0d1c27;
+  color: #ffffff;
+  overflow-x: hidden;
+  min-width: 320px;
+  line-height: 1.5;
+  font-size: 16px;
 }
 
-/* ===== RESET & ESTILOS GLOBAIS ===== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   scrollbar-width: thin;
   scrollbar-color: #00c853 #081018;
+  max-width: 100%;
 }
 
-html {
-  font-size: 16px;
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
 
-body {
-  font-family: "Arial", sans-serif;
-  background-color: #0d1c27;
-  color: #ffffff;
-  min-width: 320px;
-  overflow-x: hidden;
-  line-height: 1.5;
+*::-webkit-scrollbar-track {
+  background: #081018;
+  border-radius: 10px;
 }
 
-/* ===== CONTEÚDO PRINCIPAL ===== */
+*::-webkit-scrollbar-thumb {
+  background-color: #00c853;
+  border-radius: 10px;
+  border: 2px solid #081018;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #00a543;
+}
+
 .main-content {
   margin-left: 3.75rem;
   padding: 1.25rem;
@@ -47,12 +52,14 @@ body {
   z-index: 0;
 }
 
-/* ===== CARDS ===== */
 .cards-container {
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
-  overflow: visible;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   position: relative;
 }
 
@@ -64,8 +71,9 @@ body {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
   z-index: 1;
-  flex: 1 1 clamp(250px, 30%, 320px); /* Adaptável */
-  min-width: 0; /* Permite encolher melhor em telas pequenas */
+  flex: 1 1 300px;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .card:hover {
@@ -74,34 +82,6 @@ body {
   z-index: 10;
 }
 
-/* ===== SCROLLBAR PADRONIZADA ===== */
-*::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-*::-webkit-scrollbar-track {
-  background: #081018;
-  border-radius: 10px;
-}
-*::-webkit-scrollbar-thumb {
-  background-color: #00c853;
-  border-radius: 10px;
-  border: 2px solid #081018;
-}
-*::-webkit-scrollbar-thumb:hover {
-  background-color: #00a543;
-}
-
-/* ===== GRÁFICO RESPONSIVO ===== */
-.chart-container {
-  width: 100%;
-  max-width: 100%;
-  overflow-x: auto;
-  height: auto;
-  padding: 1rem 0;
-}
-
-/* ===== RESPONSIVIDADE GLOBAL ===== */
 @media (max-width: 1024px) {
   .card {
     flex: 1 1 45%;

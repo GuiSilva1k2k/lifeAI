@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+
 import { HomeComponent } from './pages/home/home.component';
 import { ChatIaComponent } from './pages/chat-ia/chat-ia.component';
 import { ConfigComponent } from './pages/config/config.component';
@@ -15,8 +16,8 @@ export const routes: Routes = [
   { path: 'chat-ia', component: ChatIaComponent },
   { path: 'config', component: ConfigComponent },
   { path: 'exercicios', component: ExerciciosComponent },
-  { path: 'rotina', component: RotinaComponent },
-  { path: 'side', component: SidebarComponent },
   { path: 'grafico', component: GraficoComponent },
   { path: 'chatbot', component: ChatbotComponent },
+  { path: 'side', component: SidebarComponent },
+  { path: 'rotina', component: RotinaComponent },
 ];

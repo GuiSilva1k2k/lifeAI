@@ -1,0 +1,7 @@
+<div class="calendario-wrapper">
+  <mat-calendar [(selected)]="selectedDate"></mat-calendar>
+
+  <p *ngIf="selectedDate" class="data-selecionada" @fadeInUp>
+    📅 Você selecionou: {{ selectedDate }}
+  </p>
+</div>
