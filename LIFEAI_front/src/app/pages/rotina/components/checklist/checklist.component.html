@@ -1,12 +1,13 @@
 <div class="checklist-grid">
   <div class="checklist-col" *ngFor="let grupo of gruposTarefas">
-    <mat-checkbox
-      *ngFor="let tarefa of grupo"
-      [(ngModel)]="tarefa.feito"
-      class="checkbox-item"
-      color="accent"
-    >
-      {{ tarefa.nome }}
-    </mat-checkbox>
+    <div class="checkbox-wrapper" *ngFor="let tarefa of grupo">
+      <mat-checkbox
+        [(ngModel)]="tarefa.feito"
+        class="checkbox-item"
+        color="accent"
+      >
+        {{ tarefa.nome }}
+      </mat-checkbox>
+    </div>
   </div>
 </div>

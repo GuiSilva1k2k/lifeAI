@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -9,6 +9,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   imports: [CommonModule, FormsModule, MatCheckboxModule],
   templateUrl: './checklist.component.html',
   styleUrls: ['./checklist.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ChecklistComponent {
   tarefas = [
@@ -27,4 +28,3 @@ export class ChecklistComponent {
     this.tarefas.slice(4),
   ];
 }
-

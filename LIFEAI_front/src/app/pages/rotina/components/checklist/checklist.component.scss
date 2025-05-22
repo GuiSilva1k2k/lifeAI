@@ -1,61 +1,44 @@
-h2 {
-  font-size: 1.4rem !important;
-  margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-weight: 600 !important;
-  background: linear-gradient(to right, #00e676, #00c853);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent !important;
-  -webkit-text-fill-color: transparent !important;
-
-  &::before {
-    content: "✅";
-    font-size: 1.5rem !important;
-    color: #00c853 !important;
-  }
-}
-
 .checklist-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1.5rem;
+  padding: 1rem 0;
+}
+
+.checkbox-wrapper {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 1rem;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: rgba(0, 200, 83, 0.1);
+  }
 }
 
 .checkbox-item {
   display: flex;
   align-items: center;
-  margin-bottom: 1rem;
-  color: white !important;
-  font-size: 1rem !important;
-  border-radius: 0.5rem;
-  padding: 0.3rem 0.6rem;
+  font-size: 1rem;
+
+  .mat-checkbox-label {
+    color: white !important;
+    font-weight: 500;
+    transition: color 0.3s, text-decoration 0.3s;
+  }
 
   .mat-checkbox-frame {
-    border-color: rgba(255, 255, 255, 0.5) !important;
+    border-color: rgba(255, 255, 255, 0.6);
   }
 
   .mat-checkbox-checked.mat-accent .mat-checkbox-background {
     background-color: #00c853 !important;
   }
 
-  .mat-checkbox-label {
-    padding-left: 0.5rem !important;
-    transition: color 0.3s, text-decoration 0.3s;
-    color: white !important;
-  }
-
-  .mat-checkbox-checked + .mat-checkbox-label,
-  &.mat-checkbox-checked .mat-checkbox-label {
+  .mat-checkbox-checked .mat-checkbox-label {
     color: #a5f2c2 !important;
-    text-decoration: line-through !important;
-    opacity: 0.8 !important;
-  }
-
-  &:hover {
-    background-color: rgba(0, 200, 83, 0.08) !important;
-    transition: background-color 0.2s ease;
+    text-decoration: line-through;
+    opacity: 0.85;
   }
 }
