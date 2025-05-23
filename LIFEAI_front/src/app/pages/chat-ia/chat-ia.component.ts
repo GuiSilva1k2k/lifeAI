@@ -7,6 +7,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { MarkdownModule } from 'ngx-markdown';
 import { SidebarComponent } from '../../sidebar/sidebar.component';
 import {
   trigger,
@@ -14,11 +15,12 @@ import {
   style,
   animate
 } from '@angular/animations';
+import { IaService } from '../../api/ia.service';
 
 @Component({
   selector: 'app-chat-ia',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, SidebarComponent],
+  imports: [CommonModule, RouterModule, FormsModule, SidebarComponent, MarkdownModule],
   templateUrl: './chat-ia.component.html',
   styleUrls: ['./chat-ia.component.scss'],
   animations: [
@@ -62,9 +64,7 @@ export class ChatIaComponent implements AfterViewChecked {
     }
   ];
 
-  ngOnInit() {
-    // Mensagem inicial está fixa no HTML
-  }
+  constructor(private iaService: IaService) {}
 
   ngAfterViewChecked() {
     this.scrollToBottom();
@@ -98,7 +98,7 @@ export class ChatIaComponent implements AfterViewChecked {
       loadingMsg.text = text;
       loadingMsg.timestamp = new Date();
       this.scrollToBottom();
-      this.focusAndSelectInput(); // <-- foca após resposta da IA
+      this.focusAndSelectInput();
     }, delay);
   }
 
@@ -117,12 +117,10 @@ export class ChatIaComponent implements AfterViewChecked {
     if (!this.hasReplied) {
       this.hasReplied = true;
       this.selectedTopic = input;
-      this.sendBotMessage(`Entendido! Vamos falar sobre ${input.toLowerCase()}.`);
-    } else {
-      this.callAIResponse(input);
     }
 
-    this.focusAndSelectInput(); // <-- foca após envio
+    this.callAIResponse(input);
+    this.focusAndSelectInput();
   }
 
   handleOptionClick(optionTitle: string) {
@@ -131,8 +129,8 @@ export class ChatIaComponent implements AfterViewChecked {
     this.sendUserMessage(optionTitle);
     this.hasReplied = true;
     this.selectedTopic = optionTitle;
-    this.sendBotMessage(`Perfeito! Vamos falar sobre ${optionTitle.toLowerCase()}.`);
-    this.focusAndSelectInput(); // <-- foca após clique no card
+    this.callAIResponse(optionTitle);
+    this.focusAndSelectInput();
   }
 
   handleInputSubmit() {
@@ -140,9 +138,24 @@ export class ChatIaComponent implements AfterViewChecked {
   }
 
   callAIResponse(userInput: string) {
-    this.sendBotMessage(
-      `(IA responderia aqui com base em "${userInput}" no contexto de "${this.selectedTopic}")`,
-      800
-    );
+    const loadingMsg = { from: 'bot', text: '', loading: true } as any;
+    this.messages.push(loadingMsg);
+    this.scrollToBottom();
+
+    this.iaService.enviarPergunta(userInput).subscribe({
+      next: (res) => {
+        loadingMsg.loading = false;
+        loadingMsg.text = res.resposta;
+        loadingMsg.timestamp = new Date();
+        this.scrollToBottom();
+        this.focusAndSelectInput();
+      },
+      error: (err) => {
+        loadingMsg.loading = false;
+        loadingMsg.text = 'Erro ao consultar IA.';
+        loadingMsg.timestamp = new Date();
+        console.error(err);
+      }
+    });
   }
 }

@@ -33,14 +33,23 @@
           [ngClass]="msg.from"
           [@fadeInUp]
         >
+          <!-- Animação de digitação -->
           <span *ngIf="msg.loading" class="loading-dots"></span>
 
+          <!-- Mensagens formatadas -->
           <ng-container *ngIf="!msg.loading">
-            <div>{{ msg.text }}</div>
-            <div class="timestamp">
-              {{ msg.timestamp | date : "shortTime" }}
+            <div *ngIf="msg.from === 'bot'">
+              <markdown [data]="msg.text"></markdown>
+            </div>
+            <div *ngIf="msg.from === 'user'">
+              {{ msg.text }}
             </div>
           </ng-container>
+
+          <!-- Timestamp -->
+          <div *ngIf="!msg.loading" class="timestamp">
+            {{ msg.timestamp | date : "shortTime" }}
+          </div>
         </div>
       </div>
 
