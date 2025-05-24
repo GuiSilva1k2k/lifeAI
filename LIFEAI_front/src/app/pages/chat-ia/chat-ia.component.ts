@@ -16,6 +16,7 @@ import {
   animate
 } from '@angular/animations';
 import { IaService } from '../../api/ia.service';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-chat-ia',
@@ -40,6 +41,7 @@ export class ChatIaComponent implements AfterViewChecked {
   inputText = '';
   hasReplied = false;
   selectedTopic: string | null = null;
+  sessaoId = uuidv4(); // Gera um ID único por sessão de chat
 
   options = [
     {
@@ -142,7 +144,7 @@ export class ChatIaComponent implements AfterViewChecked {
     this.messages.push(loadingMsg);
     this.scrollToBottom();
 
-    this.iaService.enviarPergunta(userInput).subscribe({
+    this.iaService.enviarPergunta(userInput, this.sessaoId).subscribe({
       next: (res) => {
         loadingMsg.loading = false;
         loadingMsg.text = res.resposta;
