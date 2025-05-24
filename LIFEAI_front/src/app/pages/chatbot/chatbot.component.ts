@@ -61,7 +61,7 @@ export class ChatbotComponent implements AfterViewInit {
       loadingMsg.loading = false;
       loadingMsg.text = text;
       loadingMsg.timestamp = new Date();
-      this.focusInput(); // Foco após resposta do bot
+      this.focusInput();
     }, delay);
   }
 
@@ -82,13 +82,17 @@ export class ChatbotComponent implements AfterViewInit {
         break;
       case 1:
         this.answers.idade = input;
-        this.sendBotMessage('Qual seu sexo?');
+        this.sendBotMessage('Qual sua altura? (em cm)');
         break;
       case 2:
+        this.answers.altura = input;
+        this.sendBotMessage('Qual seu sexo?');
+        break;
+      case 3:
         this.answers.sexo = input;
         this.sendBotMessage('Qual seu objetivo?');
         break;
-      case 3:
+      case 4:
         this.answers.objetivo = input;
         this.sendBotMessage('Obrigado! Estamos processando suas informações...');
         this.sendToBackend();
@@ -97,7 +101,7 @@ export class ChatbotComponent implements AfterViewInit {
 
     this.inputText = '';
     this.step++;
-    this.focusInput(); // Foco após resposta do usuário
+    this.focusInput();
   }
 
   handleOption(option: string) {
@@ -106,7 +110,7 @@ export class ChatbotComponent implements AfterViewInit {
   }
 
   getOptions() {
-    if (this.step === 2) {
+    if (this.step === 3) {
       return ['Masculino', 'Feminino', 'Outro'];
     }
     return [];
