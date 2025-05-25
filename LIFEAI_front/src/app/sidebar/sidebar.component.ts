@@ -33,7 +33,9 @@ export class SidebarComponent implements AfterViewInit {
     if (confirm('Você realmente deseja sair?')) {
       this.http.post('http://localhost:8000/logout/', {}).subscribe({
         next: () => {
-          localStorage.removeItem('token');
+          localStorage.removeItem('access_token');
+          localStorage.removeItem('refresh_token');
+          localStorage.clear();
           alert('Usuário deslogado com sucesso.');
           this.router.navigate(['/']);
         },

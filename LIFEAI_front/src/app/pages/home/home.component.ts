@@ -4,6 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { SidebarComponent } from '../../sidebar/sidebar.component';
 import { GraficoComponent } from "./grafico/grafico.component";
+import { ResumoComponent } from "./resumo/resumo.component";
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,8 @@ import { GraficoComponent } from "./grafico/grafico.component";
     RouterModule,
     MatIconModule,
     SidebarComponent,
-    GraficoComponent
+    GraficoComponent,
+    ResumoComponent
 ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']

@@ -2,7 +2,7 @@ import {
   Component,
   ViewChild,
   ElementRef,
-  AfterViewInit
+  AfterViewInit,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -12,6 +12,8 @@ import {
   style,
   animate
 } from '@angular/animations';
+import { Router } from '@angular/router';
+import { ChatService } from '../../api/chat.service';
 
 @Component({
   selector: 'app-chatbot',
@@ -34,7 +36,9 @@ export class ChatbotComponent implements AfterViewInit {
   messages: { from: 'bot' | 'user', text: string; loading?: boolean; timestamp?: Date }[] = [];
   step = 0;
   inputText = '';
-  answers: any = {};
+  private answers: any = {};
+
+  constructor(private router: Router, private chatService: ChatService) {}
 
   ngOnInit() {
     this.sendBotMessage('Olá! Qual o seu nome?');
@@ -82,20 +86,37 @@ export class ChatbotComponent implements AfterViewInit {
         break;
       case 1:
         this.answers.idade = input;
-        this.sendBotMessage('Qual sua altura? (em cm)');
+        this.sendBotMessage('Qual seu peso? (kg)');
         break;
       case 2:
+        this.answers.peso = input;
+        this.sendBotMessage('Qual sua altura? (cm)');
+        break;
+      case 3:
         this.answers.altura = input;
         this.sendBotMessage('Qual seu sexo?');
         break;
-      case 3:
+      case 4:
         this.answers.sexo = input;
         this.sendBotMessage('Qual seu objetivo?');
         break;
-      case 4:
+      case 5:
         this.answers.objetivo = input;
-        this.sendBotMessage('Obrigado! Estamos processando suas informações...');
+
+        // Calcular IMC
+        const alturaM = parseFloat(this.answers.altura) / 100;
+        const peso = parseFloat(this.answers.peso);
+
+        if (!isNaN(alturaM) && !isNaN(peso) && alturaM > 0) {
+          const imc = peso / (alturaM * alturaM);
+          this.answers.imc = imc.toFixed(2); // Ex: 22.58
+        } else {
+          this.answers.imc = 'Não calculado';
+        }
+
+        this.sendBotMessage(`Seu IMC é ${this.answers.imc}. Obrigado! Estamos processando suas informações...`);
         this.sendToBackend();
+        setTimeout(() => this.router.navigate(['home']), 100);
         break;
     }
 
@@ -103,14 +124,14 @@ export class ChatbotComponent implements AfterViewInit {
     this.step++;
     this.focusInput();
   }
-
+  
   handleOption(option: string) {
     this.inputText = option;
     this.handleUserInput();
   }
 
   getOptions() {
-    if (this.step === 3) {
+    if (this.step === 4) {
       return ['Masculino', 'Feminino', 'Outro'];
     }
     return [];
@@ -118,5 +139,6 @@ export class ChatbotComponent implements AfterViewInit {
 
   sendToBackend() {
     console.log('Dados coletados:', this.answers);
+    this.chatService.setRespostas(this.answers);
   }
 }

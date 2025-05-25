@@ -57,14 +57,18 @@ class LoginView(APIView):
         user = authenticate(username=user.username, password=password)
 
         if user is not None:
+            refresh = RefreshToken.for_user(user)
+
             return Response({
-                "message": "Login bem-sucedido",
-                "user_id": user.id,
-                "username": user.username,
-                "email": user.email,
+                'message': 'Login bem-sucedido',
+                'access': str(refresh.access_token),
+                'refresh': str(refresh),
+                'user_id': user.id,
+                'username': user.username,
+                'email': user.email,
             })
         else:
-            return Response({"error": "Senha incorreta."}, status=status.HTTP_401_UNAUTHORIZED)
+            return Response({'message': 'Credenciais inválidas'}, status=401)
 
 class LogoutView(APIView):
     def post(self, request):

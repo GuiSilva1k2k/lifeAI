@@ -2,6 +2,7 @@ export interface loginUser {
     email: string;
     password: string;
     access: string;
+    refresh: string;
     message: 'usuario registrado com sucesso.';
 }
 

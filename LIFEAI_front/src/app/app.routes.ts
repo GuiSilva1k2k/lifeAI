@@ -10,6 +10,7 @@ import { RotinaComponent } from './pages/rotina/rotina.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { GraficoComponent } from './pages/home/grafico/grafico.component';
 import { ChatbotComponent } from './pages/chatbot/chatbot.component';
+import { ResumoComponent } from './pages/home/resumo/resumo.component';
 
 export const routes: Routes = [
   { path: '', component: IndexComponent },  // página pública
@@ -18,6 +19,7 @@ export const routes: Routes = [
   { path: 'config', component: ConfigComponent, canActivate: [AuthGuard] },
   { path: 'exercicios', component: ExerciciosComponent, canActivate: [AuthGuard] },
   { path: 'grafico', component: GraficoComponent, canActivate: [AuthGuard] },
+  { path: 'resumo', component: ResumoComponent, canActivate: [AuthGuard] },
   { path: 'chatbot', component: ChatbotComponent, canActivate: [AuthGuard] },
   { path: 'side', component: SidebarComponent, canActivate: [AuthGuard] },
   { path: 'rotina', component: RotinaComponent, canActivate: [AuthGuard] },

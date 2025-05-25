@@ -47,12 +47,15 @@ export class IndexComponent implements OnInit {
       this.successMsg = response?.message || 'Registrado com sucesso!';
       this.errorMsg = '';
 
-      // Salva os tokens no localStorage
-      localStorage.setItem('access_token', response.access);
+      // Salva os tokens
+      this.authService.saveToken(response.access);
       localStorage.setItem('refresh_token', response.refresh);
 
-      // Redireciona para a home ou dashboard
-      this.router.navigate(['home']);
+      // Sinaliza que o usuário está logado
+      this.authService.setLoggedIn(true);
+
+      // Redireciona
+      this.router.navigate(['chatbot']);
     },
     error: (err) => {
       this.errorMsg = err.error.message || 'Erro ao registrar.';
@@ -67,6 +70,13 @@ export class IndexComponent implements OnInit {
     this.authService.loginUser(data).subscribe({
       next: (res) => {
         console.log('Login bem-sucedido!', res.access);
+        // Salva os tokens
+        this.authService.saveToken(res.access);
+        localStorage.setItem('refresh_token', res.refresh);
+
+        // Sinaliza que o usuário está logado
+        this.authService.setLoggedIn(true);
+        console.log('Resposta do login:', res);
         this.router.navigate(['home']);
       },
       error: (err) => {
