@@ -1,12 +1,15 @@
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
-from django.contrib.auth import login, logout
+from django.contrib.auth import logout
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
 from core import serializers
-
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.permissions import AllowAny
 class RegisterView(APIView):
+    permission_classes = [AllowAny]
+
     def post(self, request):
         data = request.data
         username = data.get('username')
@@ -14,32 +17,29 @@ class RegisterView(APIView):
         password = data.get('password')
 
         if not username or not email or not password:
-            return Response(
-                {'success': False, 'message': 'Todos os campos são obrigatórios.'},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return Response({'message': 'Todos os campos são obrigatórios.'}, status=400)
 
         if User.objects.filter(username=username).exists():
-            return Response(
-                {'success': False, 'message': 'Nome de usuário já está em uso.'},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return Response({'message': 'Nome de usuário já em uso.'}, status=400)
 
         if User.objects.filter(email=email).exists():
-            return Response(
-                {'success': False, 'message': 'Email já está em uso.'},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return Response({'message': 'Email já em uso.'}, status=400)
 
-        user = User.objects.create_user(
-            username=username, email=email, password=password
-        )
-        login(request, user)
+        user = User.objects.create_user(username=username, email=email, password=password)
 
-        return Response(
-            {'success': True, 'message': 'Usuário criado com sucesso.'},
-            status=status.HTTP_201_CREATED
-        )
+        # Gera os tokens
+        refresh = RefreshToken.for_user(user)
+
+        return Response({
+            'message': 'Usuário criado com sucesso.',
+            'refresh': str(refresh),
+            'access': str(refresh.access_token),
+            'user': {
+                'id': user.id,
+                'username': user.username,
+                'email': user.email
+            }
+        }, status=201)
 
 class LoginView(APIView):
     def post(self, request):

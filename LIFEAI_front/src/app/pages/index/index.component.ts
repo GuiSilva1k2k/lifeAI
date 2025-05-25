@@ -36,32 +36,38 @@ export class IndexComponent implements OnInit {
   }
 
   onRegister(): void {
-    const userData = {
-      username: this.username,
-      email: this.email,
-      password: this.password,
-    };
+  const userData = {
+    username: this.username,
+    email: this.email,
+    password: this.password,
+  };
 
-    this.authService.registerUser(userData).subscribe({
-      next: (response) => {
-        this.successMsg = response?.message || 'Registrado com sucesso!';
-        this.errorMsg = '';
-        this.router.navigate(['/']);
-      },
-      error: (err) => {
-        this.errorMsg = err.error.message || 'Erro ao registrar.';
-        this.successMsg = '';
-      },
-    });
-  }
+  this.authService.registerUser(userData).subscribe({
+    next: (response) => {
+      this.successMsg = response?.message || 'Registrado com sucesso!';
+      this.errorMsg = '';
+
+      // Salva os tokens no localStorage
+      localStorage.setItem('access_token', response.access);
+      localStorage.setItem('refresh_token', response.refresh);
+
+      // Redireciona para a home ou dashboard
+      this.router.navigate(['home']);
+    },
+    error: (err) => {
+      this.errorMsg = err.error.message || 'Erro ao registrar.';
+      this.successMsg = '';
+    },
+  });
+}
 
   onLogin(): void {
     const data = { email: this.email, password: this.password };
 
     this.authService.loginUser(data).subscribe({
       next: (res) => {
-        console.log('Login bem-sucedido!', res);
-        this.router.navigate(['chatbot/']);
+        console.log('Login bem-sucedido!', res.access);
+        this.router.navigate(['home']);
       },
       error: (err) => {
         this.errorMsg = err.error.message || 'Erro no login.';

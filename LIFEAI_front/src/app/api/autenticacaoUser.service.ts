@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { loginUser, registroUser } from '../models/user';
+
 
 @Injectable({
   providedIn: 'root',
@@ -20,8 +21,12 @@ export class AuthService {
     );
   }
 
+
   loginUser(data: { email: string; password: string }): Observable<loginUser> {
     return this.http.post<loginUser>(this.apiLogin, data).pipe(
+      tap(res => {
+        this.saveToken(res.access);
+      }),
       catchError(this.handleError)
     );
   }
@@ -31,6 +36,19 @@ export class AuthService {
       catchError(this.handleError)
     );
   }
+
+  saveToken(token: string): void {
+    localStorage.setItem('token', token);
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+  isLoggedIn(): boolean {
+    return this.getToken() !== null;
+  }
+  
 
   private handleError(error: HttpErrorResponse) {
     return throwError(() => error);
