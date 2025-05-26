@@ -43,7 +43,11 @@ export class ChatbotComponent implements AfterViewInit {
   constructor(private router: Router, private chatService: ChatService) {}
 
   ngOnInit() {
-    this.sendBotMessage('Olá! Qual o seu nome?');
+    this.sendBotMessage(this.getRandomMessage([
+      'Oi! Que bom te ver por aqui 😊 Qual é o seu nome?',
+      'Olá! Vamos começar? Me conta seu nome!',
+      'E aí! 😄 Qual é o seu nome pra gente se conhecer melhor?'
+    ]));
   }
 
   ngAfterViewInit() {
@@ -60,9 +64,9 @@ export class ChatbotComponent implements AfterViewInit {
   }
 
   private scrollToBottom(): void {
-  setTimeout(() => {
-    this.anchor?.nativeElement.scrollIntoView({ behavior: 'smooth' });
-  }, 100);
+    setTimeout(() => {
+      this.anchor?.nativeElement.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
   }
 
   sendBotMessage(text: string, delay = 500) {
@@ -93,24 +97,49 @@ export class ChatbotComponent implements AfterViewInit {
     switch (this.step) {
       case 0:
         this.answers.nome = input;
-        this.sendBotMessage(`Prazer, ${input}! Qual sua idade?`);
+        this.sendBotMessage(this.getRandomMessage([
+          `Prazer em te conhecer, ${input}! 😊 Quantos anos você tem?`,
+          `Legal, ${input}! Agora me diz sua idade.`,
+          `${input}, show! Me fala sua idade agora.`
+        ]));
         break;
+
       case 1:
         this.answers.idade = input;
-        this.sendBotMessage('Qual seu peso? (kg)');
+        this.sendBotMessage(this.getRandomMessage([
+          'Beleza! E quanto você está pesando hoje? (em kg)',
+          'Legal, e qual é o seu peso atual?',
+          'Certo! Pode me dizer seu peso, por favor?'
+        ]));
         break;
+
       case 2:
         this.answers.peso = input;
-        this.sendBotMessage('Qual sua altura? (cm)');
+        this.sendBotMessage(this.getRandomMessage([
+          'Show! Agora me fala sua altura (em centímetros)?',
+          'Anotado! Qual é sua altura?',
+          'Valeu! Me diz sua altura agora (cm).'
+        ]));
         break;
+
       case 3:
         this.answers.altura = input;
-        this.sendBotMessage('Qual seu sexo?');
+        this.sendBotMessage(this.getRandomMessage([
+          'Entendi! E qual é o seu sexo?',
+          'Quase lá! Me diz seu sexo agora.',
+          'Ok! Pode me informar seu sexo?'
+        ]));
         break;
+
       case 4:
         this.answers.sexo = input;
-        this.sendBotMessage('Qual seu objetivo?');
+        this.sendBotMessage(this.getRandomMessage([
+          'E por fim... qual é o seu principal objetivo? 💪',
+          'Última pergunta! Qual seu objetivo com a saúde/atividade física?',
+          'Muito bem! Qual é o seu foco agora? (ex: perder peso, ganhar massa, manter saúde)'
+        ]));
         break;
+
       case 5:
         this.answers.objetivo = input;
 
@@ -124,7 +153,12 @@ export class ChatbotComponent implements AfterViewInit {
           this.answers.imc = 'Não calculado';
         }
 
-        this.sendBotMessage(`Seu IMC é ${this.answers.imc}. Obrigado! Estamos processando suas informações...`);
+        this.sendBotMessage(this.getRandomMessage([
+          `Seu IMC é ${this.answers.imc}. 👍 Obrigado pelas informações, ${this.answers.nome}! Estamos analisando tudo pra te ajudar.`,
+          `Prontinho! Calculamos seu IMC: ${this.answers.imc}. Agora é com a gente 😄`,
+          `IMC registrado: ${this.answers.imc}. Vamos usar isso pra personalizar sua experiência. Obrigado, ${this.answers.nome}!`
+        ]));
+
         this.sendToBackend();
         setTimeout(() => this.router.navigate(['home']), 100);
         break;
@@ -142,6 +176,8 @@ export class ChatbotComponent implements AfterViewInit {
 
   getOptions() {
     if (this.step === 4) {
+      return ['Perder peso', 'Ganhar massa', 'Manter saúde'];
+    } else if (this.step === 3) {
       return ['Masculino', 'Feminino', 'Outro'];
     }
     return [];
@@ -150,5 +186,10 @@ export class ChatbotComponent implements AfterViewInit {
   sendToBackend() {
     console.log('Dados coletados:', this.answers);
     this.chatService.setRespostas(this.answers);
+  }
+
+  private getRandomMessage(options: string[]): string {
+    const index = Math.floor(Math.random() * options.length);
+    return options[index];
   }
 }
