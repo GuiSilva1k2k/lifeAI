@@ -11,6 +11,6 @@ export class ChatService {
   }
 
   limpar() {
-    this.respostasSubject.next({});
+  this.respostasSubject.next(null);
   }
 }

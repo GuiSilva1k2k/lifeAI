@@ -1,10 +1,23 @@
-<div *ngIf="respostas?.nome">
-    <h2>Resumo IMC</h2>
-    <p><strong>Nome:</strong> {{ respostas.nome }} </p>
-    <p><strong>Idade:</strong> {{ respostas.idade }} </p>
-    <p><strong>Peso:</strong> {{ respostas.peso }} kg </p>
-    <p><strong>Altura:</strong> {{ respostas.altura }} cm</p>
-    <p><strong>Objetivo:</strong> {{ respostas.objetivo }} </p>
-    <p><strong>Sexo:</strong> {{ respostas.sexo }} </p>
-    <p><strong>IMC:</strong> {{ respostas.imc }} </p>
+<div class="resumo-imc">
+  <h2>Resumo IMC</h2>
+  <ul>
+    <li><strong>Peso:</strong> <span>{{ respostas?.peso }} kg</span></li>
+    <li><strong>Altura:</strong> <span>{{ respostas?.altura }} cm</span></li>
+    <li class="imc"><strong>IMC:</strong> <span>{{ respostas?.imc }}</span></li>
+    <li><strong>Objetivo:</strong> <span>{{ respostas?.objetivo }}</span></li>
+  </ul>
+
+  <!-- Barra de classificação do IMC -->
+  <div class="imc-bar" *ngIf="respostas?.imc">
+    <div class="range">
+      <div class="segment underweight"></div>
+      <div class="segment healthy"></div>
+      <div class="segment overweight"></div>
+      <div class="segment obese"></div>
+    </div>
+    <div class="indicator" [ngStyle]="{ left: calcularPosicao(respostas.imc) + '%' }"></div>
+  </div>
+
+  <!-- Mensagem com emoji -->
+  <div class="status-imc" *ngIf="respostas?.imc">{{ obterMensagemIMC(respostas.imc) }}</div>
 </div>

@@ -15,12 +15,11 @@ body.page-dashboard .topo-dashboard {
 
 body.page-dashboard .cards-superiores {
   display: flex;
-  flex: 1;
+  flex: 3;
   gap: 20px;
   flex-wrap: wrap;
 }
 
-/* Cards individuais */
 body.page-dashboard .card {
   background: #13212f;
   border-radius: 16px;
@@ -60,7 +59,6 @@ body.page-dashboard .card:hover {
   box-shadow: 0px 4px 12px rgba(0, 200, 200, 0.3);
 }
 
-/* Card de IMC ao lado dos cards */
 body.page-dashboard .imc-resumo {
   background: #13212f;
   border-radius: 16px;
@@ -116,4 +114,9 @@ body.page-dashboard p {
 
 .hidden {
   display: none !important;
+}
+body.page-dashboard .atividades ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }

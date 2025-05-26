@@ -1,38 +1,39 @@
 <body class="page-dashboard">
   <app-sidebar></app-sidebar>
 
-  <main class="dashboard">
-    <!-- Agrupamento dos cards + IMC -->
-    <section class="topo-dashboard">
-      <div class="cards-superiores">
-        <div class="card">
-          <span class="material-icons icon">local_fire_department</span>
-          <h3>Consumo calórico</h3>
-          <p>Valor: --</p>
+  <div class="dashboard-container">
+    <main class="dashboard">
+      <section class="topo-dashboard">
+        <div class="cards-superiores">
+          <div class="card">
+            <span class="material-icons icon">local_fire_department</span>
+            <h3>Consumo calórico</h3>
+            <p>Valor: --</p>
+          </div>
+          <div class="card">
+            <span class="material-icons icon">bedtime</span>
+            <h3>Qualidade do Sono</h3>
+            <p>Valor: --</p>
+          </div>
+          <div class="card">
+            <span class="material-icons icon">opacity</span>
+            <h3>Hidratação</h3>
+            <p>Valor: --</p>
+          </div>
         </div>
-        <div class="card">
-          <span class="material-icons icon">bedtime</span>
-          <h3>Qualidade do Sono</h3>
-          <p>Valor: --</p>
-        </div>
-        <div class="card">
-          <span class="material-icons icon">opacity</span>
-          <h3>Hidratação</h3>
-          <p>Valor: --</p>
-        </div>
-      </div>
 
-      <aside class="imc-resumo">
-        <app-resumo></app-resumo>
-      </aside>
-    </section>
+        <aside class="imc-resumo">
+          <app-resumo></app-resumo>
+        </aside>
+      </section>
 
-    <section class="atividades">
-      <div class="grafico-placeholder">
-        <app-grafico></app-grafico>
-      </div>
-    </section>
-  </main>
+      <section class="atividades">
+        <div class="grafico-placeholder">
+          <app-grafico></app-grafico>
+        </div>
+      </section>
+    </main>
+  </div>
 
   <router-outlet></router-outlet>
 </body>

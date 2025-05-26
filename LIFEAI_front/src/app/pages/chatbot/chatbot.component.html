@@ -1,7 +1,6 @@
 <div class="chat-fullscreen">
   <div class="chat-container">
-    <!-- Área de mensagens -->
-    <div class="messages">
+    <div #messagesContainer class="messages">
       <div
         *ngFor="let msg of messages"
         class="message-row"
@@ -33,9 +32,10 @@
           </ng-template>
         </div>
       </div>
+
+      <div #anchor></div>
     </div>
 
-    <!-- Opções de escolha (cards) -->
     <div class="options" *ngIf="getOptions().length">
       <button
         *ngFor="let option of getOptions()"
@@ -45,7 +45,6 @@
       </button>
     </div>
 
-    <!-- Barra de input -->
     <div class="input-bar">
       <input
         #inputField
@@ -55,7 +54,6 @@
         (keyup.enter)="handleUserInput()"
         placeholder="Digite aqui..."
       />
-
       <button (click)="handleUserInput()">Enviar</button>
     </div>
   </div>

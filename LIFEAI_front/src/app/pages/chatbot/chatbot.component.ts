@@ -32,6 +32,8 @@ import { ChatService } from '../../api/chat.service';
 })
 export class ChatbotComponent implements AfterViewInit {
   @ViewChild('inputField') inputField!: ElementRef;
+  @ViewChild('messagesContainer') messagesContainer!: ElementRef;
+  @ViewChild('anchor') anchor!: ElementRef;
 
   messages: { from: 'bot' | 'user', text: string; loading?: boolean; timestamp?: Date }[] = [];
   step = 0;
@@ -57,20 +59,29 @@ export class ChatbotComponent implements AfterViewInit {
     }, 0);
   }
 
+  private scrollToBottom(): void {
+  setTimeout(() => {
+    this.anchor?.nativeElement.scrollIntoView({ behavior: 'smooth' });
+  }, 100);
+  }
+
   sendBotMessage(text: string, delay = 500) {
     const loadingMsg = { from: 'bot', text: '', loading: true } as any;
     this.messages.push(loadingMsg);
+    this.scrollToBottom();
 
     setTimeout(() => {
       loadingMsg.loading = false;
       loadingMsg.text = text;
       loadingMsg.timestamp = new Date();
+      this.scrollToBottom();
       this.focusInput();
     }, delay);
   }
 
   sendUserMessage(text: string) {
     this.messages.push({ from: 'user', text, timestamp: new Date() });
+    this.scrollToBottom();
   }
 
   handleUserInput() {
@@ -103,13 +114,12 @@ export class ChatbotComponent implements AfterViewInit {
       case 5:
         this.answers.objetivo = input;
 
-        // Calcular IMC
         const alturaM = parseFloat(this.answers.altura) / 100;
         const peso = parseFloat(this.answers.peso);
 
         if (!isNaN(alturaM) && !isNaN(peso) && alturaM > 0) {
           const imc = peso / (alturaM * alturaM);
-          this.answers.imc = imc.toFixed(2); // Ex: 22.58
+          this.answers.imc = imc.toFixed(2);
         } else {
           this.answers.imc = 'Não calculado';
         }
@@ -124,7 +134,7 @@ export class ChatbotComponent implements AfterViewInit {
     this.step++;
     this.focusInput();
   }
-  
+
   handleOption(option: string) {
     this.inputText = option;
     this.handleUserInput();
