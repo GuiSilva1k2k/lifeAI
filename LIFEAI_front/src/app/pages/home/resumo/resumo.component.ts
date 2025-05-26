@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ChatService } from '../../../api/chat.service';
 import { CommonModule } from '@angular/common';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-resumo',
@@ -13,12 +15,19 @@ import { CommonModule } from '@angular/common';
 })
 export class ResumoComponent implements OnInit {
   respostas: any;
+  registros: any[] = [];
 
-  constructor(private chatService: ChatService) {}
+  constructor(private chatService: ChatService, private http: HttpClient) {}
 
   ngOnInit() {
     this.chatService.respostas$.subscribe(res => {
       this.respostas = res;
+      
+    });
+
+    this.consultaImcBase().subscribe({
+      next: (dados) => this.registros = dados,
+      error: (err) => console.error('Erro ao consultar IMC base:', err)
     });
   }
 
@@ -37,6 +46,12 @@ export class ResumoComponent implements OnInit {
   }
 
   temRespostas(): boolean {
-  return this.respostas && Object.keys(this.respostas).length > 0;
+    return this.respostas && Object.keys(this.respostas).length > 0;
+  }
+
+  consultaImcBase(): Observable<any> {
+    const token = localStorage.getItem('access_token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get('http://localhost:8000/imc_base_dashboard/', { headers });
   }
 }

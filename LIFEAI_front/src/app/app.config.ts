@@ -2,9 +2,10 @@ import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
-import { provideHttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { MarkdownModule } from 'ngx-markdown';
+import { AuthInterceptor } from './api/auth.interceptor';
 
 import { routes } from './app.routes';
 
@@ -17,6 +18,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAnimations(),
     provideHttpClient(),
-    provideCharts(withDefaultRegisterables())
+    provideCharts(withDefaultRegisterables()),
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
   ]
 };

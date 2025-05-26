@@ -14,6 +14,7 @@ import {
 } from '@angular/animations';
 import { Router } from '@angular/router';
 import { ChatService } from '../../api/chat.service';
+import { ImcBaseService } from '../../api/imc_perfil_base.service';
 
 @Component({
   selector: 'app-chatbot',
@@ -40,7 +41,7 @@ export class ChatbotComponent implements AfterViewInit {
   inputText = '';
   private answers: any = {};
 
-  constructor(private router: Router, private chatService: ChatService) {}
+  constructor(private router: Router, private chatService: ChatService, private ImcBaseService: ImcBaseService) {}
 
   ngOnInit() {
     this.sendBotMessage('Oi! Que bom te ver por aqui 😊 Qual é o seu nome?');
@@ -116,16 +117,34 @@ export class ChatbotComponent implements AfterViewInit {
 
         const alturaM = parseFloat(this.answers.altura) / 100;
         const peso = parseFloat(this.answers.peso);
+        let imc_res = 0.0;
+        let classificacao = '';
 
         if (!isNaN(alturaM) && !isNaN(peso) && alturaM > 0) {
-          const imc = peso / (alturaM * alturaM);
-          this.answers.imc = imc.toFixed(2);
+          imc_res = peso / (alturaM * alturaM);
+          const imcFormatado = imc_res.toFixed(2);
+          this.answers.imc_res = imcFormatado;
+
+          if (imc_res < 18.5) {
+            classificacao = 'Abaixo do peso';
+          } else if (imc_res < 25) {
+            classificacao = 'Peso normal';
+          } else if (imc_res < 30) {
+            classificacao = 'Sobrepeso';
+          } else {
+            classificacao = 'Obesidade';
+          }
+
+          this.answers.classificacao = classificacao;
+
         } else {
-          this.answers.imc = 'Não calculado';
+          this.answers.imc_res = 'Não calculado';
+          this.answers.imc_classificacao = 'Classificação indisponível';
         }
 
         this.sendBotMessage(`Seu IMC é ${this.answers.imc}. Obrigado pelas informações, ${this.answers.nome}! Estamos analisando tudo para te ajudar da melhor forma possível...`);
         this.sendToBackend();
+        this.ImcPerfilBase();
         setTimeout(() => this.router.navigate(['home']), 100);
         break;
     }
@@ -150,5 +169,17 @@ export class ChatbotComponent implements AfterViewInit {
   sendToBackend() {
     console.log('Dados coletados:', this.answers);
     this.chatService.setRespostas(this.answers);
+  }
+
+  ImcPerfilBase() {
+    // Aqui você pode já ter os dados populados conforme o chatbot avança
+    this.ImcBaseService.enviarImcBase(this.answers).subscribe({
+      next: (res) => {
+        console.log('Dados enviados com sucesso!', res);
+      },
+      error: (err) => {
+        console.error('Erro ao enviar dados:', err);
+      }
+    });
   }
 }

@@ -107,3 +107,22 @@ class ImcCreateAPIView(APIView):
                 'classificacao': classificacao
             }, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class ImcBaseAPIView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request):
+        serializer = serializers.ImcBaseSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(id_usuario=request.user)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class ImcBaseDashAPIView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        # Filtra apenas os registros do usuário logado
+        registros = serializers.imc_user_base.objects.filter(id_usuario=request.user).order_by('-id')
+        serializer = serializers.ImcBaseSerializer(registros, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)

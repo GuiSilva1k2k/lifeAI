@@ -1,5 +1,5 @@
 from django.urls import path
-from .viewsets import RegisterView, LoginView, LogoutView, ImcCreateAPIView
+from .viewsets import RegisterView, LoginView, LogoutView, ImcCreateAPIView, ImcBaseAPIView, ImcBaseDashAPIView
 from core.services.api_ia import chat_ia_view
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
@@ -11,5 +11,7 @@ urlpatterns = [
     path("chat-ia/", chat_ia_view, name="chat-ia"),
     path('api/token', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('imc_base_perfil/', ImcBaseAPIView.as_view(), name='imc_base_perfil'),
+    path('imc_base_dashboard/', ImcBaseDashAPIView.as_view(), name='imc_base_dashboard'),
 ]
     
