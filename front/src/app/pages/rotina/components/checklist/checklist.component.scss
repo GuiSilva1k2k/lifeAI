@@ -1,44 +1,37 @@
-.checklist-grid {
+.checklist-wrapper {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.5rem;
-  padding: 1rem 0;
-}
+  grid-template-columns: repeat(2, 1fr); // 4 tarefas de cada lado
+  gap: 1rem 2rem;
+  padding: 0.5rem 0;
 
-.checkbox-wrapper {
-  background-color: rgba(255, 255, 255, 0.05);
-  border-radius: 0.5rem;
-  padding: 0.5rem 0.75rem;
-  margin-bottom: 1rem;
-  transition: background-color 0.2s ease;
+  .checkbox-wrapper {
+    display: flex;
+    align-items: center;
 
-  &:hover {
-    background-color: rgba(0, 200, 83, 0.1);
-  }
-}
+    .checkbox-item {
+      width: 100%;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #e0f2f1;
+      transition: background-color 0.2s ease;
 
-.checkbox-item {
-  display: flex;
-  align-items: center;
-  font-size: 1rem;
+      &:hover {
+        background-color: rgba(0, 230, 118, 0.05);
+        border-radius: 6px;
+      }
 
-  .mat-checkbox-label {
-    color: white !important;
-    font-weight: 500;
-    transition: color 0.3s, text-decoration 0.3s;
-  }
+      ::ng-deep .mat-checkbox-label {
+        white-space: normal;
+      }
 
-  .mat-checkbox-frame {
-    border-color: rgba(255, 255, 255, 0.6);
-  }
+      ::ng-deep .mat-checkbox-inner-container {
+        border-color: #00e676;
+      }
 
-  .mat-checkbox-checked.mat-accent .mat-checkbox-background {
-    background-color: #00c853 !important;
-  }
-
-  .mat-checkbox-checked .mat-checkbox-label {
-    color: #a5f2c2 !important;
-    text-decoration: line-through;
-    opacity: 0.85;
+      ::ng-deep .mat-checkbox-checked .mat-checkbox-background,
+      ::ng-deep .mat-checkbox-indeterminate .mat-checkbox-background {
+        background-color: #00c853 !important;
+      }
+    }
   }
 }
