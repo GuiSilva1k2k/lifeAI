@@ -11,7 +11,7 @@
   display: block;
   background-color: #0f202a;
   border-radius: 1rem;
-  color: #e0f2f1;
+  color: #00c8c8;
   box-sizing: border-box;
   padding: 1rem;
   transition: all 0.3s ease;
@@ -22,16 +22,16 @@
 :host ::ng-deep .mat-calendar-table-header th,
 :host ::ng-deep .mat-calendar-body-cell,
 :host ::ng-deep .mat-calendar-body-cell-content {
-  color: #e0f2f1 !important;
+  color: #00c8c8 !important;
   transition: color 0.3s ease;
 }
 
 :host ::ng-deep .mat-calendar-body-disabled {
-  color: rgba(255, 255, 255, 0.25) !important;
+  color: rgba(0, 200, 200, 0.25) !important;
 }
 
 :host ::ng-deep .mat-calendar-body-selected {
-  background-color: #00c853 !important;
+  background-color: #00c8c8 !important;
   color: #0e1b24 !important;
   font-weight: bold;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -39,7 +39,7 @@
 }
 
 :host ::ng-deep .mat-calendar-body-today:not(.mat-calendar-body-selected) {
-  border: 2px solid #00e676 !important;
+  border: 2px solid #00c8c8 !important;
   border-radius: 50%;
   transition: border-color 0.3s ease;
 }
@@ -47,7 +47,7 @@
 :host ::ng-deep .mat-calendar-previous-button,
 :host ::ng-deep .mat-calendar-next-button,
 :host ::ng-deep .mat-calendar-period-button {
-  color: #80cbc4 !important;
+  color: #00c8c8 !important;
   transition: color 0.3s ease;
 }
 
@@ -60,7 +60,7 @@
 
 .data-selecionada {
   margin-top: 1rem;
-  color: #00e676;
+  color: #00c8c8;
   font-weight: 500;
   font-size: 1rem;
   background-color: rgba(0, 200, 83, 0.05);

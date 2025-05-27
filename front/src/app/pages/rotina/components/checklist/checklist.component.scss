@@ -1,6 +1,6 @@
 .checklist-wrapper {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); // 4 tarefas de cada lado
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem 2rem;
   padding: 0.5rem 0;
 
@@ -12,7 +12,7 @@
       width: 100%;
       font-size: 0.95rem;
       font-weight: 500;
-      color: #e0f2f1;
+      color: #00c8c8;
       transition: background-color 0.2s ease;
 
       &:hover {
@@ -22,15 +22,16 @@
 
       ::ng-deep .mat-checkbox-label {
         white-space: normal;
+        color: #00c8c8;
       }
 
       ::ng-deep .mat-checkbox-inner-container {
-        border-color: #00e676;
+        border-color: #00c8c8;
       }
 
       ::ng-deep .mat-checkbox-checked .mat-checkbox-background,
       ::ng-deep .mat-checkbox-indeterminate .mat-checkbox-background {
-        background-color: #00c853 !important;
+        background-color: #00c8c8 !important;
       }
     }
   }

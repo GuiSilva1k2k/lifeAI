@@ -7,6 +7,7 @@ html, body {
   overflow-x: hidden;
   background-color: #0e1b24;
   font-family: 'Inter', sans-serif;
+  color: #00c8c8;
 }
 
 *, *::before, *::after {
@@ -51,17 +52,18 @@ html, body {
   padding: 2rem;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
   transition: all 0.3s ease-in-out;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(0, 200, 200, 0.15);
   backdrop-filter: blur(4px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden;
+  color: #00c8c8;
 }
 
 .rotina-section:hover {
   transform: translateY(-6px) scale(1.01);
-  box-shadow: 0 10px 30px rgba(0, 200, 83, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 200, 200, 0.4);
 }
 
 .rotina-section h2 {
@@ -71,31 +73,20 @@ html, body {
   align-items: center;
   gap: 0.6rem;
   font-weight: 600;
-  background: linear-gradient(to right, #00e676, #00c853);
+  background: linear-gradient(to right, #00c8c8, #00c8c8);
   background-clip: text;
   -webkit-background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
+  color: #00c8c8;
+  -webkit-text-fill-color: #00c8c8;
 }
 
 .rotina-section h2::before {
   font-size: 1.5rem;
-  color: #00c853;
-}
-
-.rotina-section.calendario h2::before {
-  content: "📅";
-}
-
-.rotina-section.checklist h2::before {
-  content: "✅";
-}
-
-.rotina-section.dicas h2::before {
-  content: "🧠";
+  color: #00c8c8;
 }
 
 @media (max-width: 768px) {
+
   .rotina-page-grid {
     grid-template-columns: 1fr;
     padding: 1.5rem 1rem;

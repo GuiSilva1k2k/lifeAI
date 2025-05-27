@@ -2,6 +2,48 @@
   <app-sidebar></app-sidebar>
 
   <main class="main-content">
-    <router-outlet></router-outlet>
+    <div class="exercise-page">
+      
+      <section class="exercise-info">
+        <div class="exercise-header">
+          <button class="nav-btn material-icons" (click)="previousGif()">arrow_back</button>
+
+          <div class="exercise-title-container">
+            <h1 class="exercise-title">{{ currentNome }}</h1>
+            <p class="exercise-subtitle">Execute com atenção à postura e respiração</p>
+          </div>
+
+          <button class="nav-btn material-icons" (click)="nextGif()">arrow_forward</button>
+        </div>
+
+        <div class="card description-card">
+          <h2 class="card-title">
+            <span class="material-icons">menu_book</span> Instruções
+          </h2>
+          <ul class="exercise-details">
+            <!-- instruções -->
+          </ul>
+        </div>
+
+        <div class="card series-reps-card">
+          <h2 class="card-title">
+            <span class="material-icons">fitness_center</span> Dados do Exercício
+          </h2>
+          <div class="series-reps">
+            <!-- dados -->
+          </div>
+        </div>
+
+        <div class="exercise-actions">
+          <button class="action-btn" (click)="iniciarExercicio()">Iniciar Exercício</button>
+          <button class="action-btn secondary" (click)="finalizarExercicio()">Finalizar</button>
+          <button class="action-btn outlined" (click)="abrirTutorial()">Ver Tutorial</button>
+        </div>
+      </section>
+
+      <section class="exercise-image">
+        <img [src]="currentGif" alt="Exercício em execução" />
+      </section>
+    </div>
   </main>
 </div>
