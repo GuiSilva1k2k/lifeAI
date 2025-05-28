@@ -126,3 +126,12 @@ class ImcBaseDashAPIView(APIView):
         registros = serializers.imc_user_base.objects.filter(id_usuario=request.user).order_by('-id')
         serializer = serializers.ImcBaseSerializer(registros, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+class ImcBaseRecAPIView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        # Filtra apenas os registros do usuário logado
+        registros = serializers.imc_u_base.objects.filter(id_usuario=request.user).order_by('-id')
+        serializer = serializers.ImcBaseRecSerializer(registros, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)

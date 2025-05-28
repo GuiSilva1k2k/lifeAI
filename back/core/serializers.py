@@ -10,3 +10,8 @@ class ImcBaseSerializer(serializers.ModelSerializer):
     class Meta:
         model = imc_user_base
         exclude = ['id_usuario']
+
+class ImcBaseRecSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = imc_user_base
+        fields = ['imc_res', 'objetivo']

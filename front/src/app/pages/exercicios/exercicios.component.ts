@@ -18,6 +18,11 @@ interface Exercicio {
 export class ExerciciosComponent implements OnInit {
   exercicios: Exercicio[] = [];
   currentIndex: number = 0;
+  /* 
+    criar duas listas:
+    instrucao_exerc[] = [];
+    dados_exerc[] = [];
+  */
 
   ngOnInit(): void {
     this.exercicios = [
