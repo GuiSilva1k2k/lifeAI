@@ -132,6 +132,6 @@ class ImcBaseRecAPIView(APIView):
 
     def get(self, request):
         # Filtra apenas os registros do usuário logado
-        registros = serializers.imc_u_base.objects.filter(id_usuario=request.user).order_by('-id')
+        registros = serializers.imc_user_base.objects.filter(id_usuario=request.user).order_by('-id')
         serializer = serializers.ImcBaseRecSerializer(registros, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
