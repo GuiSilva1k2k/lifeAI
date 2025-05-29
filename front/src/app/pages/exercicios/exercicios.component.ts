@@ -5,7 +5,7 @@ import { SidebarComponent } from '../../sidebar/sidebar.component';
 import { ImcBaseService } from '../../api/imc_perfil_base.service';
 import { IaService } from '../../api/ia.service';
 import { v4 as uuidv4 } from 'uuid';
-
+import { MarkdownModule } from 'ngx-markdown';
 
 interface Exercicio {
   nome: string;
@@ -15,20 +15,28 @@ interface Exercicio {
 @Component({
   selector: 'app-exercicios',
   standalone: true,
-  imports: [CommonModule, RouterModule, SidebarComponent],
+  imports: [CommonModule, RouterModule, SidebarComponent, MarkdownModule],
   templateUrl: './exercicios.component.html',
   styleUrls: ['./exercicios.component.scss']
 })
 export class ExerciciosComponent implements OnInit {
 
-  constructor(private ImcBaseService: ImcBaseService, private IaService: IaService) {}
+  constructor(
+    private ImcBaseService: ImcBaseService,
+    private IaService: IaService
+  ) {}
 
   imc_base: any[] = [];
   exercicios: Exercicio[] = [];
   currentIndex: number = 0;
-  
-  instrucao_exerc: string[] = [];
-  dados_exerc: string[] = [];
+
+  respostaIA: string = '';
+  sessaoId: string = uuidv4();
+
+  instrucoes: string[] = [];
+  dadosExercicio: { label: string; valor: string }[] = [];
+
+  exercicioRecomendado: string = '';
 
   ngOnInit(): void {
     this.exercicios = [
@@ -42,18 +50,10 @@ export class ExerciciosComponent implements OnInit {
     this.ImcBaseService.getImcBase().subscribe({
       next: (data) => {
         this.imc_base = data;
-        this.gerarPlanoComIA(); // chama após os dados carregarem
+        this.gerarPlanoComIA();
       },
       error: (err) => console.error('Erro ao buscar IMC:', err)
     });
-  }
-
-  previousGif(): void {
-    if (this.currentIndex > 0) this.currentIndex--;
-  }
-
-  nextGif(): void {
-    if (this.currentIndex < this.exercicios.length - 1) this.currentIndex++;
   }
 
   get currentGif(): string {
@@ -62,6 +62,24 @@ export class ExerciciosComponent implements OnInit {
 
   get currentNome(): string {
     return this.exercicios[this.currentIndex]?.nome ?? '';
+  }
+
+  get botaoDesabilitado(): boolean {
+    return this.currentNome === this.exercicioRecomendado;
+  }
+
+  previousGif(): void {
+    if (this.currentIndex > 0 && !this.botaoDesabilitado) {
+      this.currentIndex--;
+      this.gerarInstrucoesEDados();
+    }
+  }
+
+  nextGif(): void {
+    if (this.currentIndex < this.exercicios.length - 1 && !this.botaoDesabilitado) {
+      this.currentIndex++;
+      this.gerarInstrucoesEDados();
+    }
   }
 
   iniciarExercicio(): void {
@@ -75,31 +93,100 @@ export class ExerciciosComponent implements OnInit {
   abrirTutorial(): void {
     console.log(`Abrindo tutorial para: ${this.currentNome}`);
   }
-  
-  respostaIA: string = '';
-  sessaoId: string = uuidv4();
 
   gerarPlanoComIA(): void {
     if (this.imc_base.length === 0 || this.exercicios.length === 0) {
-      console.warn('Dados insuficientes para gerar prompt');
       return;
     }
 
-    const nomesExercicios = this.exercicios.map(e => e.nome).join(', ');
-    const imcTextos = this.imc_base.map((i) =>
-      `Pessoa IMC = ${i.imc_res}, Objetivo = ${i.objetivo}`
-    ).join('\n');
+    const nomesExercicios = this.exercicios.map(e => `"${e.nome}"`).join(', ');
 
-    const prompt = `Baseado nos dados abaixo, gere um plano de treino personalizado:\n\n${imcTextos}\n\n
-    Exercícios disponíveis: ${nomesExercicios}\n\n
-    Crie uma sugestão inteligente de treino que a pessoa suporte baseada em seu imc e objetivo.`;
+    const promptPorPessoa = this.imc_base.map((pessoa, index) => {
+      const exercicio = this.exercicios[index % this.exercicios.length];
+      return `IMC: ${pessoa.imc_res}, Objetivo: ${pessoa.objetivo}, Ex: ${exercicio.nome}`;
+    }).join('\n');
+
+    const prompt = `Você deve recomendar exercícios APENAS da seguinte lista: ${nomesExercicios}.
+
+Para cada pessoa listada abaixo, indique um exercício apropriado com base no IMC e objetivo, selecionando apenas um da lista. Resuma cada sugestão com:
+
+- Objetivo
+- Exercício recomendado (exatamente como na lista)
+- Frequência semanal
+- Duração (tempo ou repetições)
+- Calorias estimadas (por sessão, ex: 250 kcal)
+- Instruções simples
+
+Dados:
+${promptPorPessoa}`;
 
     this.IaService.enviarPergunta(prompt, this.sessaoId).subscribe({
       next: (res) => {
         this.respostaIA = res.resposta;
-        console.log('Resposta da IA:', this.respostaIA);
+        this.identificarExercicioRecomendado();
+        this.gerarInstrucoesEDados();
       },
       error: (err) => console.error('Erro ao enviar pergunta para IA:', err)
     });
+  }
+
+  identificarExercicioRecomendado(): void {
+    this.exercicioRecomendado = '';
+    for (let ex of this.exercicios) {
+      if (this.respostaIA.toLowerCase().includes(ex.nome.toLowerCase())) {
+        this.exercicioRecomendado = ex.nome;
+        break;
+      }
+    }
+    if (!this.exercicioRecomendado) {
+      console.warn('Nenhum exercício recomendado identificado na resposta da IA.');
+    }
+  }
+
+  gerarInstrucoesEDados(): void {
+    this.instrucoes = [];
+    this.dadosExercicio = [];
+
+    const texto = this.respostaIA ?? '';
+    const linhas = texto.split('\n').map(l => l.trim()).filter(Boolean);
+
+    const dadosTemp: { label: string; valor: string }[] = [];
+    const instrucoesTemp: string[] = [];
+
+    let capturandoInstrucoes = false;
+
+    for (let linha of linhas) {
+      const l = linha.toLowerCase();
+
+      if (l.startsWith('instruções simples:')) {
+        capturandoInstrucoes = true;
+        const instrucaoInicial = linha.split(':')[1]?.trim();
+        if (instrucaoInicial) instrucoesTemp.push(instrucaoInicial);
+        continue;
+      }
+
+      if (capturandoInstrucoes) {
+        if (l.startsWith('objetivo:') || l.startsWith('exercício recomendado:') || l.startsWith('frequência') || l.startsWith('duração:') || l.startsWith('calorias')) {
+          capturandoInstrucoes = false;
+        } else {
+          instrucoesTemp.push(linha);
+          continue;
+        }
+      }
+
+      const match = linha.match(/^([\wÀ-ÿ\s]+):\s*(.+)$/i);
+      if (match) {
+        const label = match[1].trim();
+        const valor = match[2].trim();
+        dadosTemp.push({ label, valor });
+      }
+    }
+
+    this.dadosExercicio = dadosTemp;
+    this.instrucoes = instrucoesTemp;
+
+    if (this.instrucoes.length === 0) {
+      this.instrucoes.push(`Lembre-se de executar bem o exercício ${this.currentNome}.`);
+    }
   }
 }
