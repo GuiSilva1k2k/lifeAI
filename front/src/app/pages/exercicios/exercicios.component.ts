@@ -50,7 +50,6 @@ export class ExerciciosComponent implements OnInit {
     this.ImcBaseService.getImcBase().subscribe({
       next: (data) => {
         this.imc_base = data;
-        this.gerarPlanoComIA();
       },
       error: (err) => console.error('Erro ao buscar IMC:', err)
     });
@@ -83,6 +82,7 @@ export class ExerciciosComponent implements OnInit {
   }
 
   iniciarExercicio(): void {
+    this.gerarPlanoComIA();
     console.log(`Iniciando: ${this.currentNome}`);
   }
 
