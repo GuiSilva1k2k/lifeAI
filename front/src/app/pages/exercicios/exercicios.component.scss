@@ -129,6 +129,7 @@
   display: flex;
   gap: 1rem;
   margin-top: 1.2rem;
+  margin-bottom: 8rem;
 }
 
 .action-btn {
@@ -167,23 +168,44 @@
   background-color: rgba(0, 200, 200, 0.1);
 }
 
+.title-exemplos-exercise {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+  flex-grow: 1;
+}
+
+.container-exercise-image {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .exercise-image {
-  max-width: 650px;
+  width: 80%;
   flex: 1;
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  margin-top: 6rem;
+  margin-bottom: 2rem;
 }
 
 .exercise-image img {
-  width: 100%;
+  width: 80%;
   height: auto;
   max-height: 580px;
   border-radius: 16px;
   box-shadow: 0 0 20px rgba(0, 200, 83, 0.2);
   transition: transform 0.3s ease;
-  margin-left: 18rem;
+  // margin-left: 18rem;
 }
 
 .exercise-image img:hover {

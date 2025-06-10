@@ -1,4 +1,4 @@
-agr html <div class="app-container">
+<div class="app-container">
   <app-sidebar></app-sidebar>
 
   <main class="main-content">
@@ -6,16 +6,6 @@ agr html <div class="app-container">
 
       <!-- Coluna da Esquerda - Informações -->
       <section class="exercise-info">
-        <div class="exercise-header">
-          <button class="nav-btn material-icons" (click)="previousGif()">arrow_back</button>
-
-          <div class="exercise-title-container">
-            <h1 class="exercise-title">{{ currentNome }}</h1>
-            <p class="exercise-subtitle">Execute com atenção à postura e respiração</p>
-          </div>
-
-          <button class="nav-btn material-icons" (click)="nextGif()">arrow_forward</button>
-        </div>
 
         <div class="card description-card">
           <h2 class="card-title">
@@ -40,15 +30,32 @@ agr html <div class="app-container">
         </div>
 
         <div class="exercise-actions">
-          <button class="action-btn" (click)="iniciarExercicio()">Iniciar Exercício</button>
+          <button class="action-btn" (click)="iniciarExercicio()">Gerar exercícios</button>
           <button class="action-btn secondary" (click)="finalizarExercicio()">Finalizar</button>
           <button class="action-btn outlined" (click)="abrirTutorial()">Ver Tutorial</button>
         </div>
-      </section>
 
-      <!-- Coluna da Direita - GIF -->
-      <section class="exercise-image">
-        <img [src]="currentGif" alt="Exercício em execução" />
+        <div class="title-exemplos-exercise">
+          <p>Exemplos de exercícios</p>
+        </div>
+        
+        <div class="exercise-header">
+          <button class="nav-btn material-icons" (click)="previousGif()">arrow_back</button>
+
+          <div class="exercise-title-container">
+            <h1 class="exercise-title">{{ currentNome }}</h1>
+            <p class="exercise-subtitle">Execute com atenção à postura e respiração</p>
+          </div>
+          
+          <button class="nav-btn material-icons" (click)="nextGif()">arrow_forward</button>
+        </div>
+        
+        <div class="container-exercise-image">
+          <section class="exercise-image">
+            <img [src]="currentGif" alt="Exercício em execução" />
+          </section>
+        </div>
+
       </section>
 
     </div>
