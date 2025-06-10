@@ -1,63 +1,34 @@
-<div class="app-container">
+<div class="layout">
   <app-sidebar></app-sidebar>
 
-  <main class="main-content">
-    <div class="exercise-page desktop-layout">
+  <div class="container">
+    <!-- Título principal -->
+    <div class="titulo-exercicio">Nome do Exercício</div>
 
-      <!-- Coluna da Esquerda - Informações -->
-      <section class="exercise-info">
-
-        <div class="card description-card">
-          <h2 class="card-title">
-            <span class="material-icons">menu_book</span> Instruções
-          </h2>
-          <ul class="exercise-details">
-            <li *ngFor="let item of instrucoes">
-              <span class="material-icons">check_circle</span> {{ item }}
-            </li>
-          </ul>
-        </div>
-
-        <div class="card series-reps-card">
-          <h2 class="card-title">
-            <span class="material-icons">fitness_center</span> Dados do Exercício
-          </h2>
-          <div class="series-reps">
-            <p *ngFor="let dado of dadosExercicio">
-              <b>{{ dado.label }}:</b> {{ dado.valor }}
-            </p>
-          </div>
-        </div>
-
-        <div class="exercise-actions">
-          <button class="action-btn" (click)="iniciarExercicio()">Gerar exercícios</button>
-          <button class="action-btn secondary" (click)="finalizarExercicio()">Finalizar</button>
-          <button class="action-btn outlined" (click)="abrirTutorial()">Ver Tutorial</button>
-        </div>
-
-        <div class="title-exemplos-exercise">
-          <p>Exemplos de exercícios</p>
-        </div>
-        
-        <div class="exercise-header">
-          <button class="nav-btn material-icons" (click)="previousGif()">arrow_back</button>
-
-          <div class="exercise-title-container">
-            <h1 class="exercise-title">{{ currentNome }}</h1>
-            <p class="exercise-subtitle">Execute com atenção à postura e respiração</p>
-          </div>
-          
-          <button class="nav-btn material-icons" (click)="nextGif()">arrow_forward</button>
-        </div>
-        
-        <div class="container-exercise-image">
-          <section class="exercise-image">
-            <img [src]="currentGif" alt="Exercício em execução" />
-          </section>
-        </div>
-
-      </section>
-
+    <!-- Instruções -->
+    <div class="card">
+      <h3>Instruções</h3>
+      <div class="conteudo-bloco">
+        <!-- Conteúdo gerado dinamicamente -->
+      </div>
     </div>
-  </main>
+
+    <!-- Dados do exercício -->
+    <div class="card">
+      <h3>Dados do Exercício</h3>
+      <div class="conteudo-bloco">
+        <!-- Conteúdo gerado dinamicamente -->
+      </div>
+    </div>
+
+    <!-- Botões de ação -->
+    <div class="botoes">
+      <button>Gerar exercícios</button>
+      <button>Iniciar - Finalizar</button>
+      <button>Ver tutorial</button>
+    </div>
+
+    <!-- Lista de exemplos com pré-visualização -->
+    <app-exemplos-exercicio></app-exemplos-exercicio>
+  </div>
 </div>

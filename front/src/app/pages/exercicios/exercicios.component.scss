@@ -1,280 +1,92 @@
-.exercise-page {
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: 3rem;
-  padding: 3rem 2rem;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  max-width: 1600px;
-  margin: 0 auto;
+:host {
+  display: block;
+  height: 100vh;
+  background-color: #0e1b24;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  overflow-y: auto; /* Rolagem vertical se o conteúdo exceder */
 }
 
-.exercise-info {
-  color: #ffffff;
-  min-width: 500px;
-  max-width: 700px;
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.container {
   flex: 1;
-}
-
-.exercise-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 2rem;
-  gap: 1rem;
-}
-
-.nav-btn {
-  background-color: #0f2634;
-  color: #00c853;
-  border: none;
-  font-size: 1rem;
-  padding: 0.6rem 1.2rem;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.nav-btn:hover {
-  background-color: #124b5b;
-  transform: scale(1.05);
-}
-
-.exercise-title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #ffffff;
-  text-align: center;
-  flex-grow: 1;
-}
-
-.exercise-subtitle {
-  font-size: 1rem;
-  color: #00c8c8;
-  text-align: center;
-  margin-top: 0.25rem;
-}
-
-.exercise-title-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  flex-grow: 1;
+  padding: 2rem;
+  overflow-y: auto; /* Rolagem vertical se necessário */
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.titulo-exercicio {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #00bfa5;
+  margin-bottom: 2rem;
+  text-align: center;
+  width: 100%;
 }
 
 .card {
-  background: linear-gradient(135deg, #0f2634, #122d3c);
+  background-color: #1e2a36;
+  border: 1px solid #263544;
   border-radius: 16px;
-  padding: 2rem;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 800px;
   margin-bottom: 2rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-  color: #ffffff;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  transition: transform 0.3s;
-  min-width: 400px;
-  height: auto;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease;
 }
 
 .card:hover {
   transform: translateY(-5px);
 }
 
-.card-title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #00c8c8;
-  margin-bottom: 1.2rem;
+.card h3 {
+  margin-bottom: 0.75rem;
+  color: #00bfa5;
+  font-size: 1.2rem;
 }
 
-.card-title .material-icons {
-  margin-right: 0.5rem;
-  font-size: 1.4rem;
-  vertical-align: middle;
-  color: #00c8c8;
-}
-
-.exercise-details {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.exercise-details li {
-  font-size: 1.05rem;
-  margin-bottom: 0.7rem;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
-.series-reps {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-}
-
-.series-reps p {
-  font-size: 1.05rem;
-  font-weight: 500;
-}
-
-.series-reps p b {
-  color: #00c853;
-}
-
-.exercise-actions {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1.2rem;
-  margin-bottom: 8rem;
-}
-
-.action-btn {
-  padding: 0.8rem 1.6rem;
+.conteudo-bloco {
+  background-color: #0e1b24;
+  height: 120px;
   border-radius: 10px;
-  border: none;
-  font-size: 1.05rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  background-color: #00c853;
-  color: #0f2634;
+  border: 1px solid #263544;
+  padding: 1rem;
+  color: #e2e8f0;
+  font-size: 1rem;
+  overflow-y: auto;
 }
 
-.action-btn:hover {
-  transform: scale(1.05);
-  background-color: #00e676;
-}
-
-.action-btn.secondary {
-  background-color: #ff1744;
-  color: #ffffff;
-}
-
-.action-btn.secondary:hover {
-  background-color: #ff4569;
-}
-
-.action-btn.outlined {
-  background-color: transparent;
-  border: 2px solid #00c8c8;
-  color: #00c8c8;
-}
-
-.action-btn.outlined:hover {
-  background-color: rgba(0, 200, 200, 0.1);
-}
-
-.title-exemplos-exercise {
+.botoes {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
-  margin-top: 2rem;
-
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #ffffff;
-  text-align: center;
-  flex-grow: 1;
-}
-
-.container-exercise-image {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.exercise-image {
-  width: 80%;
-  flex: 1;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
+  gap: 1rem;
   margin-bottom: 2rem;
 }
 
-.exercise-image img {
-  width: 80%;
-  height: auto;
-  max-height: 580px;
-  border-radius: 16px;
-  box-shadow: 0 0 20px rgba(0, 200, 83, 0.2);
-  transition: transform 0.3s ease;
-  // margin-left: 18rem;
+button {
+  background-color: #00bfa5;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.6rem;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.2s ease;
 }
 
-.exercise-image img:hover {
-  transform: scale(1.02);
-}
-
-.material-icons {
-  font-size: 22px;
-  vertical-align: middle;
-}
-
-.card, .exercise-image {
-  animation: fadeIn 0.6s ease-in;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.ia-response-card {
-  background-color: #1e2a33;
-  color: #e0e0e0;
-  padding: 1rem;
-  margin-top: 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
-  animation: fadeIn 0.5s ease-in;
-  min-height: 150px;
-  overflow: auto;
-}
-
-.ia-response-text {
-  white-space: pre-wrap;
-  font-family: 'Courier New', monospace;
-  font-size: 0.95rem;
-  line-height: 1.5;
-  color: #c1f4ff;
-  margin-top: 0.8rem;
-}
-
-.loading-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 80vh;
-  text-align: center;
-  font-size: 1.2rem;
-  color: #444;
-}
-
-.spinner {
-  border: 8px solid #eee;
-  border-top: 8px solid #007bff;
-  border-radius: 50%;
-  width: 64px;
-  height: 64px;
-  animation: spin 1s linear infinite;
-  margin-bottom: 1rem;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+button:hover {
+  background-color: #009e8c;
+  transform: scale(1.05);
 }
