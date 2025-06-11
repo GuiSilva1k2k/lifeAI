@@ -4,6 +4,7 @@
   color: #00bfa5;
   background-color: #0e1b24;
   text-align: center;
+  padding-bottom: 2rem;
 }
 
 .exemplos-grid {
@@ -18,6 +19,10 @@
   scroll-behavior: smooth;
   border: 2px solid #263544;
   border-radius: 16px;
+}
+
+.exemplos-grid::-webkit-scrollbar {
+  height: 10px;
 }
 
 .exemplos-grid::-webkit-scrollbar-track {
@@ -36,20 +41,25 @@
 }
 
 .exemplo-card {
-  width: 200px;
-  height: 250px;
+  width: 220px;
+  height: 280px;
   background-color: #1e2a36;
   border: 1px solid #263544;
   border-radius: 16px;
-  padding: 1.5rem;
+  padding: 0;
   cursor: pointer;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   color: #e2e8f0;
   flex-shrink: 0;
   transition: all 0.3s ease;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  font-weight: 500;
+  font-size: 1rem;
+  overflow: hidden;
 }
 
 .exemplo-card:hover {
@@ -57,39 +67,103 @@
   box-shadow: 0px 4px 12px rgba(0, 191, 165, 0.3);
 }
 
+.exemplo-card img.exemplo-gif {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  flex-grow: 1;
+}
+
+.exemplo-card .titulo {
+  width: 100%;
+  background-color: rgba(14, 27, 36, 0.9);
+  padding: 0.5rem 0;
+  font-size: 1rem;
+  color: #00ffc3;
+  text-shadow: 1px 1px 2px #000;
+  margin-top: auto;
+}
+
+/* PREVIEW */
 .preview-balao {
-  position: fixed;
+  position: absolute;
   z-index: 1000;
   background: #1e2a36;
   color: #e2e8f0;
   border: 1px solid #263544;
   border-radius: 16px;
   padding: 1rem;
-  width: 280px;
-  pointer-events: none;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+  width: 275px;
+  pointer-events: auto;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  animation: fadeInUp 0.3s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.preview-conteudo h4:first-child {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #00ffc3;
+  text-align: center;
+  font-weight: bold;
+  border-bottom: 1px solid #263544;
+  padding-bottom: 0.5rem;
 }
 
 .preview-conteudo h4 {
-  margin: 0.5rem 0 0.2rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0.3rem;
   font-size: 0.95rem;
   color: #00bfa5;
+  text-align: left;
 }
 
 .preview-conteudo p {
   font-size: 0.85rem;
   margin: 0 0 0.5rem;
+  text-align: left;
+  line-height: 1.4;
+}
+
+.preview-conteudo a {
+  color: #00ffc3;
+  font-size: 0.85rem;
+  text-decoration: underline;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: color 0.2s ease;
+}
+
+.preview-conteudo a:hover {
+  color: #009e8c;
+}
+
+.preview-conteudo a::after {
+  content: '🔗';
+  font-size: 0.85rem;
 }
 
 .balao-seta {
   position: absolute;
-  top: -10px;
-  left: 20px;
+  bottom: -10px;
+  left: calc(50% - 10px);
   width: 0;
   height: 0;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
-  border-bottom: 10px solid #1e2a36;
+  border-top: 10px solid #1e2a36;
 }
 
 .popup {

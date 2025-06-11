@@ -3,29 +3,46 @@
   <div class="exemplos-grid">
     <div 
       class="exemplo-card"
-      *ngFor="let exemplo of [1,2,3,4,5,6,7,8,9,10]"
+      *ngFor="let exemplo of exemplos"
       (mouseenter)="mostrarPreview(exemplo, $event)"
-      (mouseleave)="esconderPreview()">
-      Exemplo {{ exemplo }}
+      (mouseleave)="esconderPreviewComDelay()">
+      
+      <img 
+        [src]="exemplo.gif"
+        alt="{{ exemplo.titulo }}"
+        class="exemplo-gif">
+      
+      <span class="titulo">{{ exemplo.titulo }}</span>
     </div>
   </div>
 </div>
 
-<!-- Preview flutuante em formato de balão -->
+<!-- Preview flutuante -->
 <div 
   class="preview-balao"
   *ngIf="previewAtivo"
-  [ngStyle]="{ top: previewTop + 'px', left: previewLeft + 'px' }">
+  [ngStyle]="{ top: previewTop + 'px', left: previewLeft + 'px' }"
+  (mouseenter)="cancelarEsconderPreview()"
+  (mouseleave)="esconderPreviewComDelay()">
+  
+  <div class="preview-conteudo" *ngIf="exemploSelecionado">
 
-  <div class="preview-conteudo">
+    <!-- Título do exercício -->
+    <h4>{{ exemploSelecionado.titulo }}</h4>
+
     <h4>Instruções</h4>
-    <p>Exemplo de instrução para o exercício {{ exemploSelecionado }}.</p>
+    <p>{{ exemploSelecionado.instrucoes }}</p>
 
     <h4>Dados do Exercício</h4>
-    <p>Valores de entrada e contexto do exercício {{ exemploSelecionado }}.</p>
+    <p>{{ exemploSelecionado.dados }}</p>
 
     <h4>Link:</h4>
-    <p><a href="#">https://exemplo.com/{{ exemploSelecionado }}</a></p>
+    <p>
+      <a [href]="exemploSelecionado.link" target="_blank" rel="noopener noreferrer">
+        {{ exemploSelecionado.link }}
+      </a>
+    </p>
   </div>
+
   <div class="balao-seta"></div>
 </div>
