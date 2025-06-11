@@ -8,22 +8,24 @@
     <!-- Instruções -->
     <div class="card">
       <h3>Instruções</h3>
-      <div class="conteudo-bloco">
+      <div class="conteudo-bloco" *ngFor="let instrucao of instrucoes">
         <!-- Conteúdo gerado dinamicamente -->
+         <p>{{ instrucao }}</p>
       </div>
     </div>
 
     <!-- Dados do exercício -->
     <div class="card">
       <h3>Dados do Exercício</h3>
-      <div class="conteudo-bloco">
+      <div class="conteudo-bloco" *ngFor="let dado of dadosExercicio">
         <!-- Conteúdo gerado dinamicamente -->
+         <p>{{ dado.label }}: {{ dado.valor }}</p>
       </div>
     </div>
 
     <!-- Botões de ação -->
     <div class="botoes">
-      <button>Gerar exercícios</button>
+      <button (click)="iniciarExercicio()">Gerar exercícios</button>
       <button>Iniciar - Finalizar</button>
       <button>Ver tutorial</button>
     </div>
