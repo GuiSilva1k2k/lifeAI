@@ -2,35 +2,45 @@
   <app-sidebar></app-sidebar>
 
   <div class="container">
-    <!-- Título principal -->
-    <div class="titulo-exercicio">Nome do Exercício</div>
+    <div class="titulo-exercicio">{{ nomeExercicio }}</div>
 
-    <!-- Instruções -->
     <div class="card">
       <h3>Instruções</h3>
-      <div class="conteudo-bloco" *ngFor="let instrucao of instrucoes">
-        <!-- Conteúdo gerado dinamicamente -->
-         <p>{{ instrucao }}</p>
-      </div>
-    </div>
+      <markdown [data]="instrucoesTexto" class="conteudo-bloco"></markdown>
 
-    <!-- Dados do exercício -->
-    <div class="card">
       <h3>Dados do Exercício</h3>
-      <div class="conteudo-bloco" *ngFor="let dado of dadosExercicio">
-        <!-- Conteúdo gerado dinamicamente -->
-         <p>{{ dado.label }}: {{ dado.valor }}</p>
-      </div>
+      <markdown [data]="dadosExercicioValor" class="conteudo-bloco"></markdown>
     </div>
 
-    <!-- Botões de ação -->
     <div class="botoes">
-      <button (click)="iniciarExercicio()">Gerar exercícios</button>
-      <button>Iniciar - Finalizar</button>
-      <button>Ver tutorial</button>
+      <button (click)="iniciarExercicio()">Gerar exercício</button>
+      <button (click)="alternarStatusExercicio()" [disabled]="!respostaIA">
+        {{ estaExecutando ? "Finalizar" : "Iniciar exercício" }}
+      </button>
     </div>
 
-    <!-- Lista de exemplos com pré-visualização -->
+    <div class="tempo-info" *ngIf="tempoInicio || tempoFim">
+      <h4 *ngIf="estaExecutando" style="color: #00bfa5; margin-top: 0">
+        ✅ Seu exercício foi iniciado
+      </h4>
+      <h4 *ngIf="!estaExecutando && tempoFim" style="color: #f44336; margin-top: 0">
+        ⏹️ Exercício finalizado
+      </h4>
+
+      <h3>🕒 Tempo do Exercício</h3>
+      <hr />
+
+      <p *ngIf="tempoInicio">
+        <strong>Início:</strong> {{ tempoInicio | date : "HH:mm" }}
+      </p>
+      <p *ngIf="tempoFim">
+        <strong>Fim:</strong> {{ tempoFim | date : "HH:mm" }}
+      </p>
+      <p *ngIf="tempoFim">
+        <strong>Duração:</strong> {{ calcularDuracao() }} segundos
+      </p>
+    </div>
+
     <app-exemplos-exercicio></app-exemplos-exercicio>
   </div>
 </div>

@@ -1,10 +1,10 @@
-:host {
+mande compelto voce nao enntendeu eu queor o tempo no lado direito da tela do lado dos dois nao quero mexer nos dois :host {
   display: block;
   height: 100vh;
   background-color: #0e1b24;
   color: #fff;
   font-family: 'Inter', sans-serif;
-  overflow-y: auto; /* Rolagem vertical se o conteúdo exceder */
+  overflow-y: auto;
 }
 
 .layout {
@@ -19,7 +19,7 @@
   flex-direction: column;
   align-items: center;
   padding: 2rem;
-  overflow-y: auto; /* Rolagem vertical se necessário */
+  overflow-y: auto;
   box-sizing: border-box;
   width: 100%;
 }
@@ -50,20 +50,28 @@
 }
 
 .card h3 {
+  margin-top: 2rem;
   margin-bottom: 0.75rem;
   color: #00bfa5;
   font-size: 1.2rem;
+  border-top: 1px solid #263544;
+  padding-top: 1rem;
+}
+
+.card h3:first-of-type {
+  margin-top: 0;
+  border-top: none;
+  padding-top: 0;
 }
 
 .conteudo-bloco {
-  background-color: #0e1b24;
-  height: 120px;
-  border-radius: 10px;
-  border: 1px solid #263544;
-  padding: 1rem;
-  color: #e2e8f0;
+  background-color: transparent;
+  padding: 0.5rem 0;
+  border: none;
+  box-shadow: none;
+  margin-bottom: 0;
   font-size: 1rem;
-  overflow-y: auto;
+  color: #e2e8f0;
 }
 
 .botoes {
@@ -89,4 +97,60 @@ button {
 button:hover {
   background-color: #009e8c;
   transform: scale(1.05);
+}
+
+.conteudo {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.tempo-info {
+  position: absolute;
+  top: 100px; /* Ajuste conforme a posição vertical desejada */
+  right: 40px; /* Distância da borda direita */
+  background-color: #1e2a36;
+  border: 1px solid #263544;
+  border-radius: 16px;
+  padding: 1rem;
+  color: #e2e8f0;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  text-align: left;
+  z-index: 10;
+
+  display: inline-block;         /* Faz o tamanho se adaptar ao conteúdo */
+  width: auto;                   /* Largura automática */
+  min-width: 200px;              /* Proteção contra ficar estreito demais */
+  max-width: 90vw;               /* Para evitar ultrapassar a tela */
+  height: auto;                  /* Altura automática com base no conteúdo */
+  max-height: 90vh;              /* Prevenção contra exageros */
+  overflow-wrap: break-word;     /* Quebra de texto se necessário */
+  word-break: break-word;
+}
+
+.tempo-info p {
+  margin: 0.5rem 0;
+}
+
+.tempo-info strong {
+  color: #00bfa5;
+}
+
+.tempo-info h4 {
+  margin-top: 0;
+  color: #00bfa5;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.tempo-info hr {
+  border: none;
+  border-top: 1px solid #263544;
+  margin: 0.5rem 0;
 }
