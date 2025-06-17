@@ -21,7 +21,7 @@ html, body {
 
 .rotina-page-grid {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr 2fr 1fr;
   gap: 2rem;
   padding: 2rem;
   background-color: #0e1b24;
@@ -35,6 +35,13 @@ html, body {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+}
+
+.col-mid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  flex: 1;
 }
 
 .col-direita {

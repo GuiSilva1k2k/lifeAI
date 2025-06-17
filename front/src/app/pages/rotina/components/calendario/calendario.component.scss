@@ -6,7 +6,6 @@
 }
 
 :host ::ng-deep mat-calendar {
-  width: 100%;
   max-width: 100%;
   display: block;
   background-color: #0f202a;
@@ -22,7 +21,7 @@
 :host ::ng-deep .mat-calendar-table-header th,
 :host ::ng-deep .mat-calendar-body-cell,
 :host ::ng-deep .mat-calendar-body-cell-content {
-  color: #00c8c8 !important;
+  color: aliceblue !important;
   transition: color 0.3s ease;
 }
 
