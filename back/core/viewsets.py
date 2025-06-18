@@ -79,8 +79,10 @@ class ImcCreateAPIView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request):
-        serializer = ImcSerializer(data=request.data)
-        if serializers.ImcSerializer.is_valid():
+        serializer = serializers.ImcSerializer(data=request.data)
+        if serializer.is_valid():
+            idade = serializer.validated_data['idade']
+            sexo = serializer.validated_data['sexo']
             peso = serializer.validated_data['peso']
             altura = serializer.validated_data['altura']
             imc_valor = peso / (altura ** 2)
@@ -97,6 +99,10 @@ class ImcCreateAPIView(APIView):
 
             imc_obj = serializer.save(
                 id_usuario=request.user,
+                idade=idade,
+                sexo=sexo,
+                peso=peso,
+                altura=altura,
                 imc_res=imc_valor,
                 classificacao=classificacao
             )

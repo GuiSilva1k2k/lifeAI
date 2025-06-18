@@ -2,25 +2,30 @@ import { Component } from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartType, ChartConfiguration } from 'chart.js';
 import { CommonModule } from '@angular/common';
+import { GraficoImcComponent } from '../calculo-imc/grafico-imc/grafico-imc.component';
 
 @Component({
   selector: 'app-grafico',
   standalone: true,
-  imports: [CommonModule, BaseChartDirective],
+  imports: [CommonModule, BaseChartDirective, GraficoImcComponent ],
   templateUrl: './grafico.component.html',
   styleUrl: './grafico.component.scss'
 })
 export class GraficoComponent {
-  currentView: 'atividades' | 'desempenho' = 'atividades';
+  currentView: 'atividades' | 'desempenho' | 'imc' = 'atividades';
 
   get chartType(): ChartType {
     return 'bar'; 
   }
 
   get chartTitle(): string {
-    return this.currentView === 'atividades'
-      ? 'Atividades Realizadas'
-      : 'Desempenho Semanal (Dias com Exercício)';
+    if (this.currentView === 'atividades') {
+      return 'Atividades Realizadas';
+    } else if (this.currentView === 'desempenho') {
+      return 'Desempenho Semanal (Dias com Exercício)';
+    } else {
+      return 'Gráfico de IMC';
+    }
   }
 
   get chartOptions(): ChartConfiguration['options'] {
@@ -104,7 +109,7 @@ export class GraficoComponent {
     }
   }
 
-  switchView(view: 'atividades' | 'desempenho') {
+  switchView(view: 'atividades' | 'desempenho' | 'imc') {
     this.currentView = view;
   }
 }

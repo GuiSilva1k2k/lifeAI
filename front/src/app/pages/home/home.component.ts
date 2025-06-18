@@ -6,6 +6,7 @@ import { SidebarComponent } from '../../sidebar/sidebar.component';
 import { GraficoComponent } from "./grafico/grafico.component";
 import { ResumoComponent } from "./resumo/resumo.component";
 import { CalculoImcComponent } from './calculo-imc/calculo-imc.component';
+import { GraficoImcComponent } from './calculo-imc/grafico-imc/grafico-imc.component';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +18,8 @@ import { CalculoImcComponent } from './calculo-imc/calculo-imc.component';
     SidebarComponent,
     GraficoComponent,
     ResumoComponent,
-    CalculoImcComponent
+    CalculoImcComponent,
+    GraficoImcComponent
 ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']

@@ -3,11 +3,15 @@
   <div class="view-toggle">
     <button [class.active]="currentView === 'atividades'" (click)="switchView('atividades')">Atividades</button>
     <button [class.active]="currentView === 'desempenho'" (click)="switchView('desempenho')">Desempenho</button>
+    <button [class.active]="currentView === 'imc'" (click)="switchView('imc')">Desempenho IMC</button>
   </div>
 </div>
 
-<canvas baseChart
-  [data]="chartData"
-  [options]="chartOptions"
-  [type]="chartType">
+<canvas *ngIf="currentView !== 'imc'"
+        baseChart
+        [data]="chartData"
+        [options]="chartOptions"
+        [type]="chartType">
 </canvas>
+
+<app-grafico-imc *ngIf="currentView === 'imc'"></app-grafico-imc>
