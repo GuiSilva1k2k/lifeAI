@@ -1,0 +1,20 @@
+<div class="container">
+  <h1 class="title-container" >Calcular IMC</h1>
+  <form [formGroup]="form" (ngSubmit)="calcularIMC()">
+    <label for="idade">idade</label>
+    <input id="idade" type="number" formControlName="idade" />
+
+    <label for="altura">altura</label>
+    <input id="altura" type="number" formControlName="altura"/>
+
+    <label for="peso">peso</label>
+    <input id="peso" type="number" formControlName="peso"/>
+
+    <button type="submit" [disabled]="form.invalid">calcular</button>
+  </form>
+
+  <div *ngIf="resultado">
+    <p>IMC: {{ resultado | number:'1.1-2' }}</p>
+    <p>{{ classificacao }}</p>
+  </div>
+</div>

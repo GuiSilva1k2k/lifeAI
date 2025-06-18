@@ -1,0 +1,68 @@
+.container {
+  width: 100%;
+  max-width: 300px;
+  margin: 0;
+  padding: 2rem;
+  border-radius: 10px;
+  background-color: #13212f;
+  color: white;
+  font-family: 'Arial', sans-serif;
+}
+
+.title-container{
+    text-align: center;
+    color: #00c8c8;
+    font-size: 20px;
+}
+
+label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: bold;
+  color: white;
+}
+
+input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.3rem;
+  border-radius: 6px;
+  border: 1px solid #444;
+  background-color: #1e2a36;
+  color: white;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+button {
+  width: 100%;
+  margin-top: 1.5rem;
+  padding: 0.6rem;
+  font-weight: bold;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  border: none;
+  background-color: #00bfa5;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #00a892;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+div p {
+  margin-top: 1rem;
+  text-align: center;
+  color: white;
+}

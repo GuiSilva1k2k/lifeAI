@@ -22,7 +22,6 @@ export class ResumoComponent implements OnInit {
   ngOnInit() {
     this.chatService.respostas$.subscribe(res => {
       this.respostas = res;
-      
     });
 
     this.consultaImcBase().subscribe({
