@@ -21,6 +21,11 @@ class ImcSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         validated_data['id_usuario'] = self.context['request'].user
         return super().create(validated_data)
+    
+class DesempenhoImcGrafico(serializers.ModelSerializer):
+    class Meta:
+        model = imc
+        fields = ['data_consulta', 'imc_res']
 
 class ImcBaseSerializer(serializers.ModelSerializer):
     class Meta:

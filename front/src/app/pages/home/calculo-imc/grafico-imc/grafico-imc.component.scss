@@ -1,0 +1,25 @@
+:host {
+  display: block;
+  width: 100%;
+  height: 450px;
+  max-height: 450px;
+  background: #13212f; 
+  border-radius: 15px;
+  padding: 25px;
+  box-sizing: border-box;
+}
+
+canvas {
+  width: 100% !important;
+  height: calc(100% - 70px) !important;
+  max-height: 400px !important;
+  display: block;
+}
+
+.chartjs-render-monitor + .chartjs-legend {
+  max-height: 100px;
+  overflow-y: auto;
+  color: #ccc;
+  font-size: 12px;
+  padding-top: 8px;
+}
