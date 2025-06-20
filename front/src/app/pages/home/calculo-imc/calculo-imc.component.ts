@@ -25,11 +25,16 @@ export class CalculoImcComponent implements OnInit {
 
   idade: number = 0;
   sexo: string = '';
+  
+  mensagemAlerta: string | null = null;
+  mostrarToast: boolean = false;
+  tipoToast: 'erro' | 'sucesso' = 'sucesso'; // novo campo
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.form = this.fb.group({
       altura: [null, [Validators.required, Validators.min(0.1)]],
       peso: [null, [Validators.required, Validators.min(0.1)]],
+      data_consulta: ['', [Validators.required]]
     });
   }
   
@@ -48,6 +53,17 @@ export class CalculoImcComponent implements OnInit {
     });
   }
 
+  exibirToast(mensagem: string, tipo: 'erro' | 'sucesso' = 'sucesso', duracaoMs: number = 3000): void {
+    this.mensagemAlerta = mensagem;
+    this.tipoToast = tipo;
+    this.mostrarToast = true;
+
+    setTimeout(() => {
+      this.mostrarToast = false;
+      this.mensagemAlerta = null;
+    }, duracaoMs);
+  }
+
   consultaImcBase(): Observable<any> {
     const token = localStorage.getItem('access_token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
@@ -56,30 +72,39 @@ export class CalculoImcComponent implements OnInit {
 
   calcularIMC(): void {
     if (this.form.valid) {
-      const { peso, altura } = this.form.value;
+      const { peso, altura, data_consulta } = this.form.value;
 
       const payload = {
         peso,
         altura,
+        data_consulta,
         idade: this.idade,
         sexo: this.sexo
       };
 
       const token = localStorage.getItem('access_token');
       const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+      
 
       this.http.post<any>('http://localhost:8000/imc/', payload, { headers }).subscribe({
         next: (resposta) => {
           this.resultado = resposta.imc_valor;
           this.classificacao = resposta.classificacao;
+          this.exibirToast('IMC registrado com sucesso!', 'sucesso');
           console.log('IMC salvo com sucesso!');
+          this.form.reset();
         },
         error: (err) => {
           console.error('Erro ao salvar/calcular IMC:', err);
+          const erroData = err.error?.data_consulta;
+          if (erroData && erroData.length > 0) {
+            this.exibirToast(erroData[0], 'erro');
+          } else {
+            this.exibirToast('Erro ao salvar o IMC.', 'erro');
+          }
         }
       });
 
-      this.form.reset();
     }
   }
 }

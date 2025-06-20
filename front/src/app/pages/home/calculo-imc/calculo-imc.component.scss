@@ -66,3 +66,37 @@ div p {
   text-align: center;
   color: white;
 }
+
+.toast-alert {
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 14px 24px;
+  border-radius: 10px;
+  font-size: 1rem;
+  z-index: 9999;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  animation: fadeInDownOut 3s ease-in-out;
+  color: white;
+}
+
+.toast-alert.erro {
+  background-color: #ff4d4f;
+}
+
+.toast-alert.sucesso {
+  background-color: #4caf50;
+}
+
+@keyframes fadeInDownOut {
+  0%   { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+  10%  { opacity: 1; transform: translateX(-50%) translateY(0); }
+  90%  { opacity: 1; transform: translateX(-50%) translateY(0); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+}
+
+
+
+

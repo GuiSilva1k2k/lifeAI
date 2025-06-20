@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class imc(models.Model):
-    data_consulta = models.DateField(db_column='data_consulta', auto_now_add=True)
+    data_consulta = models.DateField(db_column='data_consulta')
     idade = models.IntegerField(db_column='idade', null=False)
     sexo = models.CharField(db_column='sexo', max_length=10, null=False)
     peso = models.FloatField(db_column='peso', null=False)
