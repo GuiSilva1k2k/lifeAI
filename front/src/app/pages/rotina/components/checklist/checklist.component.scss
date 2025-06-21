@@ -4,7 +4,7 @@
 
 .checklist-wrapper {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr 1fr;
   gap: 1rem 2rem;
   padding: 0.5rem 0;
 
@@ -16,7 +16,6 @@
       width: 100%;
       font-size: 0.95rem;
       font-weight: 500;
-      color: #00c8c8;
       transition: background-color 0.2s ease;
 
       &:hover {
@@ -26,7 +25,7 @@
 
       ::ng-deep .mat-checkbox-label {
         white-space: normal;
-        color: #00c8c8;
+        color: #00c8c8 !important;
       }
 
       ::ng-deep .mat-checkbox-inner-container {
@@ -38,5 +37,23 @@
         background-color: #00c8c8 !important;
       }
     }
+  }
+}
+
+button {
+  grid-column: span 2;
+  justify-self: start;
+  padding: 0.5rem 1.2rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  background-color: #00c8c8;
+  color: #0d1c27;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #00e6a3;
   }
 }

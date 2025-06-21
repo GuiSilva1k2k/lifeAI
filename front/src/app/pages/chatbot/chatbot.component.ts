@@ -2,7 +2,7 @@ import {
   Component,
   ViewChild,
   ElementRef,
-  AfterViewInit,
+  AfterViewInit
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -85,34 +85,86 @@ export class ChatbotComponent implements AfterViewInit {
     this.scrollToBottom();
   }
 
+  private repeatQuestion(errorMsg: string, question: string) {
+    this.sendBotMessage(`${errorMsg} ${question}`);
+  }
+
   handleUserInput() {
     const input = this.inputText.trim();
     if (!input) return;
 
     this.sendUserMessage(input);
 
+    let isValid = true;
+
     switch (this.step) {
-      case 0:
+      case 0: {
+        isValid = /^[a-zA-Z\s]{2,}$/.test(input);
+        if (!isValid) {
+          this.repeatQuestion('Nome inválido.', 'Qual é o seu nome?');
+          return;
+        }
         this.answers.nome = input;
         this.sendBotMessage(`Prazer em te conhecer, ${input}! Quantos anos você tem?`);
         break;
-      case 1:
-        this.answers.idade = input;
+      }
+
+      case 1: {
+        const idade = Number(input);
+        isValid = !isNaN(idade) && idade >= 10 && idade <= 120;
+        if (!isValid) {
+          this.repeatQuestion('Idade inválida.', 'Quantos anos você tem?');
+          return;
+        }
+        this.answers.idade = idade;
         this.sendBotMessage('Legal! E quanto você está pesando atualmente (em kg)?');
         break;
-      case 2:
-        this.answers.peso = input;
+      }
+
+      case 2: {
+        const peso = Number(input);
+        isValid = !isNaN(peso) && peso >= 20 && peso <= 400;
+        if (!isValid) {
+          this.repeatQuestion('Peso inválido.', 'Informe seu peso em kg:');
+          return;
+        }
+        this.answers.peso = peso;
         this.sendBotMessage('Beleza. Agora me diz sua altura (em centímetros)?');
         break;
-      case 3:
-        this.answers.altura = input;
+      }
+
+      case 3: {
+        const altura = Number(input);
+        isValid = !isNaN(altura) && altura >= 50 && altura <= 250;
+        if (!isValid) {
+          this.repeatQuestion('Altura inválida.', 'Informe sua altura em centímetros:');
+          return;
+        }
+        this.answers.altura = altura;
         this.sendBotMessage('Certo! E qual é o seu sexo?');
         break;
-      case 4:
-        this.answers.sexo = input;
+      }
+
+      case 4: {
+        const sexo = input.toLowerCase();
+        const opcoesValidas = ['masculino', 'feminino', 'outro'];
+        isValid = opcoesValidas.includes(sexo);
+        if (!isValid) {
+          this.repeatQuestion('Sexo inválido.', 'Escolha entre: Masculino, Feminino ou Outro.');
+          return;
+        }
+        this.answers.sexo = sexo;
         this.sendBotMessage('Estamos quase lá! Qual é o seu principal objetivo? (ex: perder peso, ganhar massa, manter saúde)');
         break;
-      case 5:
+      }
+
+      case 5: {
+        isValid = input.length >= 3;
+        if (!isValid) {
+          this.repeatQuestion('Objetivo muito curto.', 'Descreva seu principal objetivo (ex: perder peso, ganhar massa).');
+          return;
+        }
+
         this.answers.objetivo = input;
 
         const alturaM = parseFloat(this.answers.altura) / 100;
@@ -136,17 +188,17 @@ export class ChatbotComponent implements AfterViewInit {
           }
 
           this.answers.classificacao = classificacao;
-
         } else {
           this.answers.imc_res = 'Não calculado';
-          this.answers.imc_classificacao = 'Classificação indisponível';
+          this.answers.classificacao = 'Classificação indisponível';
         }
 
-        this.sendBotMessage(`Seu IMC é ${this.answers.imc}. Obrigado pelas informações, ${this.answers.nome}! Estamos analisando tudo para te ajudar da melhor forma possível...`);
+        this.sendBotMessage(`Seu IMC é ${this.answers.imc_res}. Obrigado pelas informações, ${this.answers.nome}! Estamos analisando tudo para te ajudar da melhor forma possível...`);
         this.sendToBackend();
         this.ImcPerfilBase();
         setTimeout(() => this.router.navigate(['home']), 100);
         break;
+      }
     }
 
     this.inputText = '';
@@ -167,12 +219,10 @@ export class ChatbotComponent implements AfterViewInit {
   }
 
   sendToBackend() {
-    console.log('Dados coletados:', this.answers);
     this.chatService.setRespostas(this.answers);
   }
 
   ImcPerfilBase() {
-    // Aqui você pode já ter os dados populados conforme o chatbot avança
     this.ImcBaseService.enviarImcBase(this.answers).subscribe({
       next: (res) => {
         console.log('Dados enviados com sucesso!', res);

@@ -1,0 +1,11 @@
+<div class="dicas-container">
+
+  <div class="recomendacoes-markdown" *ngIf="recomendacoesMarkdown">
+    <markdown [data]="recomendacoesMarkdown"></markdown>
+  </div>
+
+  <div class="loading" *ngIf="!recomendacoesMarkdown">
+    <span class="spinner"></span>
+    <p>Gerando recomendações com base no seu perfil...</p>
+  </div>
+</div>

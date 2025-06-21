@@ -14,7 +14,6 @@ import { FormsModule } from '@angular/forms';
 export class IndexComponent implements OnInit {
   formType: 'login' | 'register' = 'login';
 
-  // Registro/Login
   username = '';
   email = '';
   password = '';
@@ -25,7 +24,6 @@ export class IndexComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    // Exibe por padrão o formulário de registro
     this.showForm('register');
   }
 
@@ -35,48 +33,70 @@ export class IndexComponent implements OnInit {
     this.successMsg = '';
   }
 
+  isValidEmail(email: string): boolean {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  isValidPassword(password: string): boolean {
+    return password.length >= 6;
+  }
+
   onRegister(): void {
-  const userData = {
-    username: this.username,
-    email: this.email,
-    password: this.password,
-  };
+    if (!this.username.trim()) {
+      this.errorMsg = 'Nome de usuário é obrigatório.';
+      return;
+    }
 
-  this.authService.registerUser(userData).subscribe({
-    next: (response) => {
-      this.successMsg = response?.message || 'Registrado com sucesso!';
-      this.errorMsg = '';
+    if (!this.isValidEmail(this.email)) {
+      this.errorMsg = 'E-mail inválido.';
+      return;
+    }
 
-      // Salva os tokens
-      this.authService.saveToken(response.access);
-      localStorage.setItem('refresh_token', response.refresh);
+    if (!this.isValidPassword(this.password)) {
+      this.errorMsg = 'A senha deve ter pelo menos 6 caracteres.';
+      return;
+    }
 
-      // Sinaliza que o usuário está logado
-      this.authService.setLoggedIn(true);
+    const userData = {
+      username: this.username,
+      email: this.email,
+      password: this.password,
+    };
 
-      // Redireciona
-      this.router.navigate(['chatbot']);
-    },
-    error: (err) => {
-      this.errorMsg = err.error.message || 'Erro ao registrar.';
-      this.successMsg = '';
-    },
-  });
-}
+    this.authService.registerUser(userData).subscribe({
+      next: (response) => {
+        this.successMsg = response?.message || 'Registrado com sucesso!';
+        this.errorMsg = '';
+        this.authService.saveToken(response.access);
+        localStorage.setItem('refresh_token', response.refresh);
+        this.authService.setLoggedIn(true);
+        this.router.navigate(['chatbot']);
+      },
+      error: (err) => {
+        this.errorMsg = err.error.message || 'Erro ao registrar.';
+        this.successMsg = '';
+      },
+    });
+  }
 
   onLogin(): void {
+    if (!this.isValidEmail(this.email)) {
+      this.errorMsg = 'E-mail inválido.';
+      return;
+    }
+
+    if (!this.isValidPassword(this.password)) {
+      this.errorMsg = 'A senha deve ter pelo menos 6 caracteres.';
+      return;
+    }
+
     const data = { email: this.email, password: this.password };
 
     this.authService.loginUser(data).subscribe({
       next: (res) => {
-        console.log('Login bem-sucedido!', res.access);
-        // Salva os tokens
         this.authService.saveToken(res.access);
         localStorage.setItem('refresh_token', res.refresh);
-
-        // Sinaliza que o usuário está logado
         this.authService.setLoggedIn(true);
-        console.log('Resposta do login:', res);
         this.router.navigate(['home']);
       },
       error: (err) => {

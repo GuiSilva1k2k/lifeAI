@@ -7,9 +7,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-resumo',
   standalone: true,
-  imports: [
-    CommonModule,
-  ],
+  imports: [CommonModule],
   templateUrl: './resumo.component.html',
   styleUrl: './resumo.component.scss'
 })
@@ -20,13 +18,23 @@ export class ResumoComponent implements OnInit {
   constructor(private chatService: ChatService, private http: HttpClient) {}
 
   ngOnInit() {
+    // Carrega do localStorage, se houver
+    const salvas = localStorage.getItem('resumoRespostas');
+    if (salvas) {
+      this.respostas = JSON.parse(salvas);
+    }
+
+    // Escuta atualizações do ChatService e salva sempre que mudar
     this.chatService.respostas$.subscribe(res => {
-      this.respostas = res;
+      if (res) {
+        this.respostas = res;
+        localStorage.setItem('resumoRespostas', JSON.stringify(res));
+      }
     });
 
     this.consultaImcBase().subscribe({
-      next: (dados) => this.registros = dados,
-      error: (err) => console.error('Erro ao consultar IMC base:', err)
+      next: dados => (this.registros = dados),
+      error: err => console.error('Erro ao consultar IMC base:', err)
     });
   }
 

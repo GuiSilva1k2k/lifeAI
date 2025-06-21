@@ -1,4 +1,6 @@
 <div class="checklist-wrapper">
+  <button mat-raised-button color="primary" (click)="gerarChecklist()">Gerar Checklist</button>
+
   <div class="checkbox-wrapper" *ngFor="let tarefa of tarefas">
     <mat-checkbox
       [(ngModel)]="tarefa.feito"
