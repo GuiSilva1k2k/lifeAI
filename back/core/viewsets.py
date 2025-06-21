@@ -120,9 +120,16 @@ class DesempenhoImc(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
-        # Filtra apenas os registros do usuário logado
         registros = serializers.imc.objects.filter(id_usuario=request.user).order_by('-id')
         serializer = serializers.DesempenhoImcGrafico(registros, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class RegistrosImc(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        registros = serializers.imc.objects.filter(id_usuario=request.user).order_by('-id')
+        serializer = serializers.ImcSerializer(registros, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
 class ImcBaseAPIView(APIView):

@@ -63,7 +63,7 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     const token = this.getToken();
-    const logged = !!token;
+    const logged = !!token && !this.isTokenExpired();
     this.loggedIn.next(logged);
     return logged;
   }
@@ -110,7 +110,16 @@ export class AuthService {
   }
 
   private hasToken(): boolean {
-    return !!localStorage.getItem('access_token');
+    const token = this.getToken();
+    if (!token) return false;
+
+    try {
+      const decoded: any = jwtDecode(token);
+      const now = Math.floor(Date.now() / 1000);
+      return decoded.exp > now;
+    } catch {
+      return false;
+    }
   }
 
   private handleError(error: HttpErrorResponse) {

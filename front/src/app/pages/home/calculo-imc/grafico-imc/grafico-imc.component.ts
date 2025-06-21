@@ -44,8 +44,8 @@ export class GraficoImcComponent {
         borderColor: '#007a7a',
         fill: false,
         tension: 0.3,
-        pointRadius: 6,         // Tamanho da bolinha visível
-        pointHoverRadius: 8,    // Tamanho ao passar o mouse
+        pointRadius: 6,
+        pointHoverRadius: 8,
       }
     ]
   };

@@ -19,3 +19,11 @@ export interface imcBase {
   imc_res: number;
   objetivo: string;
 }
+
+export interface historicoConsultas {
+  data_consulta: string;
+  peso: number;
+  altura: number;
+  imc_res: number;
+  classificacao: string;
+}

@@ -5,27 +5,15 @@
     <main class="dashboard">
       <section class="topo-dashboard">
         <div class="cards-superiores">
-          <div class="card">
-            <span class="material-icons icon">local_fire_department</span>
-            <h3>Consumo calórico</h3>
-            <p>Valor: --</p>
-          </div>
-          <div class="card">
-            <span class="material-icons icon">bedtime</span>
-            <h3>Qualidade do Sono</h3>
-            <p>Valor: --</p>
-          </div>
-          <div class="card">
-            <span class="material-icons icon">opacity</span>
-            <h3>Hidratação</h3>
-            <p>Valor: --</p>
-          </div>
+          <aside>
+            <app-calculo-imc></app-calculo-imc>
+          </aside>
+          
+          <aside>
+            <app-historico-registros></app-historico-registros>
+          </aside>
         </div>
-
-        <aside>
-          <app-calculo-imc></app-calculo-imc>
-        </aside>
-
+        
         <aside class="imc-resumo">
           <app-resumo></app-resumo>
         </aside>
