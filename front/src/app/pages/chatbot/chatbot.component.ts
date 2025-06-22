@@ -117,7 +117,7 @@ export class ChatbotComponent implements AfterViewInit {
           return;
         }
         this.answers.idade = idade;
-        this.sendBotMessage('Legal! E quanto você está pesando atualmente (em kg)?');
+        this.sendBotMessage('Legal! E quanto você está pesando atualmente (em kg) ?');
         break;
       }
 
@@ -129,19 +129,36 @@ export class ChatbotComponent implements AfterViewInit {
           return;
         }
         this.answers.peso = peso;
-        this.sendBotMessage('Beleza. Agora me diz sua altura (em centímetros)?');
+        this.sendBotMessage('Beleza. Agora me diz sua altura (em centímetros ou metros, ex: 180 ou 1.80) :');
         break;
       }
 
       case 3: {
-        const altura = Number(input);
-        isValid = !isNaN(altura) && altura >= 50 && altura <= 250;
-        if (!isValid) {
-          this.repeatQuestion('Altura inválida.', 'Informe sua altura em centímetros:');
+        let altura = input.replace(',', '.');
+        const alturaNum = parseFloat(altura);
+        let alturaCm: number;
+
+        if (!isNaN(alturaNum)) {
+          if (alturaNum >= 3) {
+            alturaCm = alturaNum;
+          } else if (alturaNum > 0 && alturaNum < 3) {
+            alturaCm = alturaNum * 100;
+          } else {
+            this.repeatQuestion('Altura inválida.', 'Informe sua altura em centímetros ou metros (ex: 180 ou 1.80) :');
+            return;
+          }
+
+          if (alturaCm < 50 || alturaCm > 250) {
+            this.repeatQuestion('Altura inválida.', 'Informe sua altura em centímetros entre 50 e 250:');
+            return;
+          }
+
+          this.answers.altura = alturaCm;
+          this.sendBotMessage('Certo! E qual é o seu sexo?');
+        } else {
+          this.repeatQuestion('Altura inválida.', 'Informe sua altura em centímetros ou metros (ex: 180 ou 1.80) :');
           return;
         }
-        this.answers.altura = altura;
-        this.sendBotMessage('Certo! E qual é o seu sexo?');
         break;
       }
 

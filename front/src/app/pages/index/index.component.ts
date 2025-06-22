@@ -21,6 +21,8 @@ export class IndexComponent implements OnInit {
   errorMsg = '';
   successMsg = '';
 
+  currentYear: number = new Date().getFullYear(); // Para o rodapé dinâmico
+
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
@@ -108,5 +110,12 @@ export class IndexComponent implements OnInit {
 
   isActive(button: 'login' | 'register'): boolean {
     return this.formType === button;
+  }
+
+  scrollToSection(id: string): void {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
   }
 }

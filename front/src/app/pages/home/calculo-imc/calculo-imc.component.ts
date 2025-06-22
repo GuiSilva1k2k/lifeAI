@@ -18,17 +18,14 @@ export class CalculoImcComponent implements OnInit {
 
   form: FormGroup = new FormGroup({});
   resultado: number | null = null;
-
   registros: any[] = [];
-
   classificacao: string = '';
-
   idade: number = 0;
   sexo: string = '';
-  
   mensagemAlerta: string | null = null;
   mostrarToast: boolean = false;
-  tipoToast: 'erro' | 'sucesso' = 'sucesso'; // novo campo
+  tipoToast: 'erro' | 'sucesso' = 'sucesso';
+  maxDate: string = '';
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.form = this.fb.group({
@@ -36,13 +33,13 @@ export class CalculoImcComponent implements OnInit {
       peso: [null, [Validators.required, Validators.min(0.1)]],
       data_consulta: ['', [Validators.required]]
     });
+    this.maxDate = this.getLocalDate();
   }
-  
+
   ngOnInit() {
     this.consultaImcBase().subscribe({
       next: (dados) => {
         this.registros = dados;
-
         if (this.registros.length > 0) {
           const usuario = this.registros[0];
           this.idade = usuario.idade;
@@ -53,11 +50,18 @@ export class CalculoImcComponent implements OnInit {
     });
   }
 
+  getLocalDate(): string {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = (today.getMonth() + 1).toString().padStart(2, '0');
+    const day = today.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
   exibirToast(mensagem: string, tipo: 'erro' | 'sucesso' = 'sucesso', duracaoMs: number = 3000): void {
     this.mensagemAlerta = mensagem;
     this.tipoToast = tipo;
     this.mostrarToast = true;
-
     setTimeout(() => {
       this.mostrarToast = false;
       this.mensagemAlerta = null;
@@ -73,25 +77,14 @@ export class CalculoImcComponent implements OnInit {
   calcularIMC(): void {
     if (this.form.valid) {
       const { peso, altura, data_consulta } = this.form.value;
-
-      const payload = {
-        peso,
-        altura,
-        data_consulta,
-        idade: this.idade,
-        sexo: this.sexo
-      };
-
+      const payload = { peso, altura, data_consulta, idade: this.idade, sexo: this.sexo };
       const token = localStorage.getItem('access_token');
       const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-      
-
       this.http.post<any>('http://localhost:8000/imc/', payload, { headers }).subscribe({
         next: (resposta) => {
-          this.resultado = resposta.imc_valor;
+          this.resultado = resposta.imc_res;
           this.classificacao = resposta.classificacao;
           this.exibirToast('IMC registrado com sucesso!', 'sucesso');
-          console.log('IMC salvo com sucesso!');
           this.form.reset();
         },
         error: (err) => {
@@ -104,7 +97,6 @@ export class CalculoImcComponent implements OnInit {
           }
         }
       });
-
     }
   }
 }

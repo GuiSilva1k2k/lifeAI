@@ -1,21 +1,22 @@
 <div class="container">
   <h1 class="title-container" >Calcular IMC</h1>
   <form [formGroup]="form" (ngSubmit)="calcularIMC()">
-    <label for="altura">altura</label>
+
+    <label for="altura">Altura</label>
     <input id="altura" type="number" formControlName="altura"/>
 
-    <label for="peso">peso</label>
+    <label for="peso">Peso</label>
     <input id="peso" type="number" formControlName="peso"/>
 
     <!-- Campo de data simples -->
     <label for="data_consulta">Data</label>
-    <input id="data_consulta" type="date" formControlName="data_consulta" />
+    <input id="data_consulta" type="date" formControlName="data_consulta" [max]="maxDate" />
 
     <div *ngIf="mostrarToast" class="toast-alert" [ngClass]="tipoToast">
       {{ mensagemAlerta }}
     </div>
 
-    <button type="submit" [disabled]="form.invalid">calcular</button>
+    <button type="submit" [disabled]="form.invalid">Calcular</button>
   </form>
 
   <div *ngIf="resultado !== null">

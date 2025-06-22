@@ -6,7 +6,6 @@
   color: #00c8c8 !important;
 }
 
-
 .tabela_historico {
   width: 100%;
   margin: 0;
@@ -14,4 +13,39 @@
   border-radius: 10px;
   background-color: #13212f;
   font-family: 'Arial', sans-serif;
+}
+
+.tabela_historico td,
+.tabela_historico th {
+  vertical-align: middle;
+  padding: 8px 12px;
+}
+
+/* Borda direita só para as células da coluna "classificacao" */
+.tabela_historico .mat-column-classificacao {
+  border-right: 1px solid #ccc;
+}
+
+.tabela_historico button[color="warn"] {
+  padding: 4px;
+  border-radius: 6px;
+  border: 1px solid #ff4d4d;
+  background-color: #ff4d4d;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.tabela_historico button[color="warn"] mat-icon {
+  font-size: 18px;
+  color: #ffffff;
+  justify-content: center;
+  vertical-align: middle;
+}
+
+.tabela_historico button[color="warn"]:hover {
+  background-color: #ff3333;
+}
+
+.tabela_historico mat-icon {
+  vertical-align: middle;
+  font-size: 18px;
 }

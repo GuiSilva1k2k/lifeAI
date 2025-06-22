@@ -5,18 +5,23 @@
     <main class="dashboard">
       <section class="topo-dashboard">
         <div class="cards-superiores">
-          <aside>
-            <app-calculo-imc></app-calculo-imc>
-          </aside>
           
-          <aside>
-            <app-historico-registros></app-historico-registros>
+          <!-- Resumo à esquerda -->
+          <aside class="imc-resumo">
+            <app-resumo></app-resumo>
           </aside>
+
+          <!-- Agrupando cálculo + histórico na direita -->
+          <div class="lado-direito">
+            <aside>
+              <app-calculo-imc></app-calculo-imc>
+            </aside>
+            <aside>
+              <app-historico-registros></app-historico-registros>
+            </aside>
+          </div>
+
         </div>
-        
-        <aside class="imc-resumo">
-          <app-resumo></app-resumo>
-        </aside>
       </section>
 
       <section class="atividades">

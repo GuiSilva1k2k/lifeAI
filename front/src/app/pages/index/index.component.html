@@ -2,19 +2,24 @@
   <header>
     <nav>
       <ul class="nav-menu">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Sobre nós</a></li>
-        <li><a href="#">Contato</a></li>
+        <li>
+          <a href="#sobre-nos" (click)="scrollToSection('sobre-nos')"
+            >Sobre nós</a
+          >
+        </li>
+        <li>
+          <a href="#contato" (click)="scrollToSection('contato')">Contato</a>
+        </li>
       </ul>
       <div class="nav-buttons">
         <button
-          [ngClass]="{ 'active': formType === 'login' }"
+          [ngClass]="{ active: formType === 'login' }"
           (click)="showForm('login')"
         >
           Login
         </button>
         <button
-          [ngClass]="{ 'active': formType === 'register' }"
+          [ngClass]="{ active: formType === 'register' }"
           (click)="showForm('register')"
         >
           Registrar
@@ -29,26 +34,30 @@
       <h1 class="brand">LifeAI</h1>
       <p class="login-prompt">
         Se você já tem uma<br />
-        conta, <strong style="cursor: pointer;" (click)="showForm('login')">faça aqui o login!</strong>
+        conta,
+        <strong style="cursor: pointer" (click)="showForm('login')">
+          faça aqui o login!
+        </strong>
       </p>
     </section>
 
     <!-- Logo ao centro -->
-    <section class="center-section" style="display: flex; justify-content: center">
+    <section
+      class="center-section"
+      style="display: flex; justify-content: center"
+    >
       <img
         src="assets/img/lifeAI_logo.png"
-        alt="LifeAI Logo"
-        style="width: 285px; height: auto; max-width: 100%; object-fit: contain;"
+        alt="Logo da LifeAI"
+        style="width: 285px; height: auto; max-width: 100%; object-fit: contain"
       />
     </section>
 
     <!-- Seção do formulário -->
     <section class="right-section">
-      <!-- Alertas -->
       <div *ngIf="errorMsg" class="alert error">{{ errorMsg }}</div>
       <div *ngIf="successMsg" class="alert success">{{ successMsg }}</div>
 
-      <!-- Formulário de login -->
       <form
         *ngIf="formType === 'login'"
         (ngSubmit)="onLogin()"
@@ -73,7 +82,6 @@
         <button type="submit">Login</button>
       </form>
 
-      <!-- Formulário de registro -->
       <form
         *ngIf="formType === 'register'"
         (ngSubmit)="onRegister()"
@@ -105,18 +113,81 @@
         <button type="submit">Registre-se</button>
       </form>
 
-      <!-- Divider -->
       <div class="divider">Ou continue com:</div>
 
-      <!-- Botões sociais -->
       <div class="social-buttons">
         <button>
-          <img src="https://img.icons8.com/color/48/google-logo.png" alt="Google" />
+          <img
+            src="https://img.icons8.com/color/48/google-logo.png"
+            alt="Login com Google"
+          />
         </button>
         <button>
-          <img src="https://img.icons8.com/fluency/48/facebook-new.png" alt="Facebook" />
+          <img
+            src="https://img.icons8.com/fluency/48/facebook-new.png"
+            alt="Login com Facebook"
+          />
         </button>
       </div>
     </section>
   </main>
+
+  <!-- Seção Sobre Nós -->
+  <section id="sobre-nos" class="extra-section">
+    <h2>Sobre Nós</h2>
+    <div class="team">
+      <a
+        href="https://github.com/dissectedv"
+        target="_blank"
+        rel="noopener"
+        class="member"
+      >
+        <h3>João Sampaio</h3>
+        <p>
+          Desenvolvedor Front-end com foco em interfaces inteligentes e
+          responsivas.
+        </p>
+      </a>
+      <a
+        href="https://github.com/Gust4hib"
+        target="_blank"
+        rel="noopener"
+        class="member"
+      >
+        <h3>Gustavo Santos</h3>
+        <p>
+          Especialista em UX/UI com experiência em design centrado no usuário.
+        </p>
+      </a>
+      <a
+        href="https://github.com/GuiSilva1k2k"
+        target="_blank"
+        rel="noopener"
+        class="member"
+      >
+        <h3>Guilherme Silva</h3>
+        <p>Engenheiro de Software com paixão por IA e automação.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Seção Contato -->
+  <section id="contato" class="extra-section">
+    <h2>Contato</h2>
+    <p>
+      Entre em contato pelo e-mail:
+      <a href="mailto:contato&#64;lifeai.com">lifeaicontato&#64;gmail.com</a>
+    </p>
+  </section>
+
+  <!-- Rodapé -->
+  <footer>
+    <div class="footer-links">
+      <a href="mailto:contato@lifeai.com">Suporte</a>
+      <a href="#">Política de Privacidade</a>
+    </div>
+    <div class="copy">
+      © {{ currentYear }} LifeAI. Todos os direitos reservados.
+    </div>
+  </footer>
 </body>

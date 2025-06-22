@@ -21,6 +21,7 @@ export interface imcBase {
 }
 
 export interface historicoConsultas {
+  id: number; 
   data_consulta: string;
   peso: number;
   altura: number;
