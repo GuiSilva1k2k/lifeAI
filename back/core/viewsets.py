@@ -123,7 +123,7 @@ class RegistrosImc(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
-        registros = serializers.imc.objects.filter(id_usuario=request.user).order_by('-id')
+        registros = serializers.imc.objects.filter(id_usuario=request.user).order_by('-data_consulta')
         serializer = serializers.ImcSerializer(registros, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
