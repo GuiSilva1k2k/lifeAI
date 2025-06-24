@@ -2,6 +2,27 @@
   color: #00c8c8 !important;
 }
 
+.tarefas-scroll {
+  max-height: 40vh;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+  grid-column: span 2;
+
+  // Scrollbar customizada
+  scrollbar-width: thin;
+  scrollbar-color: #00c8c8 transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #00c8c8;
+    border-radius: 4px;
+  }
+}
+
+
 .checklist-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -25,6 +46,65 @@
     transition: background-color 0.2s ease;
 }
 
+.nova-tarefa {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  flex-wrap: wrap;
+
+  mat-form-field {
+    flex: 1 1 200px;
+    min-width: 180px;
+  }
+
+  .input-tarefa {
+    flex: 2 1 300px;
+    padding: 0.5rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    height: 56px; // mesmo que o mat-form-field para alinhar
+  }
+
+  button {
+    padding: 0.4rem;;
+  }
+}
+
+.tarefa-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+
+  .checkbox-item {
+    flex: 1;
+    font-size: 1rem;
+  }
+
+  .editar-input {
+    width: 100%;
+    padding: 0.4rem 0.6rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  button {
+    padding: 0.4rem;
+  }
+}
+
+.input-tarefa {
+  flex: 1 1 250px;
+  padding: 0.6rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
 button {
   grid-column: span 2;
   justify-self: start;
@@ -41,4 +121,72 @@ button {
   &:hover {
     background-color: #00e6a3;
   }
+}
+
+.salvar-wrapper {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+
+  button {
+    background-color: #00c8c8;
+    color: #0d1c27;
+    padding: 0.6rem 2rem;
+    font-weight: bold;
+    
+    &:hover {
+      background-color: #00e6a3;
+    }
+  }
+}
+
+::ng-deep mat-calendar {
+  max-width: 100%;
+  display: block;
+  background-color: #0f202a;
+  border-radius: 1rem;
+  color: #00c8c8;
+  box-sizing: border-box;
+  padding: 1rem;
+  transition: all 0.3s ease;
+}
+
+::ng-deep .mat-calendar-header,
+::ng-deep .mat-calendar-content,
+::ng-deep .mat-calendar-table-header th,
+::ng-deep .mat-calendar-body-cell,
+::ng-deep .mat-calendar-body-cell-content {
+  color: aliceblue !important;
+  transition: color 0.3s ease;
+}
+
+::ng-deep .mat-calendar-body-disabled {
+  color: rgba(0, 200, 200, 0.25) !important;
+}
+
+::ng-deep .mat-calendar-body-selected {
+  background-color: #00c8c8 !important;
+  color: #0e1b24 !important;
+  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-radius: 50%;
+}
+
+::ng-deep .mat-calendar-body-today:not(.mat-calendar-body-selected) {
+  border: 2px solid #00c8c8 !important;
+  border-radius: 50%;
+  transition: border-color 0.3s ease;
+}
+
+::ng-deep .mat-calendar-previous-button,
+::ng-deep .mat-calendar-next-button,
+::ng-deep .mat-calendar-period-button {
+  color: #00c8c8 !important;
+  transition: color 0.3s ease;
+}
+::ng-deep .mat-calendar-body-cell:hover .mat-calendar-body-cell-content:not(.mat-calendar-body-disabled) {
+  background-color: rgba(0, 200, 83, 0.15);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
 }
