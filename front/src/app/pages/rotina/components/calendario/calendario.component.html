@@ -1,5 +1,5 @@
 <div class="calendario-wrapper">
-  <mat-calendar [(selected)]="selectedDate"></mat-calendar>
+  <mat-calendar [(selected)]="selectedDate" (selectedChange)="emitirData()"></mat-calendar>
 
   <p *ngIf="selectedDate" class="data-selecionada" @fadeInUp>
     📅 Você selecionou: {{ selectedDate }}

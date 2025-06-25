@@ -21,24 +21,24 @@
 
     <button mat-raised-button color="primary" (click)="gerarChecklist()">Gerar Checklist</button>
 
-    <div class="checkbox-wrapper" *ngFor="let tarefa of tarefas; let i = index">
+    <div class="checkbox-wrapper" *ngFor="let atividade of atividades; let i = index">
       <div class="tarefa-item">
         <mat-checkbox
-          [(ngModel)]="tarefa.feito"
+          [(ngModel)]="atividade.feito"
           class="checkbox-item"
           color="accent"
         >
-          <ng-container *ngIf="!tarefa.editando">{{ tarefa.nome }}</ng-container>
+          <ng-container *ngIf="!atividade.editando">{{ atividade.nome }}</ng-container>
           <input
-            *ngIf="tarefa.editando"
-            [(ngModel)]="tarefa.nome"
+            *ngIf="atividade.editando"
+            [(ngModel)]="atividade.nome"
             class="editar-input"
             placeholder="Editar tarefa"
           />
         </mat-checkbox>
 
         <button mat-icon-button color="primary" (click)="editarTarefa(i)">
-          <mat-icon>{{ tarefa.editando ? 'check' : 'edit' }}</mat-icon>
+          <mat-icon>{{ atividade.editando ? 'check' : 'edit' }}</mat-icon>
         </button>
 
         <button mat-icon-button color="warn" (click)="removerTarefa(i)">

@@ -9,7 +9,9 @@ from .viewsets import (
     ImcBaseRecAPIView,
     DesempenhoImc,
     RegistrosImc,
-    ImcDeleteAPIView
+    ImcDeleteAPIView,
+    ChecklistCreateAPIView,
+    AtividadesPorDataAPIView
 )
 from core.services.api_ia import chat_ia_view
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
@@ -28,4 +30,7 @@ urlpatterns = [
     path('imc_base_perfil/', ImcBaseAPIView.as_view(), name='imc_base_perfil'),
     path('imc_base_dashboard/', ImcBaseDashAPIView.as_view(), name='imc_base_dashboard'),
     path('imc_rec/', ImcBaseRecAPIView.as_view(), name='imc_rec'),
+    path('checklist/create/', ChecklistCreateAPIView.as_view(), name='checklist'),
+    path('checklists/', AtividadesPorDataAPIView.as_view(), name='checklist-por-data'),
+
 ]

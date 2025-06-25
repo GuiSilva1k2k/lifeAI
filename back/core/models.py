@@ -37,3 +37,27 @@ class imc_user_base(models.Model):
     class Meta:
         db_table = 'imc_user_base'
         ordering = ['id']
+
+class checklist(models.Model):
+    data = models.DateField(db_column='data', null=False)
+    created_at = models.DateTimeField(db_column='created_at', auto_now_add=True)
+    id_usuario = models.ForeignKey(User, db_column='id_usuario', on_delete=models.CASCADE)
+    class Meta:
+        db_table = 'checklist'
+        unique_together = ('id_usuario', 'data')
+        ordering = ['-data']
+
+    def __str__(self):
+        return f"Checklist de {self.id_usuario.username} - {self.data}"
+
+class atividade(models.Model):
+    descricao = models.TextField(db_column='descricao')
+    done = models.BooleanField(db_column='done', default=False)
+    checklist = models.ForeignKey(checklist, db_column='id_checklist', on_delete=models.CASCADE)
+    class Meta:
+        db_table = 'atividade'
+        ordering = ['id']
+
+    def __str__(self):
+        status = "✔️" if self.done else "❌"
+        return f"{status} {self.descricao}"

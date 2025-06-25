@@ -31,7 +31,6 @@ export class HistoricoRegistrosComponent implements OnInit {
   carregarHistorico() {
     this.historicoConsultasService.obterHistorico().subscribe({
       next: (dados) => {
-        console.log('Dados recebidos:', dados);
         this.dataSource = dados;
       },
       error: (err) => {

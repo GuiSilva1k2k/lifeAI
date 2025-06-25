@@ -7,7 +7,7 @@
         <div class="col-esquerda">
           <section class="rotina-section calendario">
             <h2>Calendário</h2>
-            <app-calendario></app-calendario>
+            <app-calendario (dataSelecionada)="dataSelecionada = $event"></app-calendario>
           </section>
         </div>
 
@@ -16,6 +16,11 @@
             <h2>Checklist</h2>
             <app-checklist></app-checklist>
           </section>
+          <section class="rotina-section checklist">
+            <h2>CheckIn</h2>
+            <app-checkin *ngIf="dataSelecionada" [data]="dataSelecionada"></app-checkin>
+          </section>
+          
         </div>
 
         <div class="col-direita">

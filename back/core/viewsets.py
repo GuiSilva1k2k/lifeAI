@@ -163,3 +163,41 @@ class ImcDeleteAPIView(APIView):
             return Response({"error": "Registro não encontrado."}, status=status.HTTP_404_NOT_FOUND)
         registro.delete()
         return Response({"message": "Registro excluído com sucesso."}, status=status.HTTP_204_NO_CONTENT)
+    
+class ChecklistCreateAPIView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request):
+        serializer = serializers.ChecklistSerializer(data=request.data, context={'request': request})
+        if serializer.is_valid():
+            serializer = serializer.save()
+            return Response({'message': 'Checklist criado com sucesso.'}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def buscar_checklist_por_data(request):
+        data = request.GET.get('data')
+        if not data:
+            return Response({'erro': 'Data não fornecida'}, status=400)
+
+        checklist = get_object_or_404(Checklist, id_usuario=request.user, data=data)
+        return Response({'id': checklist.id})
+class AtividadesPorDataAPIView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        data = request.GET.get('data')
+        if not data:
+            return Response({'erro': 'Parâmetro data é obrigatório.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            checklist = serializers.checklist.objects.get(id_usuario=request.user, data=data)
+        except serializers.checklist.DoesNotExist:
+            return Response([], status=status.HTTP_200_OK)  # ou 404 se preferir
+
+        atividades = serializers.atividade.objects.filter(checklist=checklist)
+        serializer = AtividadeSerializer(atividades, many=True)
+        return Response({
+            'checklist_id': checklist.id,
+            'atividades': serializer.data
+        })
+    

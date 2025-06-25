@@ -1,0 +1,75 @@
+.mat-mdc-row {
+  color: #ffffff !important;
+}
+
+.mat-mdc-header-row {
+  color: #00c8c8 !important;
+}
+
+.tabela_historico {
+  width: 100%;
+  margin: 0;
+  padding: 2rem;
+  border-radius: 10px;
+  background-color: transparent;
+  font-family: 'Arial', sans-serif;
+}
+
+.tabela_historico td,
+.tabela_historico th {
+  vertical-align: middle;
+  padding: 8px 12px;
+}
+
+/* Borda direita só para as células da coluna "classificacao" */
+.tabela_historico .mat-column-classificacao {
+  border-right: 1px solid #ccc;
+}
+
+.tabela_historico button[color="warn"] {
+  padding: 4px;
+  border-radius: 6px;
+  border: 1px solid #ff4d4d;
+  background-color: #ff4d4d;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.tabela_historico button[color="warn"] mat-icon {
+  font-size: 18px;
+  color: #ffffff;
+  justify-content: center;
+  vertical-align: middle;
+}
+
+.tabela_historico button[color="warn"]:hover {
+  background-color: #ff3333;
+}
+
+.tabela_historico mat-icon {
+  vertical-align: middle;
+  font-size: 18px;
+}
+
+.botoes-container {
+  display: flex;
+  gap: 1rem;
+  justify-content: left;
+  margin-top: 1rem;
+
+  button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    font-weight: 600;
+    border-radius: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background-color: #00c8c8;
+    color: #0d1c27;
+  }
+
+  .icone-botao {
+    font-size: 20px;
+  }
+}

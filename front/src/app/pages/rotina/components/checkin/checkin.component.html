@@ -1,0 +1,40 @@
+<div class="tabela-container mat-elevation-z2">
+    <table mat-table [dataSource]="atividades" class="mat-table tabela_historico">
+
+        <ng-container matColumnDef="feito">
+            <th mat-header-cell *matHeaderCellDef>Feito</th>
+            <td mat-cell *matCellDef="let atividade">
+                <mat-checkbox [(ngModel)]="atividade.done" color="primary"></mat-checkbox>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="descricao">
+            <th mat-header-cell *matHeaderCellDef>Atividade</th>
+            <td mat-cell *matCellDef="let atividade">{{ atividade.descricao }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="excluir">
+            <th mat-header-cell *matHeaderCellDef>Excluir</th>
+            <td mat-cell *matCellDef="let atividade">
+                <button mat-icon-button color="warn" (click)="excluir(atividade)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['feito', 'descricao', 'excluir']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['feito', 'descricao', 'excluir']"></tr>
+    </table>
+
+    <div class="botoes-container">
+        <button mat-raised-button color="primary" (click)="salvarChecklist()">
+            <mat-icon class="icone-botao">save</mat-icon>
+            Salvar
+        </button>
+
+        <button mat-raised-button color="accent" (click)="gerarPontuacaoChecklist()">
+            <mat-icon class="icone-botao">emoji_events</mat-icon>
+            Gerar Pontuação
+        </button>
+    </div>
+</div>

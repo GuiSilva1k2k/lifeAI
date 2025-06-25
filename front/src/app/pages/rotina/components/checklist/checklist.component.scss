@@ -126,7 +126,7 @@ button {
 .salvar-wrapper {
   margin-top: 1.5rem;
   display: flex;
-  justify-content: flex-end;
+  justify-content: left;
 
   button {
     background-color: #00c8c8;
@@ -185,8 +185,43 @@ button {
   transition: color 0.3s ease;
 }
 ::ng-deep .mat-calendar-body-cell:hover .mat-calendar-body-cell-content:not(.mat-calendar-body-disabled) {
-  background-color: rgba(0, 200, 83, 0.15);
+  background-color: #00c85326;
   border-radius: 50%;
   cursor: pointer;
   transition: background-color 0.2s ease;
+}
+
+::ng-deep .mat-mdc-snack-bar-container.snackbar-sucesso {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+::ng-deep .mat-mdc-snack-bar-container.snackbar-sucesso .mdc-snackbar__surface {
+  margin: 10px;
+  background-color: #4caf50 !important;
+  color: white !important;
+  border-radius: 8px !important;
+  font-size: 32px !important;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Remove fundo e padding padrão */
+::ng-deep .mat-mdc-snack-bar-container.snackbar-erro {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+/* Estilo do conteúdo do erro */
+::ng-deep .mat-mdc-snack-bar-container.snackbar-erro .mdc-snackbar__surface {
+  margin: 10px;
+  background-color: #e53935 !important;
+  color: #fff !important;
+  font-size: 18px !important;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.3s ease-in-out;
 }

@@ -28,3 +28,13 @@ export interface historicoConsultas {
   imc_res: number;
   classificacao: string;
 }
+
+export interface Atividade {
+  descricao: string;
+  done: boolean;
+}
+
+export interface Checklist {
+  data: string;
+  atividades: Atividade[];
+}

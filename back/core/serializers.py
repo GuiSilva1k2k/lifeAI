@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import imc, imc_user_base
+from .models import imc, imc_user_base, atividade, checklist
 from datetime import date
 
 class ImcSerializer(serializers.ModelSerializer):
@@ -35,3 +35,27 @@ class ImcBaseRecSerializer(serializers.ModelSerializer):
     class Meta:
         model = imc_user_base
         fields = ['imc_res', 'objetivo']
+
+class AtividadeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = atividade
+        fields = ['descricao', 'done']
+
+class ChecklistSerializer(serializers.ModelSerializer):
+    atividades = AtividadeSerializer(many=True, write_only=True)
+
+    class Meta:
+        model = checklist
+        fields = ['data', 'atividades']
+        read_only_fields = ['id', 'created_at']
+
+    def create(self, validated_data):
+        atividades_data = validated_data.pop('atividades')
+        usuario = self.context['request'].user
+
+        checklist_instance = checklist.objects.create(id_usuario=usuario, **validated_data)
+
+        for atividade_data in atividades_data:
+            atividade.objects.create(checklist=checklist_instance, **atividade_data)
+
+        return checklist_instance

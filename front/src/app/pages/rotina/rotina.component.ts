@@ -4,6 +4,7 @@ import { CalendarioComponent } from './components/calendario/calendario.componen
 import { ChecklistComponent } from './components/checklist/checklist.component';
 import { DicasComponent } from './components/dicas/dicas.component';
 import { CommonModule } from '@angular/common';
+import { CheckinComponent } from './components/checkin/checkin.component';
 
 @Component({
   selector: 'app-rotina',
@@ -13,9 +14,12 @@ import { CommonModule } from '@angular/common';
     SidebarComponent,
     CalendarioComponent,
     ChecklistComponent,
-    DicasComponent
+    DicasComponent,
+    CheckinComponent
   ],
   templateUrl: './rotina.component.html',
   styleUrls: ['./rotina.component.scss']
 })
-export class RotinaComponent {}
+export class RotinaComponent {
+  dataSelecionada!: Date;
+}
