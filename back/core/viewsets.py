@@ -192,7 +192,7 @@ class AtividadesPorDataAPIView(APIView):
         try:
             checklist = serializers.checklist.objects.get(id_usuario=request.user, data=data)
         except serializers.checklist.DoesNotExist:
-            return Response([], status=status.HTTP_200_OK)  # ou 404 se preferir
+            return Response([], status=status.HTTP_200_OK)
 
         atividades = serializers.atividade.objects.filter(checklist=checklist)
         serializer = AtividadeSerializer(atividades, many=True)
