@@ -26,24 +26,26 @@
   border-right: 1px solid #ccc;
 }
 
-.tabela_historico button[color="warn"] {
+button[color="warn"] {
   padding: 4px;
   border-radius: 6px;
   border: 1px solid #ff4d4d;
   background-color: #ff4d4d;
   transition: background-color 0.2s ease-in-out;
+
+  &:hover {
+    background-color: #ff3333;
+  }
 }
 
-.tabela_historico button[color="warn"] mat-icon {
+button[color="warn"] mat-icon {
   font-size: 18px;
   color: #ffffff;
   justify-content: center;
   vertical-align: middle;
 }
 
-.tabela_historico button[color="warn"]:hover {
-  background-color: #ff3333;
-}
+
 
 .tabela_historico mat-icon {
   vertical-align: middle;
@@ -72,4 +74,23 @@
   .icone-botao {
     font-size: 20px;
   }
+}
+
+.tabela-scroll {
+  max-height: 400px;  /* ou a altura que preferir */
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* (opcional) manter cabeçalho fixo */
+.tabela_historico {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabela_historico thead th {
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  z-index: 1;
 }

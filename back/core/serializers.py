@@ -43,10 +43,11 @@ class AtividadeSerializer(serializers.ModelSerializer):
 
 class ChecklistSerializer(serializers.ModelSerializer):
     atividades = AtividadeSerializer(many=True, write_only=True)
+    tarefas = AtividadeSerializer(source='atividade_set', many=True, read_only=True)
 
     class Meta:
         model = checklist
-        fields = ['data', 'atividades']
+        fields = ['data', 'atividades', 'tarefas']
         read_only_fields = ['id', 'created_at']
 
     def create(self, validated_data):

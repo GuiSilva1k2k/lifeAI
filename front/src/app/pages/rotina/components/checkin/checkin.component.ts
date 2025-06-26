@@ -4,7 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AtividadePontuacaoService } from '../../../../api/atividade_pontuacao.service';
 
 export interface Atividade {
@@ -35,34 +35,47 @@ export class CheckinComponent implements OnChanges{
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['data'] && this.data) {
-      this.carregarChecklistPorData(this.data);
+      this.carregarChecklistEAtividadesPorData(this.data);
     }
   }
   private apiUrl = 'http://localhost:8000/checklists';
-
-  carregarChecklistPorData(data: Date) {
+  
+  
+  carregarChecklistEAtividadesPorData(data: Date) {
     const dataFormatada = data.toISOString().split('T')[0];
-    this.http.get<any>(`${this.apiUrl}/?data=${dataFormatada}`).subscribe({
-      next: (res) => {
-        this.idChecklist = res.id;
+    const token = localStorage.getItem('access_token');
 
-        this.atividadeService.listarAtividades(this.idChecklist).subscribe({
-          next: (atividades) => {
-            this.atividades = atividades;
-          },
-          error: (err) => {
-            console.error('Erro ao buscar atividades:', err);
-            this.atividades = [];
-          }
-        });
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    const url = `${this.apiUrl}/atividades-por-data/?data=${dataFormatada}`;
+
+    this.http.get<any>(url, { headers }).subscribe({
+      next: (res) => {
+        if (res && res.id) {
+          this.idChecklist = res.id;
+          this.atividades = res.atividades;
+        } else {
+          console.warn('Nenhum checklist encontrado para esta data.');
+          this.idChecklist = null;
+          this.atividades = [];
+        }
       },
       error: (err) => {
-        console.error('Checklist não encontrado:', err);
+        if (err.status === 404) {
+          console.warn('Checklist não encontrado para a data fornecida.');
+        } else if (err.status === 401) {
+          console.error('Não autorizado. Verifique seu token.');
+        } else {
+          console.error('Erro inesperado:', err);
+        }
         this.idChecklist = null;
         this.atividades = [];
       }
     });
-}
+  }
+
 
   toggleDone(atividade: Atividade) {
     atividade.done = !atividade.done;

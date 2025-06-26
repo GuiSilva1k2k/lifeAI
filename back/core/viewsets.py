@@ -4,7 +4,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
 from core import serializers
+from core import models
 from rest_framework_simplejwt.tokens import RefreshToken
+from datetime import datetime
 
 class RegisterView(APIView):
     permission_classes = [permissions.AllowAny]
@@ -190,14 +192,20 @@ class AtividadesPorDataAPIView(APIView):
             return Response({'erro': 'Parâmetro data é obrigatório.'}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
-            checklist = serializers.checklist.objects.get(id_usuario=request.user, data=data)
-        except serializers.checklist.DoesNotExist:
-            return Response([], status=status.HTTP_200_OK)
+            data_convertida = datetime.strptime(data, '%Y-%m-%d').date()
+        except ValueError:
+            return Response({'erro': 'Formato de data inválido. Use YYYY-MM-DD.'}, status=status.HTTP_400_BAD_REQUEST)
 
-        atividades = serializers.atividade.objects.filter(checklist=checklist)
-        serializer = AtividadeSerializer(atividades, many=True)
+        try:
+            checklist_obj = models.checklist.objects.get(id_usuario=request.user, data=data_convertida)
+        except models.checklist.DoesNotExist:
+            return Response({'mensagem': 'Checklist não encontrado'}, status=status.HTTP_404_NOT_FOUND)
+
+        atividades = models.atividade.objects.filter(checklist=checklist_obj).order_by('id')
+        serializer = serializers.AtividadeSerializer(atividades, many=True)
+
         return Response({
-            'checklist_id': checklist.id,
+            'id': checklist_obj.id,
+            'data': checklist_obj.data.isoformat(),
             'atividades': serializer.data
-        })
-    
+        }, status=status.HTTP_200_OK)
