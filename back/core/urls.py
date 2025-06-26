@@ -31,6 +31,5 @@ urlpatterns = [
     path('imc_base_dashboard/', ImcBaseDashAPIView.as_view(), name='imc_base_dashboard'),
     path('imc_rec/', ImcBaseRecAPIView.as_view(), name='imc_rec'),
     path('checklist/create/', ChecklistCreateAPIView.as_view(), name='checklist'),
-    path('checklists/', AtividadesPorDataAPIView.as_view(), name='checklist-por-data'),
-
+    path('checklists/atividades-por-data/', AtividadesPorDataAPIView.as_view(), name='atividades-por-data'),
 ]

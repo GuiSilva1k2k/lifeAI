@@ -1,18 +1,14 @@
-<div class="tarefas-scroll">
+<div class="checklist-container">
   <div class="checklist-wrapper">
     <div class="nova-tarefa">
       <label for="novaTarefaInput">Nova atividade</label>
-      <input
-        [(ngModel)]="novaTarefa"
-        placeholder="Nova atividade"
-        class="input-tarefa"
-      />
+      <input [(ngModel)]="novaTarefa" placeholder="Nova atividade" class="input-tarefa" />
       <button mat-stroked-button color="accent" (click)="adicionarTarefa()">Adicionar</button>
     </div>
 
     <div>
       <label for="novaTarefaInput">Data de criação</label>
-      <mat-form-field appearance="fill" >
+      <mat-form-field appearance="fill">
         <input id="novaTarefaInput" matInput [matDatepicker]="picker" [(ngModel)]="dataChecklist">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
@@ -20,28 +16,22 @@
     </div>
 
     <button mat-raised-button color="primary" (click)="gerarChecklist()">Gerar Checklist</button>
+  </div>
 
+  <div class="tarefas-scroll">
     <div class="checkbox-wrapper" *ngFor="let atividade of atividades; let i = index">
       <div class="tarefa-item">
-        <mat-checkbox
-          [(ngModel)]="atividade.feito"
-          class="checkbox-item"
-          color="accent"
-        >
+        <mat-checkbox [(ngModel)]="atividade.feito" class="checkbox-item" color="accent">
           <ng-container *ngIf="!atividade.editando">{{ atividade.nome }}</ng-container>
-          <input
-            *ngIf="atividade.editando"
-            [(ngModel)]="atividade.nome"
-            class="editar-input"
-            placeholder="Editar tarefa"
-          />
+          <input *ngIf="atividade.editando" [(ngModel)]="atividade.nome" class="editar-input"
+            placeholder="Editar tarefa" />
         </mat-checkbox>
 
         <button mat-icon-button color="primary" (click)="editarTarefa(i)">
           <mat-icon>{{ atividade.editando ? 'check' : 'edit' }}</mat-icon>
         </button>
 
-        <button mat-icon-button color="warn" (click)="removerTarefa(i)">
+        <button mat-icon-button class="color-warn" (click)="removerTarefa(i)">
           <mat-icon>delete</mat-icon>
         </button>
       </div>
@@ -49,8 +39,6 @@
   </div>
 
   <div class="salvar-wrapper">
-    <button mat-flat-button color="primary" (click)="salvarChecklist()">
-      Salvar
-    </button>
+    <button mat-flat-button color="primary" (click)="salvarChecklist()">Salvar</button>
   </div>
 </div>
