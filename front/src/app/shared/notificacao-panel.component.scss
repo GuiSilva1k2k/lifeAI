@@ -1,0 +1,120 @@
+.notificacao-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.floating-button {
+  margin-top: auto;    /* empurra botão para o rodapé */
+  background-color: #ffc107;
+  color: white;
+  width: 2.5rem;       /* mesmo tamanho dos ícones do sidebar */
+  height: 2.5rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease;
+  position: relative;
+}
+
+.floating-button:hover {
+  background-color: #e0a800;
+}
+
+.mat-badge-content {
+  background-color: #d32f2f !important;
+  color: white !important;
+  font-weight: bold;
+  font-size: 12px !important;
+  width: 18px !important;
+  height: 18px !important;
+  top: 4px !important;
+  right: 4px !important;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.painel {
+  position: absolute;
+  bottom: 4.5rem;
+  left: 4.5rem;
+  width: 320px;
+  max-width: 90vw;
+  background-color: rgba(8, 16, 24, 0.95);
+  border: 1px solid #00c853;
+  border-radius: 8px;
+  padding: 1rem;
+  color: white;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  animation: fadeIn 0.3s ease-in-out;
+  z-index: 999;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  word-break: normal;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+.painel h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  border-bottom: 1px solid #00c853;
+  padding-bottom: 0.5rem;
+}
+
+.painel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.notificacao-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0.25rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  cursor: default;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.notificacao-item:hover {
+  background-color: transparent;
+}
+
+.notificacao-item .conteudo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+}
+
+.notificacao-item .seta {
+  font-size: 1.2rem;
+  color: #ccc;
+}
+
+.painel mat-icon {
+  color: #ffc107;
+  font-size: 1.2rem;
+  margin-top: 2px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

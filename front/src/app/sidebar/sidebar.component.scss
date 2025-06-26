@@ -1,4 +1,3 @@
-/* ===== SIDEBAR COMPONENT ===== */
 .sidebar {
   display: flex;
   flex-direction: column;
@@ -13,7 +12,6 @@
   z-index: 100;
 }
 
-/* Logo */
 .logo-container {
   margin: 1.25rem 0;
   text-align: center;
@@ -25,7 +23,6 @@
   object-fit: contain;
 }
 
-/* Links da Sidebar */
 .sidebar a {
   width: 2.5rem;
   height: 2.5rem;
@@ -39,6 +36,7 @@
   color: white;
   transition: background-color 0.3s ease;
   overflow: visible;
+  flex-shrink: 0;
 }
 
 .sidebar a.active,
@@ -46,7 +44,6 @@
   background-color: #00c853;
 }
 
-/* Ícones */
 .material-icons {
   font-family: 'Material Icons';
   font-weight: normal;
@@ -62,28 +59,6 @@
   -webkit-font-smoothing: antialiased;
 }
 
-/* Botão Flutuante */
-.floating-button {
-  margin-top: auto;
-  margin-bottom: 1.25rem;
-  background-color: #00c853;
-  color: white;
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  border: none;
-  transition: background-color 0.3s ease;
-}
-
-.floating-button:hover {
-  background-color: #00a543;
-}
-
-/* Logout */
 #logout-link {
   background-color: #a52727 !important;
 }
@@ -96,7 +71,6 @@
   background-color: #c62828 !important;
 }
 
-/* Responsividade */
 @media (max-width: 768px) {
   .sidebar {
     width: 3.125rem;
@@ -115,4 +89,13 @@
   .material-icons {
     font-size: 1.25rem;
   }
+}
+
+app-notificacao-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 3.75rem;
+  /* Remova height: 100vh para não afetar a altura dos irmãos */
+  flex-grow: 1;
 }

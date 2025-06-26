@@ -1,17 +1,33 @@
-import { Component, AfterViewInit, ElementRef, Renderer2 } from '@angular/core';
+import {
+  Component,
+  AfterViewInit,
+  ElementRef,
+  Renderer2,
+  Signal,
+  signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { NotificacaoPanelComponent } from '../shared/notificacao-panel.component'; // ajuste o caminho se necessário
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatIconModule, HttpClientModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    MatIconModule,
+    HttpClientModule,
+    NotificacaoPanelComponent,
+  ],
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss']
+  styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements AfterViewInit {
+  mostrarPainel = false;
+
   constructor(
     private el: ElementRef,
     private renderer: Renderer2,
@@ -20,13 +36,18 @@ export class SidebarComponent implements AfterViewInit {
   ) {}
 
   ngAfterViewInit(): void {
-    const links: NodeListOf<HTMLElement> = this.el.nativeElement.querySelectorAll('.sidebar a[routerLink]');
-    links.forEach(link => {
+    const links: NodeListOf<HTMLElement> =
+      this.el.nativeElement.querySelectorAll('.sidebar a[routerLink]');
+    links.forEach((link) => {
       this.renderer.listen(link, 'click', () => {
-        links.forEach(l => this.renderer.removeClass(l, 'active'));
+        links.forEach((l) => this.renderer.removeClass(l, 'active'));
         this.renderer.addClass(link, 'active');
       });
     });
+  }
+
+  togglePainel(): void {
+    this.mostrarPainel = !this.mostrarPainel;
   }
 
   logout(): void {
@@ -39,10 +60,10 @@ export class SidebarComponent implements AfterViewInit {
           alert('Usuário deslogado com sucesso.');
           this.router.navigate(['/']);
         },
-        error: err => {
+        error: (err) => {
           console.error('Erro ao fazer logout:', err);
           alert('Erro ao sair. Tente novamente.');
-        }
+        },
       });
     }
   }

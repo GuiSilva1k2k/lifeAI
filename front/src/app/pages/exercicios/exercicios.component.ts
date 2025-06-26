@@ -5,6 +5,7 @@ import { ExemplosExercicioComponent } from './exemplos-exercicio/exemplos-exerci
 import { SidebarComponent } from '../../sidebar/sidebar.component';
 import { ImcBaseService } from '../../api/imc_perfil_base.service';
 import { IaService } from '../../api/ia.service';
+import { NotificationService } from '../../api/notification.service'; // ✅ Novo import
 import { v4 as uuidv4 } from 'uuid';
 import { MarkdownModule } from 'ngx-markdown';
 
@@ -35,7 +36,8 @@ export class ExerciciosComponent implements OnInit {
 
   constructor(
     private imcBaseService: ImcBaseService,
-    private iaService: IaService
+    private iaService: IaService,
+    private notificationService: NotificationService // ✅ Injetado
   ) {}
 
   ngOnInit(): void {
@@ -126,6 +128,11 @@ Código de sessão: ${this.sessaoId}
         this.respostaIA = res.resposta;
         this.gerarInstrucoesEDados();
         this.esperandoResposta = false;
+        
+        this.notificationService.adicionar({
+          mensagem: `Seu exercício "${this.nomeExercicio}" está pronto!`,
+          rota: '/exercicios'
+        });
       },
       error: err => {
         console.error('Erro ao enviar pergunta para IA:', err);

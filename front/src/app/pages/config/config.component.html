@@ -6,45 +6,6 @@
       <h1 class="title">Configurações</h1>
       <p class="subtitle">Gerencie suas preferências de uso e personalização</p>
 
-      <!-- PRIVACIDADE -->
-      <div class="setting-section">
-        <div class="section-toggle" (click)="togglePrivacy()">
-          <div class="toggle-left">
-            <span class="material-icons">lock</span>
-            <span class="label">Privacidade</span>
-          </div>
-          <span
-            class="material-icons expand-icon"
-            [class.rotated]="privacyEnabled"
-            >expand_more</span
-          >
-        </div>
-        <div class="section-content" *ngIf="privacyEnabled">
-          <p>
-            Suas informações estão protegidas. Você pode alterar suas permissões
-            a qualquer momento.
-          </p>
-        </div>
-      </div>
-
-      <!-- BACKUP NA NUVEM -->
-      <div class="setting-section">
-        <div class="section-toggle" (click)="toggleBackup()">
-          <div class="toggle-left">
-            <span class="material-icons">cloud_upload</span>
-            <span class="label">Backup na Nuvem</span>
-          </div>
-          <span
-            class="material-icons expand-icon"
-            [class.rotated]="backupEnabled"
-            >expand_more</span
-          >
-        </div>
-        <div class="section-content" *ngIf="backupEnabled">
-          <p>Seus dados serão salvos automaticamente semanalmente na nuvem.</p>
-        </div>
-      </div>
-
       <!-- NOTIFICAÇÕES -->
       <div class="setting-section">
         <div class="section-toggle" (click)="toggleNotifications()">
@@ -63,24 +24,6 @@
         </div>
       </div>
 
-      <!-- CHECK-IN EMOCIONAL -->
-      <div class="setting-section">
-        <div class="section-toggle" (click)="toggleCheckin()">
-          <div class="toggle-left">
-            <span class="material-icons">emoji_emotions</span>
-            <span class="label">Check-in Emocional</span>
-          </div>
-          <span
-            class="material-icons expand-icon"
-            [class.rotated]="checkinEnabled"
-            >expand_more</span
-          >
-        </div>
-        <div class="section-content" *ngIf="checkinEnabled">
-          <p>Receba um lembrete diário para registrar como está se sentindo.</p>
-        </div>
-      </div>
-
       <!-- EXPORTAR DADOS (PRINT) -->
       <div class="setting-section">
         <div class="section-toggle" (click)="exportarPrint()">
@@ -89,22 +32,6 @@
             <span class="label">Exportar Dados (Print)</span>
           </div>
           <span class="material-icons status">download</span>
-        </div>
-      </div>
-
-      <!-- MODO ESCURO -->
-      <div class="setting-section">
-        <div class="section-toggle" (click)="toggleDarkMode()">
-          <div class="toggle-left">
-            <span class="material-icons">dark_mode</span>
-            <span class="label">Modo Escuro</span>
-          </div>
-          <span
-            class="material-icons toggle-icon"
-            [class.active]="darkModeEnabled"
-          >
-            {{ darkModeEnabled ? "toggle_on" : "toggle_off" }}
-          </span>
         </div>
       </div>
     </div>

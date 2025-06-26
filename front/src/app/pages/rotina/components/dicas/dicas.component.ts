@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MarkdownModule } from 'ngx-markdown';
 import { ImcBaseService } from '../../../../api/imc_perfil_base.service';
 import { IaService } from '../../../../api/ia.service';
+import { NotificationService } from '../../../../api/notification.service';
 import { v4 as uuidv4 } from 'uuid';
 
 @Component({
@@ -15,10 +16,12 @@ import { v4 as uuidv4 } from 'uuid';
 export class DicasComponent implements OnInit {
   recomendacoesMarkdown: string = '';
   sessaoId: string = '';
+  esperandoResposta: boolean = false;
 
   constructor(
     private imcBaseService: ImcBaseService,
-    private iaService: IaService
+    private iaService: IaService,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -43,6 +46,9 @@ export class DicasComponent implements OnInit {
   }
 
   gerarRecomendacoes(pessoa: any): void {
+    if (this.esperandoResposta) return;
+    this.esperandoResposta = true;
+
     const prompt = `
 Você é um especialista em saúde e bem-estar.
 
@@ -58,8 +64,16 @@ As recomendações devem ser diretas, com tom motivador, e adaptadas ao perfil d
       next: res => {
         this.recomendacoesMarkdown = res.resposta;
         localStorage.setItem('recomendacoesMarkdown', this.recomendacoesMarkdown);
+        this.notificationService.adicionar({
+          mensagem: 'Suas dicas personalizadas estão prontas!',
+          rota: '/dicas'
+        });
+        this.esperandoResposta = false;
       },
-      error: err => console.error('Erro ao gerar recomendações da IA:', err),
+      error: err => {
+        console.error('Erro ao gerar recomendações da IA:', err);
+        this.esperandoResposta = false;
+      },
     });
   }
 }

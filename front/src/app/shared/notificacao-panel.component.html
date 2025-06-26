@@ -1,0 +1,16 @@
+<button mat-icon-button [matBadge]="notificacoes.length" matBadgeColor="warn" (click)="aberto = !aberto" class="floating-button">
+  <mat-icon>notifications</mat-icon>
+</button>
+
+<div class="painel" *ngIf="aberto">
+  <h3>Notificações</h3>
+  <ul>
+    <li *ngFor="let n of notificacoes" class="notificacao-item">
+      <div class="conteudo">
+        <mat-icon color="accent">notifications</mat-icon>
+        {{ n.mensagem }}
+      </div>
+      <mat-icon class="seta">chevron_right</mat-icon>
+    </li>
+  </ul>
+</div>
