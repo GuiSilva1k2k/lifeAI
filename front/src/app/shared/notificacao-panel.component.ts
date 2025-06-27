@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { MatBadgeModule } from '@angular/material/badge';     // ✅ necessário para matBadge
-import { MatButtonModule } from '@angular/material/button';   // ✅ necessário para mat-icon-button
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { NotificationService, Notificacao } from '../api/notification.service';
 
@@ -12,15 +12,14 @@ import { NotificationService, Notificacao } from '../api/notification.service';
   imports: [
     CommonModule,
     MatIconModule,
-    MatBadgeModule,     // ✅ adicionado
-    MatButtonModule     // ✅ adicionado
+    MatBadgeModule,
+    MatButtonModule
   ],
   templateUrl: './notificacao-panel.component.html',
   styleUrls: ['./notificacao-panel.component.scss']
 })
 export class NotificacaoPanelComponent implements OnInit {
   @Input() aberto = false;
-
   notificacoes: Notificacao[] = [];
 
   constructor(
@@ -31,7 +30,25 @@ export class NotificacaoPanelComponent implements OnInit {
   ngOnInit(): void {
     this.notificationService.notificacoes$.subscribe(n => {
       this.notificacoes = n;
+      this.atualizarTitulo();
     });
+  }
+
+  togglePainel() {
+    this.aberto = !this.aberto;
+
+    if (this.aberto) {
+      this.notificationService.marcarTodasComoLidas();
+    }
+  }
+
+  atualizarTitulo() {
+    const naoLidas = this.notificacoes.filter(n => !n.lida).length;
+    document.title = naoLidas > 0 ? `(${naoLidas}) LifeAI` : 'LifeAI';
+  }
+
+  get notificacoesNaoLidas(): number {
+    return this.notificacoes.filter(n => !n.lida).length;
   }
 
   irPara(notificacao: Notificacao) {

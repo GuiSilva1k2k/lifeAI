@@ -4,19 +4,28 @@ import { BehaviorSubject } from 'rxjs';
 export interface Notificacao {
   mensagem: string;
   rota?: string;
+  lida?: boolean; // ✅ necessário para controle de leitura
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
+  private notificacoes: Notificacao[] = [];
+
   private notificacoesSubject = new BehaviorSubject<Notificacao[]>([]);
   notificacoes$ = this.notificacoesSubject.asObservable();
 
-  private notificacoes: Notificacao[] = [];
+  constructor() {}
 
   adicionar(notificacao: Notificacao) {
-    this.notificacoes.push(notificacao);
+    // Adiciona notificação já marcada como não lida
+    this.notificacoes.unshift({ ...notificacao, lida: false });
+    this.notificacoesSubject.next(this.notificacoes);
+  }
+
+  marcarTodasComoLidas() {
+    this.notificacoes = this.notificacoes.map(n => ({ ...n, lida: true }));
     this.notificacoesSubject.next(this.notificacoes);
   }
 

@@ -1,14 +1,20 @@
-<button mat-icon-button [matBadge]="notificacoes.length" matBadgeColor="warn" (click)="aberto = !aberto" class="floating-button">
+<!-- Botão com badge -->
+<button mat-icon-button
+        [matBadge]="notificacoesNaoLidas"
+        matBadgeColor="warn"
+        (click)="togglePainel()"
+        class="floating-button">
   <mat-icon>notifications</mat-icon>
 </button>
 
+<!-- Painel de notificações -->
 <div class="painel" *ngIf="aberto">
   <h3>Notificações</h3>
   <ul>
-    <li *ngFor="let n of notificacoes" class="notificacao-item">
+    <li *ngFor="let n of notificacoes" class="notificacao-item" (click)="irPara(n)">
       <div class="conteudo">
         <mat-icon color="accent">notifications</mat-icon>
-        {{ n.mensagem }}
+        <span [style.fontWeight]="n.lida ? 'normal' : 'bold'">{{ n.mensagem }}</span>
       </div>
       <mat-icon class="seta">chevron_right</mat-icon>
     </li>
