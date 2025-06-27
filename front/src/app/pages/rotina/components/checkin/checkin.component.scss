@@ -21,22 +21,21 @@
   padding: 8px 12px;
 }
 
-/* Borda direita só para as células da coluna "classificacao" */
 .tabela_historico .mat-column-classificacao {
   border-right: 1px solid #ccc;
 }
 
-button[color="warn"] {
-  padding: 4px;
-  border-radius: 6px;
-  border: 1px solid #ff4d4d;
-  background-color: #ff4d4d;
-  transition: background-color 0.2s ease-in-out;
+// button[color="warn"] {
+//   padding: 4px;
+//   border-radius: 6px;
+//   border: 1px solid #ff4d4d;
+//   background-color: #ff4d4d;
+//   transition: background-color 0.2s ease-in-out;
 
-  &:hover {
-    background-color: #ff3333;
-  }
-}
+//   &:hover {
+//     background-color: #ff3333;
+//   }
+// }
 
 button[color="warn"] mat-icon {
   font-size: 18px;

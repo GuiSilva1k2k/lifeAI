@@ -61,3 +61,19 @@ class atividade(models.Model):
     def __str__(self):
         status = "✔️" if self.done else "❌"
         return f"{status} {self.descricao}"
+
+
+class pontuacao_check(models.Model):
+    checklist = models.OneToOneField('checklist', on_delete=models.CASCADE, related_name='pontuacao')
+    qtd_total_atv = models.PositiveIntegerField(db_column='qtd_total_atv', default=False)
+    qtd_atv_done = models.PositiveIntegerField(db_column='qtd_atv_done', default=False)
+    porcentagem = models.FloatField(db_column='porcentagem', default=False)
+
+    criado_em = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'pontuacao_check'
+        ordering = ['id']
+
+    def __str__(self):
+        return f"Pontuação - Checklist #{self.checklist.id}: {self.porcentagem:.2f}%"

@@ -26,10 +26,8 @@ export class CheckinComponent implements OnChanges{
   atividades: Atividade[] = [];
 
   @Output() atividadesChange = new EventEmitter<Atividade[]>();
-  @Output() salvar = new EventEmitter<void>();
-  @Output() gerarPontuacao = new EventEmitter<void>();
 
-  idChecklist: number | null = null;
+  idChecklist: number = 0;
 
   constructor(private http: HttpClient, private atividadeService: AtividadePontuacaoService) {}
 
@@ -58,7 +56,7 @@ export class CheckinComponent implements OnChanges{
           this.atividades = res.atividades;
         } else {
           console.warn('Nenhum checklist encontrado para esta data.');
-          this.idChecklist = null;
+          this.idChecklist = 0;
           this.atividades = [];
         }
       },
@@ -70,27 +68,50 @@ export class CheckinComponent implements OnChanges{
         } else {
           console.error('Erro inesperado:', err);
         }
-        this.idChecklist = null;
+        this.idChecklist = 0;
         this.atividades = [];
       }
     });
   }
-
-
   toggleDone(atividade: Atividade) {
     atividade.done = !atividade.done;
   }
 
-  excluir(atividade: Atividade) {
-    this.atividades = this.atividades.filter(a => a.id !== atividade.id);
-    this.atividadesChange.emit(this.atividades);
-  }
+  atualizarAtividades() {
+    if (!this.idChecklist) {
+      console.warn('Nenhum checklist selecionado.');
+      return;
+    }
 
-  salvarChecklist() {
-    this.salvar.emit();
+    this.atividadeService.atualizarAtividades(this.idChecklist, this.atividades).subscribe({
+      next: () => {
+        console.log('Atividades atualizadas. Gerando pontuação...');
+        this.gerarPontuacaoChecklist();
+      },
+      error: (err) => {
+        console.error('Erro ao atualizar atividades:', err);
+        alert('Erro ao atualizar atividades.');
+      }
+    });
   }
 
   gerarPontuacaoChecklist() {
-    this.gerarPontuacao.emit();
+    if (!this.idChecklist) {
+      console.warn('Nenhum checklist selecionado.');
+      return;
+    }
+    this.atividadeService.gerarPontuacao(this.idChecklist).subscribe({
+      next: (res) => {
+        console.log('Pontuação salva com sucesso:', res);
+      },
+      error: (err) => {
+        console.error('Erro ao gerar pontuação:', err);
+        alert('Erro ao gerar pontuação');
+      }
+    });
+  }
+  
+  SalvarPontuarChecklist() {
+    this.atualizarAtividades()
   }
 }

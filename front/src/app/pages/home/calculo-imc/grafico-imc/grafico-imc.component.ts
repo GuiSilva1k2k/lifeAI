@@ -75,6 +75,7 @@ export class GraficoImcComponent {
         },
         y: {
           beginAtZero: true,
+          max: 50,
           grid: { color: '#2a3b4d' }
         }
       }

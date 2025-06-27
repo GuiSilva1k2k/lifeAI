@@ -14,17 +14,17 @@
                 <td mat-cell *matCellDef="let atividade">{{ atividade.descricao }}</td>
             </ng-container>
 
-            <ng-container matColumnDef="excluir">
+            <!-- <ng-container matColumnDef="excluir">
                 <th mat-header-cell *matHeaderCellDef>Excluir</th>
                 <td mat-cell *matCellDef="let atividade">
                     <button mat-icon-button color="warn" (click)="excluir(atividade)">
                         <mat-icon>delete</mat-icon>
                     </button>
                 </td>
-            </ng-container>
+            </ng-container> -->
 
-            <tr mat-header-row *matHeaderRowDef="['feito', 'descricao', 'excluir']"></tr>
-            <tr mat-row *matRowDef="let row; columns: ['feito', 'descricao', 'excluir']"></tr>
+            <tr mat-header-row *matHeaderRowDef="['feito', 'descricao']"></tr>
+            <tr mat-row *matRowDef="let row; columns: ['feito', 'descricao']"></tr>
 
             <tr class="mat-row" *matNoDataRow>
                 <td class="mat-cell" colspan="3">Nenhuma atividade encontrada.</td>
@@ -34,14 +34,9 @@
     </div>
     <!-- Botões abaixo -->
     <div class="botoes-container">
-        <button mat-raised-button color="primary" (click)="salvarChecklist()">
+        <button mat-raised-button color="primary" (click)="SalvarPontuarChecklist()">
             <mat-icon class="icone-botao">save</mat-icon>
-            Salvar
-        </button>
-
-        <button mat-raised-button color="accent" (click)="gerarPontuacaoChecklist()">
-            <mat-icon class="icone-botao">emoji_events</mat-icon>
-            Gerar Pontuação
+            Salvar + Gerar Pontuação
         </button>
     </div>
 </div>

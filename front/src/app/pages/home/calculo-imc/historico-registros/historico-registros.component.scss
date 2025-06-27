@@ -6,6 +6,12 @@
   color: #00c8c8 !important;
 }
 
+.tabela_historico_wrapper {
+  max-height: 400px; 
+  overflow-y: auto;
+  border-radius: 10px;
+}
+
 .tabela_historico {
   width: 100%;
   margin: 0;
@@ -13,6 +19,21 @@
   border-radius: 10px;
   background-color: #13212f;
   font-family: 'Arial', sans-serif;
+}
+
+/* fixar cabeçalho */
+.tabela_historico thead,
+.mat-header-row {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #13212f; /* fundo igual ao da tabela */
+}
+
+.tabela_historico table,
+.tabela_historico .mat-table {
+  table-layout: fixed;
+  width: 100%;
 }
 
 .tabela_historico td,

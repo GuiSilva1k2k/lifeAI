@@ -38,3 +38,12 @@ export interface Checklist {
   data: string;
   atividades: Atividade[];
 }
+
+export interface Pontuacao {
+  id: number;
+  checklist_id: number;
+  qtd_total_atv: number;
+  qtd_atv_done: number;
+  porcentagem: number;
+  criado_em: string;
+}

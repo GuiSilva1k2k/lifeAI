@@ -209,3 +209,67 @@ class AtividadesPorDataAPIView(APIView):
             'data': checklist_obj.data.isoformat(),
             'atividades': serializer.data
         }, status=status.HTTP_200_OK)
+
+class AtualizarAtividadesAPIView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def put(self, request, checklist_id):
+        try:
+            checklist = models.checklist.objects.get(id=checklist_id, id_usuario=request.user)
+        except models.checklist.DoesNotExist:
+            return Response({'erro': 'Checklist não encontrado'}, status=status.HTTP_404_NOT_FOUND)
+
+        atividades_data = request.data.get('atividades', [])
+
+        for atv in atividades_data:
+            try:
+                atividade = models.atividade.objects.get(id=atv['id'], checklist=checklist)
+                atividade.done = atv['done']
+                atividade.save()
+            except models.atividade.DoesNotExist:
+                continue
+
+        return Response({'mensagem': 'Atividades atualizadas com sucesso.'}, status=status.HTTP_200_OK)
+    
+class GerarPontuacaoAPIView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, checklist_id):
+        try:
+            check = models.checklist.objects.get(id=checklist_id, id_usuario=request.user)
+        except models.checklist.DoesNotExist:
+            return Response({'erro': 'Checklist não encontrado'}, status=status.HTTP_404_NOT_FOUND)
+
+        atividades = models.atividade.objects.filter(checklist=check).order_by('id')
+        total = atividades.count()
+        feitas = atividades.filter(done=True).count()
+
+        if total == 0:
+            return Response({'erro': 'Checklist sem atividades'}, status=status.HTTP_400_BAD_REQUEST)
+
+        porcentagem = (feitas / total) * 100
+
+        pontuacao, _ = models.pontuacao_check.objects.update_or_create(
+            checklist=check,
+            defaults={
+                'qtd_total_atv': total,
+                'qtd_atv_done': feitas,
+                'porcentagem': porcentagem
+            }
+        )
+
+        return Response({
+            'checklist_id': check.id,
+            'qtd_total_atv': total,
+            'qtd_atv_done': feitas,
+            'porcentagem': round(pontuacao.porcentagem, 2)
+        })
+    
+class PontuacaoCheckListAPIView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        pontuacoes = models.pontuacao_check.objects.filter(checklist__id_usuario=request.user)
+
+        serializer = serializers.PontuacaoCheckSerializer(pontuacoes, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)

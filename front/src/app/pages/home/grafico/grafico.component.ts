@@ -1,115 +1,126 @@
-import { Component } from '@angular/core';
-import { BaseChartDirective } from 'ng2-charts';
-import { ChartType, ChartConfiguration } from 'chart.js';
-import { CommonModule } from '@angular/common';
-import { GraficoImcComponent } from '../calculo-imc/grafico-imc/grafico-imc.component';
+  import { Component, OnInit } from '@angular/core';
+  import { BaseChartDirective } from 'ng2-charts';
+  import { ChartType, ChartConfiguration } from 'chart.js';
+  import { CommonModule } from '@angular/common';
+  import { GraficoImcComponent } from '../calculo-imc/grafico-imc/grafico-imc.component';
+  import { GraficoPontuacaoService } from '../../../api/grafico_pontuacao.service';
+  import { Pontuacao } from '../../../models/user';
 
-@Component({
-  selector: 'app-grafico',
-  standalone: true,
-  imports: [CommonModule, BaseChartDirective, GraficoImcComponent ],
-  templateUrl: './grafico.component.html',
-  styleUrl: './grafico.component.scss'
-})
-export class GraficoComponent {
-  currentView: 'atividades' | 'desempenho' | 'imc' = 'atividades';
+  @Component({
+    selector: 'app-grafico',
+    standalone: true,
+    imports: [CommonModule, BaseChartDirective, GraficoImcComponent ],
+    templateUrl: './grafico.component.html',
+    styleUrl: './grafico.component.scss'
+  })
+  export class GraficoComponent implements OnInit {
+    currentView: 'Desempenho Checklist' | 'imc' = 'Desempenho Checklist';
 
-  get chartType(): ChartType {
-    return 'bar'; 
-  }
+    chartLabels: string[] = [];
+    chartValues: number[] = [];
 
-  get chartTitle(): string {
-    if (this.currentView === 'atividades') {
-      return 'Atividades Realizadas';
-    } else if (this.currentView === 'desempenho') {
-      return 'Desempenho Semanal (Dias com Exercício)';
-    } else {
-      return 'Gráfico de IMC';
+    constructor(private graficoService: GraficoPontuacaoService) {}
+
+    ngOnInit(): void {
+      this.carregarPontuacoes();
     }
-  }
 
-  get chartOptions(): ChartConfiguration['options'] {
-    return {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          position: 'bottom',
-          labels: {
-            color: '#ccc',
-            font: { size: 14 }
+    carregarPontuacoes(): void {
+      this.graficoService.obterPontuacoes().subscribe({
+        next: (pontuacoes: Pontuacao[]) => {
+          this.chartLabels = pontuacoes.map(p => `Checklist ${p.checklist_id}`);
+          this.chartValues = pontuacoes.map(p => p.porcentagem);
+        },
+        error: (err) => {
+          console.error('Erro ao buscar pontuações:', err);
+        }
+      });
+    }
+
+    get chartType(): ChartType {
+      return 'bar'; 
+    }
+
+    get chartTitle(): string {
+      return this.currentView === 'Desempenho Checklist'
+        ? 'Desempenho Checklists'
+        : 'Gráfico de IMC'; 
+    }
+
+    get chartOptions(): ChartConfiguration['options'] {
+      return {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: {
+              color: '#ccc',
+              font: { size: 14 }
+            }
+          },
+          tooltip: {
+            backgroundColor: '#1f2d3d',
+            titleColor: '#00c8c8',
+            bodyColor: '#ffffff',
+            borderColor: '#00c8c8',
+            borderWidth: 1
           }
         },
-        tooltip: {
-          backgroundColor: '#1f2d3d',
-          titleColor: '#00c8c8',
-          bodyColor: '#ffffff',
-          borderColor: '#00c8c8',
-          borderWidth: 1,
-        }
-      },
-      scales: {
-        x: {
-          ticks: { color: '#ccc' },
-          grid: { display: false }
-        },
-        y: {
-          beginAtZero: true,
-          max: this.currentView === 'desempenho' ? 7 : undefined,
-          ticks: {
-            color: '#ccc',
-            stepSize: this.currentView === 'desempenho' ? 1 : undefined,
-            callback: this.currentView === 'atividades'
-              ? (value) => value + '%'
-              : undefined
+        scales: {
+          x: {
+            offset: true,
+            ticks: { color: '#ccc' },
+            grid: { display: false }
           },
-          grid: { color: '#2a3b4d' }
+          y: {
+            beginAtZero: true,
+            max: 100,
+            ticks: {
+              color: '#ccc',
+              callback: this.currentView === 'Desempenho Checklist'
+                ? (value: number | string) => value + '%'
+                : undefined
+            },
+            grid: { color: '#2a3b4d' }
+          }
         }
+      };
+    }
+
+    get chartData() {
+      if (this.currentView === 'Desempenho Checklist') {
+        return {
+          labels: this.chartLabels,
+          datasets: [
+            {
+              label: 'Porcentagem Concluída',
+              data: this.chartValues,
+              backgroundColor: '#00c853',
+              fill: false,
+              borderRadius: 6,
+              maxBarThickness: 80,
+              barPercentage: 0.7,
+              categoryPercentage: 0.8
+            }
+          ]
+        };
+      } else {
+        return {
+          labels: [],
+          datasets: [
+            {
+              label: '',
+              data: [],
+              backgroundColor: '#00c8c8',
+              borderRadius: 6
+            }
+          ]
+        };
       }
-    };
-  }
+    }
 
-  get chartData() {
-    if (this.currentView === 'atividades') {
-      return {
-        labels: ['Jan 1', 'Jan 2', 'Jan 3', 'Jan 4', 'Jan 5'],
-        datasets: [
-          {
-            label: 'Aeróbico',
-            data: [20, 35, 40, 25, 30],
-            backgroundColor: '#e74c3c',
-            borderRadius: 6
-          },
-          {
-            label: 'Yoga',
-            data: [30, 50, 45, 40, 35],
-            backgroundColor: '#1abc9c',
-            borderRadius: 6
-          },
-          {
-            label: 'Meditação',
-            data: [10, 20, 15, 30, 25],
-            backgroundColor: '#f39c12',
-            borderRadius: 6
-          }
-        ]
-      };
-    } else {
-      return {
-        labels: ['1ª Semana', '2ª Semana', '3ª Semana', '4ª Semana'],
-        datasets: [
-          {
-            label: 'Dias com Exercício por Semana',
-            data: [3, 5, 4, 2],
-            backgroundColor: '#00c8c8',
-            borderRadius: 6
-          }
-        ]
-      };
+    switchView(view: 'Desempenho Checklist' | 'imc') {
+      this.currentView = view;
     }
   }
-
-  switchView(view: 'atividades' | 'desempenho' | 'imc') {
-    this.currentView = view;
-  }
-}
