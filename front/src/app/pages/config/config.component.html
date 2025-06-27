@@ -8,15 +8,25 @@
 
       <!-- NOTIFICAÇÕES -->
       <div class="setting-section">
-        <div class="section-toggle" (click)="toggleNotifications()">
+        <div class="section-toggle" (click)="toggleNotifications()" style="cursor:pointer; user-select:none;">
           <div class="toggle-left">
             <span class="material-icons">notifications_active</span>
             <span class="label">Notificações</span>
           </div>
-          <span class="material-icons expand-icon" [class.rotated]="notificationsEnabled">expand_more</span>
+
+          <div
+            class="toggle-switch"
+            [class.active]="settingsService.notificationsEnabled"
+            aria-label="Ativar ou desativar notificações"
+            role="switch"
+            [attr.aria-checked]="settingsService.notificationsEnabled"
+          >
+            <div class="toggle-circle"></div>
+          </div>
         </div>
-        <div class="section-content" *ngIf="notificationsEnabled">
-          <p>Receba lembretes de metas, atividades e cuidados com sua saúde.</p>
+
+        <div class="section-content" *ngIf="settingsService.notificationsEnabled">
+          <p>Receba notificações sobre eventos importantes.</p>
         </div>
       </div>
 
@@ -30,7 +40,6 @@
           <span class="material-icons status">download</span>
         </div>
       </div>
-
     </div>
   </main>
 </div>

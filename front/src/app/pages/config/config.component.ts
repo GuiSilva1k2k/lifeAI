@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SidebarComponent } from '../../sidebar/sidebar.component';
+import { SettingsService } from '../../api/settings.service';
 
 @Component({
   selector: 'app-config',
@@ -11,42 +12,17 @@ import { SidebarComponent } from '../../sidebar/sidebar.component';
   styleUrls: ['./config.component.scss']
 })
 export class ConfigComponent {
-  // Estados de expansão de seções
-  // privacyEnabled = true;
-  // backupEnabled = false;
-  notificationsEnabled = false;
-  // checkinEnabled = false;
-
-  // Estado do modo escuro
-  // darkModeEnabled = false;
-
-  // Alternadores de seção
-  // togglePrivacy(): void {
-  //   this.privacyEnabled = !this.privacyEnabled;
-  // }
-
-  // toggleBackup(): void {
-  //   this.backupEnabled = !this.backupEnabled;
-  // }
+  constructor(public settingsService: SettingsService) {}
 
   toggleNotifications(): void {
-    this.notificationsEnabled = !this.notificationsEnabled;
+    const confirma = window.confirm('Tem certeza que deseja alterar o estado das notificações?');
+    if (!confirma) {
+      return;
+    }
+    
+    const atual = this.settingsService.notificationsEnabled;
+    this.settingsService.setNotificationsEnabled(!atual);
   }
-
-  // toggleCheckin(): void {
-  //   this.checkinEnabled = !this.checkinEnabled;
-  // }
-
-  // toggleDarkMode(): void {
-  //   this.darkModeEnabled = !this.darkModeEnabled;
-
-  //   // Exemplo de aplicação de tema
-  //   if (this.darkModeEnabled) {
-  //     document.body.classList.add('dark-mode');
-  //   } else {
-  //     document.body.classList.remove('dark-mode');
-  //   }
-  // }
 
   exportarPrint(): void {
     window.print();

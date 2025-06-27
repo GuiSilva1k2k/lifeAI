@@ -34,6 +34,7 @@
       align-items: center;
       padding: 1rem;
       cursor: pointer;
+      user-select: none;
 
       &:hover {
         background-color: #1a2b36;
@@ -86,5 +87,38 @@
       font-size: 0.875rem;
       color: #d1d5db;
     }
+  }
+}
+
+/* Toggle botão estilo on/off */
+
+.toggle-switch {
+  width: 50px;
+  height: 26px;
+  background: #1f2d36;
+  border-radius: 13px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: 1px solid #00ff9d;
+
+  &.active {
+    background-color: #00ff9d;
+  }
+
+  .toggle-circle {
+    width: 22px;
+    height: 22px;
+    background: #14232d;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: left 0.3s ease;
+    border: 1px solid #00ff9d;
+  }
+
+  &.active .toggle-circle {
+    left: 26px;
   }
 }
