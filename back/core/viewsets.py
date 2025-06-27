@@ -269,7 +269,7 @@ class PontuacaoCheckListAPIView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
-        pontuacoes = models.pontuacao_check.objects.filter(checklist__id_usuario=request.user)
+        pontuacoes = models.pontuacao_check.objects.filter(checklist__id_usuario=request.user).order_by('checklist__data')
 
         serializer = serializers.PontuacaoCheckSerializer(pontuacoes, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)

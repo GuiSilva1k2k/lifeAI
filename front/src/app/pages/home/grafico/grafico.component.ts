@@ -19,6 +19,14 @@
     chartLabels: string[] = [];
     chartValues: number[] = [];
 
+    
+    getBarColor(valor: number): string {
+      if (valor <= 25) return '#ef5350';
+      if (valor <= 50) return '#ff9800';
+      if (valor <= 75) return '#8bc34a';
+      return '#388e3c';
+    }
+
     constructor(private graficoService: GraficoPontuacaoService) {}
 
     ngOnInit(): void {
@@ -28,7 +36,12 @@
     carregarPontuacoes(): void {
       this.graficoService.obterPontuacoes().subscribe({
         next: (pontuacoes: Pontuacao[]) => {
-          this.chartLabels = pontuacoes.map(p => `Checklist ${p.checklist_id}`);
+          pontuacoes.sort((a, b) => new Date(a.data_checklist).getTime() - new Date(b.data_checklist).getTime());
+          this.chartLabels = pontuacoes.map(p => {
+            const [ano, mes, dia] = p.data_checklist.split('-');
+            return `${dia}-${mes}-${ano}`;
+          });
+
           this.chartValues = pontuacoes.map(p => p.porcentagem);
         },
         error: (err) => {
@@ -90,14 +103,15 @@
 
     get chartData() {
       if (this.currentView === 'Desempenho Checklist') {
+        const backgroundColors = this.chartValues.map(p => this.getBarColor(p));
+
         return {
           labels: this.chartLabels,
           datasets: [
             {
               label: 'Porcentagem Concluída',
               data: this.chartValues,
-              backgroundColor: '#00c853',
-              fill: false,
+              backgroundColor: backgroundColors,
               borderRadius: 6,
               maxBarThickness: 80,
               barPercentage: 0.7,

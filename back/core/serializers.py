@@ -62,8 +62,9 @@ class ChecklistSerializer(serializers.ModelSerializer):
         return checklist_instance
 
 class PontuacaoCheckSerializer(serializers.ModelSerializer):
+    data_checklist = serializers.DateField(source='checklist.data', format='%Y-%m-%d')
     checklist_id = serializers.IntegerField(source='checklist.id', read_only=True)
 
     class Meta:
         model = pontuacao_check
-        fields = ['id', 'checklist_id', 'qtd_total_atv', 'qtd_atv_done', 'porcentagem', 'criado_em']
+        fields = ['id', 'checklist_id', 'qtd_total_atv', 'qtd_atv_done', 'porcentagem', 'criado_em', 'data_checklist']

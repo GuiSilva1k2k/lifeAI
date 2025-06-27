@@ -46,4 +46,5 @@ export interface Pontuacao {
   qtd_atv_done: number;
   porcentagem: number;
   criado_em: string;
+  data_checklist: string;
 }
