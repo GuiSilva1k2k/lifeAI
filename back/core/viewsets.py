@@ -273,3 +273,47 @@ class PontuacaoCheckListAPIView(APIView):
 
         serializer = serializers.PontuacaoCheckSerializer(pontuacoes, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+class DesempenhoMensalAPIView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        ano = request.GET.get('ano')
+        mes = request.GET.get('mes')
+
+        if not ano or not mes:
+            return Response({"erro": "Ano e mês são obrigatórios."}, status=400)
+
+        try:
+            ano = int(ano)
+            mes = int(mes)
+        except ValueError:
+            return Response({"erro": "Ano e mês devem ser números."}, status=400)
+
+        pontuacoes = models.pontuacao_check.objects.filter(
+            checklist__id_usuario=request.user,
+            checklist__data__year=ano,
+            checklist__data__month=mes
+        ).values(
+            'checklist__data',
+            'porcentagem'
+        )
+
+        resultado = []
+        for p in pontuacoes:
+            data_str = p['checklist__data'].strftime('%Y-%m-%d')
+            porcentagem = p['porcentagem']
+            if porcentagem < 33:
+                emoji = '🧊'
+            elif porcentagem < 66:
+                emoji = '😐'
+            else:
+                emoji = '🔥'
+
+            resultado.append({
+                'data': data_str,
+                'emoji': emoji,
+                'porcentagem': porcentagem
+            })
+
+        return Response(resultado)

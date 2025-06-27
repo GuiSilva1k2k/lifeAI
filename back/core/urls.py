@@ -22,4 +22,5 @@ urlpatterns = [
     path('checklists/<int:checklist_id>/atualizar-atividades/', viewsets.AtualizarAtividadesAPIView.as_view(), name='atualizar-atividades'),
     path('checklists/<int:checklist_id>/pontuacao/', viewsets.GerarPontuacaoAPIView.as_view()),
     path('pontuacoes/', viewsets.PontuacaoCheckListAPIView.as_view(), name='pontuacoes'),
+    path('pontuacoes/mensal/', viewsets.DesempenhoMensalAPIView.as_view(), name='pontuacoes-mensal'),
 ]

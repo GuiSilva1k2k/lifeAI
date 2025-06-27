@@ -76,3 +76,38 @@
     transform: translateY(0);
   }
 }
+
+::ng-deep .fogo .mat-calendar-body-cell-content,
+::ng-deep .gelo .mat-calendar-body-cell-content,
+::ng-deep .neutro .mat-calendar-body-cell-content {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+::ng-deep .fogo .mat-calendar-body-cell-content::after {
+  content: '🔥';
+  font-size: 1.4rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+::ng-deep .gelo .mat-calendar-body-cell-content::after {
+  content: '🧊';
+  font-size: 1.4rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+::ng-deep .neutro .mat-calendar-body-cell-content::after {
+  content: '😐';
+  font-size: 1.4rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
