@@ -21,10 +21,10 @@
 
     
     getBarColor(valor: number): string {
-      if (valor <= 25) return '#ef5350';
-      if (valor <= 50) return '#ff9800';
-      if (valor <= 75) return '#8bc34a';
-      return '#388e3c';
+      if (valor <= 25) return '#b61827';
+      if (valor <= 50) return '#ffc400';
+      if (valor <= 75) return '#4caf50';
+      return '#006600';
     }
 
     constructor(private graficoService: GraficoPontuacaoService) {}
@@ -39,7 +39,7 @@
           pontuacoes.sort((a, b) => new Date(a.data_checklist).getTime() - new Date(b.data_checklist).getTime());
           this.chartLabels = pontuacoes.map(p => {
             const [ano, mes, dia] = p.data_checklist.split('-');
-            return `${dia}-${mes}-${ano}`;
+            return `${dia}/${mes}`;
           });
 
           this.chartValues = pontuacoes.map(p => p.porcentagem);
@@ -68,14 +68,14 @@
           legend: {
             position: 'bottom',
             labels: {
-              color: '#ccc',
-              font: { size: 14 }
+              color: '#C7D6DF',
+              font: { size: 18 }
             }
           },
           tooltip: {
             backgroundColor: '#1f2d3d',
-            titleColor: '#00c8c8',
-            bodyColor: '#ffffff',
+            titleColor: '#C7D6DF',
+            bodyColor: '#C7D6DF',
             borderColor: '#00c8c8',
             borderWidth: 1
           }
@@ -83,14 +83,14 @@
         scales: {
           x: {
             offset: true,
-            ticks: { color: '#ccc' },
+            ticks: { color: '#C7D6DF' },  
             grid: { display: false }
           },
           y: {
             beginAtZero: true,
             max: 100,
             ticks: {
-              color: '#ccc',
+              color: '#C7D6DF',
               callback: this.currentView === 'Desempenho Checklist'
                 ? (value: number | string) => value + '%'
                 : undefined

@@ -73,7 +73,7 @@ body.page-dashboard .card:hover {
 
 /* Resumo do IMC */
 body.page-dashboard .imc-resumo {
-  background: #13212f;
+  background: #102938;
   border-radius: 16px;
   padding: 20px;
   width: 100%;
@@ -94,7 +94,7 @@ body.page-dashboard .imc-resumo .imc-valor {
 
 /* Gráfico */
 body.page-dashboard .grafico-placeholder {
-  background: #243447;
+  background: #102938;
   border-radius: 12px;
   width: 100%;
   max-height: 400px;
@@ -106,10 +106,9 @@ body.page-dashboard .grafico-placeholder {
   color: #aaa;
 }
 
-/* Atividades */
 body.page-dashboard .atividades {
   width: 100%;
-  background: #13212f;
+  background: #102938;
   border-radius: 16px;
   padding: 20px;
   margin-top: 80px;

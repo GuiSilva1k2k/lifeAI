@@ -57,23 +57,27 @@ export class GraficoImcComponent {
         legend: {
           position: 'bottom',
           labels: {
-            color: '#ccc',
-            font: { size: 14 }
+            color: '#C7D6DF',
+            font: { size: 18 }
           }
         },
         tooltip: {
           backgroundColor: '#1f2d3d',
           titleColor: '#00c8c8',
-          bodyColor: '#ffffff',
+          bodyColor: '#C7D6DF',
           borderColor: '#00c8c8',
         }
       },
       scales: {
         x: {
-          ticks: { color: '#ccc' },
+          offset: true,
+          ticks: { color: '#C7D6DF' },
           grid: { display: false }
         },
         y: {
+          ticks: {
+            color: '#C7D6DF',
+          },
           beginAtZero: true,
           max: 50,
           grid: { color: '#2a3b4d' }

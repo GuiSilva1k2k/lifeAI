@@ -1,9 +1,9 @@
 .mat-mdc-row {
-  color: #ffffff !important;
+  color: #C7D6DF !important;
 }
 
 .mat-mdc-header-row {
-  color: #00c8c8 !important;
+  color: #C7D6DF !important;
 }
 
 .tabela_historico_wrapper {
@@ -17,7 +17,7 @@
   margin: 0;
   padding: 2rem;
   border-radius: 10px;
-  background-color: #13212f;
+  background-color: #102938;
   font-family: 'Arial', sans-serif;
 }
 
@@ -50,20 +50,19 @@
 .tabela_historico button[color="warn"] {
   padding: 4px;
   border-radius: 6px;
-  border: 1px solid #ff4d4d;
-  background-color: #ff4d4d;
+  background-color: #891b25;
   transition: background-color 0.2s ease-in-out;
 }
 
 .tabela_historico button[color="warn"] mat-icon {
   font-size: 18px;
-  color: #ffffff;
+  color: #E4E7E8;
   justify-content: center;
   vertical-align: middle;
 }
 
 .tabela_historico button[color="warn"]:hover {
-  background-color: #ff3333;
+  background-color: #d0373b;
 }
 
 .tabela_historico mat-icon {

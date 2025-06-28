@@ -3,23 +3,21 @@
   width: 100%;
   height: 450px;
   max-height: 450px;
-  background: #13212f; 
-  border-radius: 15px;
+  background: #0A1822; 
   padding: 25px;
   box-sizing: border-box;
-  padding-left: 20px;
 }
 
 .grafico-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
 
   h3 {
-    color: #00c8c8;
+    color: #C7D6DF;
     font-size: 20px;
-    margin: 0;
+    padding-top: 10px;
+    padding-bottom: 5px;
   }
 
   .view-toggle {
@@ -28,8 +26,8 @@
 
     button {
       background: none;
-      border: 1px solid #00c8c8;
-      color: #00c8c8;
+      border: 1px solid #4194C8;
+      color: #C7D6DF;
       padding: 4px 8px;
       border-radius: 8px;
       cursor: pointer;
@@ -37,8 +35,8 @@
 
       &.active,
       &:hover {
-        background-color: #00c8c8;
-        color: #13212f;
+        background-color: #C7D6DF;
+        color: #060F0C;
       }
     }
   }
@@ -54,23 +52,22 @@ canvas {
 .chartjs-render-monitor + .chartjs-legend {
   max-height: 100px;
   overflow-y: auto;
-  color: #ccc;
+  color: #C7D6DF;
   font-size: 12px;
-  padding-top: 8px;
 }
 
 .barra-vermelha {
-  background-color: #ef5350;
+  background-color: #b61827;
 }
 
 .barra-laranja {
-  background-color: #ff9800;
+  background-color: #ffc400;
 }
 
 .barra-verde-claro {
-  background-color: #8bc34a;
+  background-color: #4caf50;
 }
 
 .barra-verde-escuro {
-  background-color: #388e3c;
+  background-color: #006600;
 }
