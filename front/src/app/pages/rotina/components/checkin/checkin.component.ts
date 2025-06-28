@@ -6,6 +6,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AtividadePontuacaoService } from '../../../../api/atividade_pontuacao.service';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 export interface Atividade {
   id: number;
@@ -16,7 +17,14 @@ export interface Atividade {
 @Component({
   selector: 'app-checkin',
   standalone: true,
-  imports: [MatTableModule, MatIconModule, MatButtonModule, MatCheckboxModule, FormsModule],
+  imports: [
+    MatTableModule,
+    MatIconModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    FormsModule,
+    MatSnackBarModule,
+  ],
   templateUrl: './checkin.component.html',
   styleUrl: './checkin.component.scss'
 })
@@ -29,7 +37,11 @@ export class CheckinComponent implements OnChanges{
 
   idChecklist: number = 0;
 
-  constructor(private http: HttpClient, private atividadeService: AtividadePontuacaoService) {}
+  constructor(
+    private http: HttpClient,
+    private atividadeService: AtividadePontuacaoService,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['data'] && this.data) {
@@ -102,11 +114,22 @@ export class CheckinComponent implements OnChanges{
     }
     this.atividadeService.gerarPontuacao(this.idChecklist).subscribe({
       next: (res) => {
-        console.log('Pontuação salva com sucesso:', res);
+          this.snackBar.open('Pontuação gerada com sucesso!', '', {
+            duration: 3000,
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+            panelClass: ['snackbar-sucesso']
+        });
       },
       error: (err) => {
         console.error('Erro ao gerar pontuação:', err);
         alert('Erro ao gerar pontuação');
+        this.snackBar.open('Erro ao gerar pontuação!', '', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: ['snackbar-erro']
+        });
       }
     });
   }

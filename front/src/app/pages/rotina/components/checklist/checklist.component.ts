@@ -24,7 +24,6 @@ interface atividade {
   editando?: boolean; // novo campo opcional
 }
 
-
 @Component({
   selector: 'app-checklist',
   standalone: true,
@@ -174,4 +173,5 @@ Formato de saída (sem nenhuma explicação, apenas o JSON):
       }
     });
   }
+  
 }

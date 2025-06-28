@@ -4,6 +4,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { CalendarioPontuacaoService } from '../../../../api/calendarioDesempenho.service';
+import { MatCalendar } from '@angular/material/datepicker';
+import { ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-calendario',
@@ -25,6 +27,7 @@ import { CalendarioPontuacaoService } from '../../../../api/calendarioDesempenho
   ]
 })
 export class CalendarioComponent implements OnInit {
+  @ViewChild(MatCalendar) calendar!: MatCalendar<Date>;
   selectedDate: Date | null = null;
   ultimoMes: number = new Date().getMonth();
   ultimoAno: number = new Date().getFullYear();
@@ -70,6 +73,9 @@ export class CalendarioComponent implements OnInit {
       this.mapaEmojis = {};
       for (const d of dados) {
         this.mapaEmojis[d.data] = this.emojiParaClasse(d.emoji);
+      }
+      if (this.calendar) {
+        this.calendar.updateTodaysDate();
       }
     });
   }

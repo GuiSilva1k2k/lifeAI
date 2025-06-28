@@ -68,36 +68,90 @@ div p {
   color: white;
 }
 
-.toast-alert {
-  position: fixed;
-  top: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 14px 24px;
-  border-radius: 10px;
-  font-size: 1rem;
-  z-index: 9999;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+::ng-deep .mat-mdc-snack-bar-container.snackbar-sucesso {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+::ng-deep .mat-mdc-snack-bar-container.snackbar-sucesso .mdc-snackbar__surface {
+  margin: 10px;
+  background-color: #4caf50 !important;
+  color: white !important;
+  border-radius: 8px !important;
+  font-size: 32px !important;
   text-align: center;
-  animation: fadeInDownOut 3s ease-in-out;
-  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-.toast-alert.erro {
-  background-color: #ff4d4f;
+::ng-deep .mat-mdc-snack-bar-container.snackbar-erro {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
 }
 
-.toast-alert.sucesso {
-  background-color: #4caf50;
+::ng-deep .mat-mdc-snack-bar-container.snackbar-erro .mdc-snackbar__surface {
+  margin: 10px;
+  background-color: #e53935 !important;
+  color: #fff !important;
+  font-size: 18px !important;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.3s ease-in-out;
+}
+.input_data{
+  background-color: transparent;
+  color:  #1e2a36 !important;
+  border: 2px solid black !important;
+}
+::ng-deep mat-calendar {
+  max-width: 100%;
+  display: block;
+  background-color: #0f202a !important;
+  border-radius: 1rem;
+  color: #00c8c8;
+  box-sizing: border-box;
+  padding: 1rem;
+  transition: all 0.3s ease;
 }
 
-@keyframes fadeInDownOut {
-  0%   { opacity: 0; transform: translateX(-50%) translateY(-10px); }
-  10%  { opacity: 1; transform: translateX(-50%) translateY(0); }
-  90%  { opacity: 1; transform: translateX(-50%) translateY(0); }
-  100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+::ng-deep .mat-calendar-header,
+::ng-deep .mat-calendar-content,
+::ng-deep .mat-calendar-table-header th,
+::ng-deep .mat-calendar-body-cell,
+::ng-deep .mat-calendar-body-cell-content {
+  color: aliceblue !important;
+  transition: color 0.3s ease;
 }
 
+::ng-deep .mat-calendar-body-disabled {
+  color: rgba(239, 239, 239, 0.25) !important;
+}
 
+::ng-deep .mat-calendar-body-selected {
+  background-color: #00c8c8 !important;
+  color: #0e1b24 !important;
+  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-radius: 50%;
+}
 
+::ng-deep .mat-calendar-body-today:not(.mat-calendar-body-selected) {
+  border: 2px solid #00c8c8 !important;
+  border-radius: 50%;
+  transition: border-color 0.3s ease;
+}
 
+::ng-deep .mat-calendar-previous-button,
+::ng-deep .mat-calendar-next-button,
+::ng-deep .mat-calendar-period-button {
+  color: #00c8c8 !important;
+  transition: color 0.3s ease;
+}
+::ng-deep .mat-calendar-body-cell:hover .mat-calendar-body-cell-content:not(.mat-calendar-body-disabled) {
+  background-color: #00c85326;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}

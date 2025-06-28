@@ -7,15 +7,14 @@
 
     <label for="peso">Peso</label>
     <input id="peso" type="number" formControlName="peso"/>
-
-    <!-- Campo de data simples -->
-    <label for="data_consulta">Data</label>
-    <input id="data_consulta" type="date" formControlName="data_consulta" [max]="maxDate" />
-
-    <div *ngIf="mostrarToast" class="toast-alert" [ngClass]="tipoToast">
-      {{ mensagemAlerta }}
-    </div>
-
+    
+    <label for="novaTarefaInput">Data de criação</label>
+    <mat-form-field appearance="fill">
+      <input class="input_data" matInput [matDatepicker]="picker" formControlName="data_consulta" [max]="maxDate" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    
     <button type="submit" [disabled]="form.invalid">Calcular</button>
   </form>
 

@@ -3,35 +3,45 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-calculo-imc',
   standalone: true,
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule,
+    MatSnackBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   templateUrl: './calculo-imc.component.html',
   styleUrls: ['./calculo-imc.component.scss']
 })
 export class CalculoImcComponent implements OnInit {
-
   form: FormGroup = new FormGroup({});
   resultado: number | null = null;
   registros: any[] = [];
   classificacao: string = '';
   idade: number = 0;
   sexo: string = '';
-  mensagemAlerta: string | null = null;
-  mostrarToast: boolean = false;
-  tipoToast: 'erro' | 'sucesso' = 'sucesso';
   maxDate: string = '';
+  dataChecklist: Date = new Date();
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private snackBar: MatSnackBar) {
     this.form = this.fb.group({
       altura: [null, [Validators.required, Validators.min(0.1)]],
       peso: [null, [Validators.required, Validators.min(0.1)]],
-      data_consulta: ['', [Validators.required]]
+      data_consulta: [null, [Validators.required]]
     });
     this.maxDate = this.getLocalDate();
   }
@@ -58,16 +68,6 @@ export class CalculoImcComponent implements OnInit {
     return `${year}-${month}-${day}`;
   }
 
-  exibirToast(mensagem: string, tipo: 'erro' | 'sucesso' = 'sucesso', duracaoMs: number = 3000): void {
-    this.mensagemAlerta = mensagem;
-    this.tipoToast = tipo;
-    this.mostrarToast = true;
-    setTimeout(() => {
-      this.mostrarToast = false;
-      this.mensagemAlerta = null;
-    }, duracaoMs);
-  }
-
   consultaImcBase(): Observable<any> {
     const token = localStorage.getItem('access_token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
@@ -76,25 +76,37 @@ export class CalculoImcComponent implements OnInit {
 
   calcularIMC(): void {
     if (this.form.valid) {
-      const { peso, altura, data_consulta } = this.form.value;
+      const { peso, altura } = this.form.value;
+      let data_consulta = this.form.value.data_consulta;
+      if (data_consulta instanceof Date) {
+        data_consulta = data_consulta.toISOString().split('T')[0];
+      }
       const payload = { peso, altura, data_consulta, idade: this.idade, sexo: this.sexo };
+
       const token = localStorage.getItem('access_token');
       const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
       this.http.post<any>('http://localhost:8000/imc/', payload, { headers }).subscribe({
         next: (resposta) => {
           this.resultado = resposta.imc_res;
           this.classificacao = resposta.classificacao;
-          this.exibirToast('IMC registrado com sucesso!', 'sucesso');
-          this.form.reset();
+          this.form.reset({ data_consulta: new Date() }); // reseta form com data atual
+
+          this.snackBar.open('IMC registrado com sucesso!', '', {
+            duration: 3000,
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+            panelClass: ['snackbar-sucesso']
+          });
         },
         error: (err) => {
           console.error('Erro ao salvar/calcular IMC:', err);
-          const erroData = err.error?.data_consulta;
-          if (erroData && erroData.length > 0) {
-            this.exibirToast(erroData[0], 'erro');
-          } else {
-            this.exibirToast('Erro ao salvar o IMC.', 'erro');
-          }
+          this.snackBar.open('Erro ao calcular o IMC.', '', {
+            duration: 3000,
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+            panelClass: ['snackbar-erro']
+          });
         }
       });
     }
