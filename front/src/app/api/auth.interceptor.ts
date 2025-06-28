@@ -19,16 +19,24 @@ export const authInterceptor: HttpInterceptorFn = (
 
   const token = authService.getToken();
 
+  // 🛑 Não adicionar o header Authorization para o endpoint de refresh
+  if (req.url.includes('/api/token/refresh/')) {
+    return next(req);
+  }
+
+  // ✅ Adiciona o token se houver
+  let authReq = req;
   if (token) {
-    req = req.clone({
+    authReq = req.clone({
       setHeaders: {
         Authorization: `Bearer ${token}`
       }
     });
   }
 
-  return next(req).pipe(
+  return next(authReq).pipe(
     catchError((error: HttpErrorResponse) => {
+      // Se deu erro 401, tenta renovar o token
       if (error.status === 401) {
         return authService.refreshToken().pipe(
           switchMap((newToken) => {
@@ -47,6 +55,8 @@ export const authInterceptor: HttpInterceptorFn = (
           })
         );
       }
+
+      // Outros erros continuam normalmente
       return throwError(() => error);
     })
   );
