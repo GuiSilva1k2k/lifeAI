@@ -1,24 +1,41 @@
-<div class="resumo-imc" *ngIf="registros.length > 0">
+<div #resumoContainer class="resumo-imc">
   <h2>Resumo IMC</h2>
-  <div *ngFor="let item of registros" class="registro">
-    <ul>
-      <li><strong>Peso:</strong> <span>{{ item.peso }} kg</span></li>
-      <li><strong>Altura:</strong> <span>{{ item.altura }} cm</span></li>
-      <li class="imc"><strong>IMC:</strong> <span>{{ item.imc_res }} - {{ obterMensagemIMC(item.imc_res) }}</span></li>
-      <li><strong>Objetivo:</strong> <span>{{ item.objetivo }}</span></li>
-    </ul>
-  </div>
 
-  <!-- Barra de classificação do IMC -->
-  <div class="imc-bar" *ngIf="registros.length > 0">
-    <div class="range">
-      <div class="segment underweight"></div>
-      <div class="segment healthy"></div>
-      <div class="segment overweight"></div>
-      <div class="segment obese"></div>
+  <div *ngFor="let item of registros" class="registro-horizontal">
+    <div class="info-bloco">
+      <ul>
+        <li>
+          <strong>Peso:</strong> <span>{{ item.peso }} kg</span>
+        </li>
+        <li>
+          <strong>Altura:</strong> <span>{{ item.altura }} cm</span>
+        </li>
+        <li>
+          <strong>Objetivo:</strong> <span>{{ item.objetivo }}</span>
+        </li>
+      </ul>
     </div>
-    <div *ngFor="let item of registros" class="indicator" [ngStyle]="{ left: calcularPosicao(item.imc_res) + '%' }"></div>
+
+    <div class="score-bloco">
+      <app-score-saude [imc]="item.imc_res"></app-score-saude>
+    </div>
   </div>
 
-  <div *ngFor="let item of registros" class="status-imc">{{ obterMensagemIMC(item.imc_res) }}</div>
+  <div class="imc-bar" *ngIf="registros.length > 0">
+    <div
+      *ngFor="let item of registros"
+      class="indicator"
+      [ngStyle]="{ left: calcularPosicao(item.imc_res) + '%' }"
+    ></div>
+  </div>
+
+  <div *ngFor="let item of registros" class="status-imc">
+    <strong>{{ obterMensagemIMC(item.imc_res) }}</strong>
+  </div>
+
+  <div class="botao-compartilhar" *ngIf="registros.length > 0">
+    <button (click)="compartilharResumo()">
+      <span class="material-icons">share</span>
+    </button>
+  </div>
 </div>

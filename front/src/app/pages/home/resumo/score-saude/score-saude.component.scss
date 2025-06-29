@@ -1,0 +1,53 @@
+:host {
+  display: block;
+  width: 120px;
+  height: 120px;
+}
+
+.circle-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.circle-bg,
+.circle-progress {
+  fill: none;
+  stroke-width: 3.2; 
+}
+
+.circle-bg {
+  stroke: #1F2E3A; 
+}
+
+.circle-progress {
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: center;
+  transition: stroke-dasharray 0.5s ease-in-out, stroke 0.5s ease-in-out;
+}
+
+.score {
+  font-family: 'Poppins', sans-serif;
+  font-size: 5.5px;
+  font-weight: 700;
+  fill: #ffffff;
+  text-anchor: middle; 
+}
+
+.score-desc {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.5px;
+  font-weight: 500;
+  fill: #A0B0BB;
+  text-anchor: middle;
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
+}
+
+.imc-value {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.5px;
+  font-weight: 600;
+  fill: #A0B0BB;
+  text-anchor: middle;
+}

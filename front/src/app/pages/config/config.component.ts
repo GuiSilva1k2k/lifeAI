@@ -23,8 +23,4 @@ export class ConfigComponent {
     const atual = this.settingsService.notificationsEnabled;
     this.settingsService.setNotificationsEnabled(!atual);
   }
-
-  exportarPrint(): void {
-    window.print();
-  }
 }

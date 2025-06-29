@@ -1,30 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ChatService } from '../../../api/chat.service';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ScoreSaudeComponent } from './score-saude/score-saude.component';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-resumo',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ScoreSaudeComponent],
   templateUrl: './resumo.component.html',
-  styleUrl: './resumo.component.scss'
+  styleUrls: ['./resumo.component.scss']
 })
 export class ResumoComponent implements OnInit {
   respostas: any;
   registros: any[] = [];
 
+  @ViewChild('resumoContainer', { static: false }) resumoContainer!: ElementRef;
+
   constructor(private chatService: ChatService, private http: HttpClient) {}
 
   ngOnInit() {
-    // Carrega do localStorage, se houver
     const salvas = localStorage.getItem('resumoRespostas');
     if (salvas) {
       this.respostas = JSON.parse(salvas);
     }
 
-    // Escuta atualizações do ChatService e salva sempre que mudar
     this.chatService.respostas$.subscribe(res => {
       if (res) {
         this.respostas = res;
@@ -39,10 +41,16 @@ export class ResumoComponent implements OnInit {
   }
 
   obterMensagemIMC(imc: number): string {
-    if (imc < 18.5) return '🧊 Você está abaixo do peso';
-    if (imc < 25) return '🥦 Você está saudável!';
-    if (imc < 30) return '⚠️ Você está com sobrepeso';
-    return '🔥 Você está com obesidade';
+    if (imc < 18.5) {
+      return '🌱 Abaixo do ideal. Foque em ganhar força com alimentação e treino.';
+    }
+    if (imc < 25) {
+      return '🏆 Equilíbrio ideal! Mantenha os bons hábitos e siga firme.';
+    }
+    if (imc < 30) {
+      return '🎯 Leve sobrepeso. Ajustes leves já te colocam no rumo certo.';
+    }
+      return '🚀 Acima do ideal. Comece com passos consistentes rumo ao equilíbrio.';
   }
 
   calcularPosicao(imc: number): number {
@@ -60,5 +68,60 @@ export class ResumoComponent implements OnInit {
     const token = localStorage.getItem('access_token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get('http://localhost:8000/imc_base_dashboard/', { headers });
+  }
+
+  async compartilharResumo() {
+    const element = this.resumoContainer.nativeElement;
+
+    const canvas = await html2canvas(element, {
+      backgroundColor: null,
+      scale: 2
+    });
+
+    const imageWithLogo = await this.adicionarLogoAoCanvas(canvas);
+
+    imageWithLogo.toBlob(async blob => {
+      if (!blob) return;
+
+      const file = new File([blob], 'resumo-imc.png', { type: 'image/png' });
+
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        try {
+          await navigator.share({
+            title: 'Meu resumo IMC',
+            text: 'Veja meu resultado no app Saúde AI!',
+            files: [file]
+          });
+        } catch (error) {
+          console.error('Erro ao compartilhar:', error);
+        }
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'resumo-imc.png';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+    }, 'image/png');
+  }
+
+  async adicionarLogoAoCanvas(canvas: HTMLCanvasElement): Promise<HTMLCanvasElement> {
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return canvas;
+
+    const logo = new Image();
+    logo.src = 'assets/logo.png';
+
+    await new Promise<void>(resolve => {
+      logo.onload = () => resolve();
+    });
+
+    const size = 80;
+    ctx.drawImage(logo, canvas.width - size - 10, canvas.height - size - 10, size, size);
+
+    return canvas;
   }
 }

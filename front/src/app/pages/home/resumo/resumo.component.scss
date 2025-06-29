@@ -1,14 +1,16 @@
 .resumo-imc {
-  font-family: 'Poppins', sans-serif;
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding: 1.5rem;
+  padding: 1.5rem 1.5rem 4rem 1.5rem;
   background-color: #0A1822;
   border-radius: 8px;
   color: #C7D6DF;
-  max-width: 320px;
+  max-width: 600px;
+  width: 100%;
   margin: auto;
+  position: relative;
+  box-sizing: border-box;
 }
 
 .resumo-imc h2 {
@@ -19,92 +21,147 @@
   margin-bottom: 0.5rem;
 }
 
-.resumo-imc ul {
+.resumo-imc .registro-horizontal {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.resumo-imc .registro-horizontal .info-bloco {
+  flex: 1;
+}
+
+.resumo-imc .registro-horizontal .info-bloco ul {
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
-.resumo-imc ul li {
-  display: grid;
-  grid-template-columns: auto 1fr;
+.resumo-imc .registro-horizontal .info-bloco ul li {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 0.5rem 0;
-  font-size: 0.9rem;
-  column-gap: 1rem;
+  padding-bottom: 0.5rem;
+  font-size: 0.95rem;
 }
 
-.resumo-imc ul li strong {
+.resumo-imc .registro-horizontal .info-bloco ul li strong {
   color: #C7D6DF;
   font-weight: 500;
   white-space: nowrap;
+  margin-right: 1rem;
 }
 
-.resumo-imc ul li span {
+.resumo-imc .registro-horizontal .info-bloco ul li span {
   color: #C7D6DF;
   font-weight: 600;
   word-break: break-word;
   text-align: right;
 }
 
-.resumo-imc ul li.imc span {
+.resumo-imc .registro-horizontal .info-bloco ul li.imc strong {
+  color: #26bd65;
+}
+
+.resumo-imc .registro-horizontal .info-bloco ul li.imc span {
   color: #26bd65;
   font-weight: 700;
 }
 
-.resumo-imc ul li.imc strong {
-  color: #26bd65;
+.resumo-imc .registro-horizontal .score-bloco {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.resumo-imc .registro-horizontal .score-bloco app-score-saude {
+  width: 120px;
+  height: 120px;
 }
 
 .resumo-imc .imc-bar {
   position: relative;
-  height: 12px;
-  margin-top: 0.75rem;
-  border-radius: 6px;
-  overflow: hidden;
-}
-
-.resumo-imc .imc-bar .range {
-  display: flex;
-  height: 100%;
-}
-
-.resumo-imc .imc-bar .segment {
-  flex: 1;
-  height: 100%;
-}
-
-.resumo-imc .imc-bar .underweight {
-  background-color: #2196f3;
-}
-
-.resumo-imc .imc-bar .healthy {
-  background-color: #4caf50;
-}
-
-.resumo-imc .imc-bar .overweight {
-  background-color: #ffc400;
-}
-
-.resumo-imc .imc-bar .obese {
-  background-color: #b61827;
+  width: 100%;
+  height: 10px;
+  border-radius: 5px;
+  background: linear-gradient(to right, 
+    #2196f3 20%, 
+    #4caf50 20%, #4caf50 50%, 
+    #ffc400 50%, #ffc400 75%, 
+    #b61827 75%
+  );
+  margin-top: 1rem;
 }
 
 .resumo-imc .imc-bar .indicator {
   position: absolute;
-  top: -4px;
-  width: 8px;
-  height: 20px;
-  background: #ffffff;
-  border-radius: 3px;
+  top: 50%;
+  left: 35%;
+  width: 18px;
+  height: 18px;
+  background-color: #ffffff;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  transition: left 0.5s ease-in-out;
+}
+
+.resumo-imc .imc-bar .indicator::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 8px solid #ffffff;
 }
 
 .resumo-imc .status-imc {
   text-align: center;
-  font-size: 0.9rem;
-  margin-top: 0.5rem;
-  font-weight: 600;
-  color: #26bd65;
-  padding-left: 0.25rem;
+  font-size: 1rem;
+  margin-top: 1rem;
+  font-weight: 500;
+  color: #E0E0E0;
+}
+
+.botao-compartilhar {
+  position: absolute;
+  right: 1.5rem;
+  bottom: 1.5rem;
+}
+
+.botao-compartilhar button {
+  background-color: #4194C8;
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.botao-compartilhar button:hover {
+  background-color: #C7D6DF;
+  transform: scale(1.1);
+}
+
+.botao-compartilhar button svg, .botao-compartilhar button .material-icons {
+  width: 22px;
+  height: 22px;
+  color: white;
 }

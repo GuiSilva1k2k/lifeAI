@@ -6,9 +6,12 @@ import {
   HttpEvent,
   HttpErrorResponse
 } from '@angular/common/http';
-import { Observable, throwError, switchMap, catchError } from 'rxjs';
+import { Observable, throwError, switchMap, catchError, from, of, finalize } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from './autenticacaoUser.service';
+
+let isRefreshing = false;
+let refreshTokenInProgress$: Observable<string | null> | null = null;
 
 export const authInterceptor: HttpInterceptorFn = (
   req: HttpRequest<any>,
@@ -17,16 +20,44 @@ export const authInterceptor: HttpInterceptorFn = (
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  const token = authService.getToken();
-
-  // 🛑 Não adicionar o header Authorization para o endpoint de refresh
+  // ⚠️ Ignora refresh diretamente
   if (req.url.includes('/api/token/refresh/')) {
     return next(req);
   }
 
-  // ✅ Adiciona o token se houver
+  const token = authService.getToken();
+
+  // 🧠 Se token expirado, tenta renovar antes de enviar qualquer requisição
+  if (token && authService.isTokenExpired()) {
+    if (!isRefreshing) {
+      isRefreshing = true;
+      refreshTokenInProgress$ = authService.refreshToken().pipe(
+        finalize(() => {
+          isRefreshing = false;
+          refreshTokenInProgress$ = null;
+        })
+      );
+    }
+
+    return refreshTokenInProgress$!.pipe(
+      switchMap((newToken) => {
+        if (newToken) {
+          const cloned = req.clone({
+            setHeaders: { Authorization: `Bearer ${newToken}` }
+          });
+          return next(cloned);
+        } else {
+          authService.clearToken();
+          router.navigate(['/login']);
+          return throwError(() => new Error('Refresh token inválido ou expirado'));
+        }
+      })
+    );
+  }
+
+  // ✅ Se token válido, adiciona normalmente
   let authReq = req;
-  if (token) {
+  if (token && !authService.isTokenExpired()) {
     authReq = req.clone({
       setHeaders: {
         Authorization: `Bearer ${token}`
@@ -36,27 +67,38 @@ export const authInterceptor: HttpInterceptorFn = (
 
   return next(authReq).pipe(
     catchError((error: HttpErrorResponse) => {
-      // Se deu erro 401, tenta renovar o token
       if (error.status === 401) {
-        return authService.refreshToken().pipe(
-          switchMap((newToken) => {
-            if (newToken) {
-              const newReq = req.clone({
-                setHeaders: {
-                  Authorization: `Bearer ${newToken}`
-                }
-              });
-              return next(newReq);
-            } else {
-              authService.clearToken();
-              router.navigate(['/login']);
-              return throwError(() => error);
-            }
-          })
-        );
+        // 🛑 Se já tentou refresh antes, não insista
+        if (!refreshTokenInProgress$ && !isRefreshing) {
+          isRefreshing = true;
+          refreshTokenInProgress$ = authService.refreshToken().pipe(
+            finalize(() => {
+              isRefreshing = false;
+              refreshTokenInProgress$ = null;
+            })
+          );
+
+          return refreshTokenInProgress$.pipe(
+            switchMap((newToken) => {
+              if (newToken) {
+                const retryReq = req.clone({
+                  setHeaders: { Authorization: `Bearer ${newToken}` }
+                });
+                return next(retryReq);
+              } else {
+                authService.clearToken();
+                router.navigate(['/login']);
+                return throwError(() => error);
+              }
+            })
+          );
+        } else {
+          authService.clearToken();
+          router.navigate(['/login']);
+          return throwError(() => error);
+        }
       }
 
-      // Outros erros continuam normalmente
       return throwError(() => error);
     })
   );
