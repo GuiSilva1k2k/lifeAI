@@ -1,12 +1,13 @@
 :host {
   display: block;
-  background-color: #0A1E29;
+  background-color: #0D1C27;
   color: #C7D6DF;
   min-height: 100vh;
   position: relative;
 }
 
 .container {
+  background-color: #0D1C27;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -108,7 +109,7 @@ header {
 .right-section {
   flex: 1;
   max-width: 320px;
-  background-color: #0D2B3A;
+  background-color: #102938;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -133,7 +134,7 @@ header {
     border-radius: 8px;
     border: none;
     background-color: #0a1822;
-    color: #e8e5e4;
+    color: #C7D6DF;
     transition: box-shadow 0.3s;
 
     &:focus,
@@ -141,6 +142,10 @@ header {
       outline: none;
       box-shadow: 0 0 0 2px #C7D6DF;
     }
+  }
+
+  input::placeholder {
+    color: #88B5CC;
   }
 
   button {
@@ -169,7 +174,7 @@ header {
   transition: color 0.3s;
 
   &:hover {
-    color: #3E9ED6;
+    color: #5c7d98;
   }
 }
 

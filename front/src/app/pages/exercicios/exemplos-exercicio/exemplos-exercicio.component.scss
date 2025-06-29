@@ -1,13 +1,17 @@
 .exemplos-wrapper {
   margin-top: 2rem;
   width: 100%;
-  color: #00bfa5;
-  background-color: #0e1b24;
+  color: #C7D6DF;
+  background-color: #102938;
   text-align: center;
+  border-radius: 16px;
   padding-bottom: 2rem;
+  padding-top: 0.5rem;
 }
 
 .exemplos-grid {
+  background-color: #0A1822;
+  border: 1px solid #263544;
   display: flex;
   gap: 1rem;
   overflow-x: auto;
@@ -17,8 +21,6 @@
   max-width: 900px;
   margin: 0 auto;
   scroll-behavior: smooth;
-  border: 2px solid #263544;
-  border-radius: 16px;
 }
 
 .exemplos-grid::-webkit-scrollbar {
@@ -26,7 +28,7 @@
 }
 
 .exemplos-grid::-webkit-scrollbar-track {
-  background: #0e1b24;
+  background: #0c8eeb;
   border-radius: 6px;
 }
 
@@ -79,7 +81,7 @@
   background-color: rgba(14, 27, 36, 0.9);
   padding: 0.5rem 0;
   font-size: 1rem;
-  color: #00ffc3;
+  color: #C7D6DF;
   text-shadow: 1px 1px 2px #000;
   margin-top: auto;
 }
@@ -88,8 +90,8 @@
 .preview-balao {
   position: absolute;
   z-index: 1000;
-  background: #1e2a36;
-  color: #e2e8f0;
+  background: #102938;
+  color: #3E9ED6;
   border: 1px solid #263544;
   border-radius: 16px;
   padding: 1rem;
@@ -114,7 +116,7 @@
 .preview-conteudo h4:first-child {
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
-  color: #00ffc3;
+  color: #C7D6DF;
   text-align: center;
   font-weight: bold;
   border-bottom: 1px solid #263544;
@@ -125,7 +127,7 @@
   margin-top: 0.75rem;
   margin-bottom: 0.3rem;
   font-size: 0.95rem;
-  color: #00bfa5;
+  color: #C7D6DF;
   text-align: left;
 }
 
@@ -137,7 +139,7 @@
 }
 
 .preview-conteudo a {
-  color: #00ffc3;
+  color: #6a8fa8;
   font-size: 0.85rem;
   text-decoration: underline;
   display: inline-flex;
@@ -147,7 +149,7 @@
 }
 
 .preview-conteudo a:hover {
-  color: #009e8c;
+  color: #5C7D98;
 }
 
 .preview-conteudo a::after {

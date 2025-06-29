@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   padding-top: 1.25rem;
-  background-color: #081018;
+  background-color: #061721;
   width: 3.75rem;
   height: 100vh;
   position: fixed;
@@ -27,13 +27,13 @@
   width: 2.5rem;
   height: 2.5rem;
   margin: 0.625rem 0;
-  background-color: #075e54;
+  background-color: #0d423b;
   border-radius: 0.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
   text-decoration: none;
-  color: white;
+  color: #E4E7E8;
   transition: background-color 0.3s ease;
   overflow: visible;
   flex-shrink: 0;
@@ -41,7 +41,7 @@
 
 .sidebar a.active,
 .sidebar a:hover {
-  background-color: #00c853;
+  background-color: #185e5a;
 }
 
 .material-icons {
@@ -60,11 +60,11 @@
 }
 
 #logout-link {
-  background-color: #a52727 !important;
+  background-color: #891b25 !important;
 }
 
 #logout-link:hover {
-  background-color: #b71c1c !important;
+  background-color: #d0373b !important;
 }
 
 #logout-link.active {
@@ -96,6 +96,5 @@ app-notificacao-panel {
   flex-direction: column;
   align-items: center;
   width: 3.75rem;
-  /* Remova height: 100vh para não afetar a altura dos irmãos */
   flex-grow: 1;
 }

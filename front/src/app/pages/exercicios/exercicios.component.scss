@@ -1,8 +1,8 @@
-mande compelto voce nao enntendeu eu queor o tempo no lado direito da tela do lado dos dois nao quero mexer nos dois :host {
+:host {
   display: block;
   height: 100vh;
-  background-color: #0e1b24;
-  color: #fff;
+  background-color: #0D1C27;
+  color: #C7D6DF;
   font-family: 'Inter', sans-serif;
   overflow-y: auto;
 }
@@ -27,14 +27,14 @@ mande compelto voce nao enntendeu eu queor o tempo no lado direito da tela do la
 .titulo-exercicio {
   font-size: 1.8rem;
   font-weight: 700;
-  color: #00bfa5;
+  color: #C7D6DF;
   margin-bottom: 2rem;
   text-align: center;
   width: 100%;
 }
 
 .card {
-  background-color: #1e2a36;
+  background-color: #102938;
   border: 1px solid #263544;
   border-radius: 16px;
   padding: 1.5rem;
@@ -52,7 +52,7 @@ mande compelto voce nao enntendeu eu queor o tempo no lado direito da tela do la
 .card h3 {
   margin-top: 2rem;
   margin-bottom: 0.75rem;
-  color: #00bfa5;
+  color: #C7D6DF;
   font-size: 1.2rem;
   border-top: 1px solid #263544;
   padding-top: 1rem;
@@ -71,7 +71,7 @@ mande compelto voce nao enntendeu eu queor o tempo no lado direito da tela do la
   box-shadow: none;
   margin-bottom: 0;
   font-size: 1rem;
-  color: #e2e8f0;
+  color: #C7D6DF;
 }
 
 .botoes {
@@ -83,20 +83,21 @@ mande compelto voce nao enntendeu eu queor o tempo no lado direito da tela do la
 }
 
 button {
-  background-color: #00bfa5;
-  color: white;
-  border: none;
+  background-color: #C7D6DF;
+  color: #060F0C;
+  border: 1px solid #C7D6DF;
   padding: 0.8rem 1.6rem;
-  border-radius: 30px;
+  border-radius: 8px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.25s ease, transform 0.2s ease;
-}
 
-button:hover {
-  background-color: #009e8c;
-  transform: scale(1.05);
+  &:hover {
+    background-color: #4194C8;
+    color: #ffffff;
+    transform: scale(1.05);
+  }
 }
 
 .conteudo {
@@ -118,7 +119,7 @@ button:hover {
   border: 1px solid #263544;
   border-radius: 16px;
   padding: 1rem;
-  color: #e2e8f0;
+  color: #C7D6DF;
   font-size: 0.95rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   text-align: left;

@@ -41,18 +41,18 @@
 }
 
 .rotina-section {
-  background: linear-gradient(145deg, #102833, #0b1f29);
+  background: linear-gradient(145deg, #102938, #102938);
   border-radius: 1.5rem;
   padding: 2rem;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
   transition: all 0.3s ease-in-out;
-  border: 1px solid rgba(0, 200, 200, 0.15);
-  backdrop-filter: blur(4px);
+  // border: 1px solid rgba(0, 200, 200, 0.15);
+  // backdrop-filter: blur(4px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden;
-  color: #00c8c8;
+  color: #C7D6DF;
 }
 
 .rotina-section:hover {
@@ -67,16 +67,15 @@
   align-items: center;
   gap: 0.6rem;
   font-weight: 600;
-  background: linear-gradient(to right, #00c8c8, #00c8c8);
+  background: linear-gradient(to right, #C7D6DF, #C7D6DF);
   background-clip: text;
   -webkit-background-clip: text;
-  color: #00c8c8;
-  -webkit-text-fill-color: #00c8c8;
+  color: #C7D6DF;
 }
 
 .rotina-section h2::before {
   font-size: 1.5rem;
-  color: #00c8c8;
+  color: #C7D6DF;
 }
 
 .checklist {

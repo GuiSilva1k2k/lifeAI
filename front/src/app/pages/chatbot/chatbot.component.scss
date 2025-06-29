@@ -2,17 +2,17 @@ html, body, .chat-fullscreen {
   margin: 0;
   padding: 0;
   height: 100%;
-  background: #0A1E29;
+  background: #0D1C27;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   font-family: 'Inter', sans-serif;
-  color: #E3EEF5; /* texto principal mais claro */
+  color: #C7D6DF; /* texto principal mais claro */
 }
 
 .chat-container {
-  background: #0D2B3A;
+  background: #102938;
   border-radius: 1rem;
   max-width: 600px;
   width: 100%;
@@ -57,7 +57,7 @@ html, body, .chat-fullscreen {
   word-wrap: break-word;
   font-size: 1rem;
   font-weight: 500;
-  color: #E3EEF5;
+  color: #C7D6DF;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
   position: relative;
 }
@@ -75,7 +75,7 @@ html, body, .chat-fullscreen {
 
 .message-bubble .timestamp {
   font-size: 0.7rem;
-  color: rgba(227, 238, 245, 0.6); /* mais contraste */
+  color: #e3eef599; /* mais contraste */
   margin-top: 0.3rem;
   text-align: right;
 }
@@ -91,7 +91,7 @@ html, body, .chat-fullscreen {
 
 .options button {
   background-color: #143545;
-  color: #E3EEF5;
+  color: #C7D6DF;
   padding: 1rem 1.5rem;
   border: none;
   border-radius: 16px;
@@ -115,24 +115,30 @@ html, body, .chat-fullscreen {
 
 .input-bar input {
   flex: 1;
-  background: #143545;
+  background: #0A1822;
   border: none;
-  color: #E3EEF5;
+  color: #C7D6DF;
   padding: 1rem 1.5rem;
   border-radius: 30px;
   margin-right: 1rem;
   font-size: 1rem;
   outline: none;
-}
+  transition: box-shadow 0.3s;
 
-.input-bar input::placeholder {
-  color: #88B5CC; /* mais visível */
+  &:hover{
+    outline: none;
+    box-shadow: 0 0 0 2px #C7D6DF;
+  }
+
+  &::placeholder {
+    color: #88B5CC; /* mais visível */
+  }
 }
 
 .input-bar button {
-  background: #00C2C2; /* mais vibrante */
+  background: #4194C8; /* mais vibrante */
   color: #ffffff;
-  border: none;
+  border: 1px solid #4194C8;
   padding: 0.95rem 1.7rem;
   border-radius: 30px;
   font-weight: 600;
@@ -142,7 +148,9 @@ html, body, .chat-fullscreen {
 }
 
 .input-bar button:hover {
-  background-color: #38B0DE;
+  background-color: #C7D6DF;
+  color: #060F0C;
+  border-color: #4194C8;
 }
 
 .typing-indicator span {

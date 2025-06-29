@@ -1,5 +1,5 @@
 ::ng-deep .mat-mdc-checkbox label {
-  color: #00c8c8 !important;
+  color: #C7D6DF !important;
 }
 .checklist-container {
   display: flex;
@@ -9,7 +9,7 @@
   border-radius: 12px;
   padding: 1rem;
   box-sizing: border-box;
-  background-color: #0f202a;
+  background-color: transparent;
 }
 
 .tarefas-scroll {
@@ -72,7 +72,16 @@
   }
 
   button {
-    padding: 0.4rem;;
+    background-color: #4194C8;
+    color: #ffffff;
+    border: 1px solid #4194C8;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    &:hover {
+      background-color: #C7D6DF;
+      color: #060F0C;
+      border-color: #4194C8;
+    }
   }
 }
 
@@ -85,46 +94,90 @@
   .checkbox-item {
     flex: 1;
     font-size: 1rem;
+    border: none;
   }
-
+  
   .editar-input {
+    background-color: #0a1822;
+    color:  #C7D6DF !important;
+    border-radius: 8px;
     width: 100%;
     padding: 0.4rem 0.6rem;
     font-size: 1rem;
-    border: 1px solid #ccc;
+    border: none;
     border-radius: 4px;
+    transition: box-shadow 0.3s;
+    
+    &:focus,
+    &:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 2px #C7D6DF;
+    }
+
+    &::placeholder {
+      color: #88B5CC;
+    }
   }
 
   button {
     padding: 0.4rem;
+    background-color: #f35b04;
+    color: #f1faee;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    &:hover {
+      background-color: #f18701;
+      color: #060F0C;
+      border-color: #4194C8;
+    }
   }
 }
 
+::ng-deep .checkbox-item .mdc-checkbox {
+  display: none;
+}
+
 .input-tarefa {
+  background-color: #0a1822;
+  color:  #C7D6DF !important;
   flex: 1 1 250px;
   padding: 0.6rem 1rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  border: none;
+  border-radius: 8px;
   font-size: 1rem;
-  outline: none;
-  transition: border-color 0.3s ease;
+  transition: box-shadow 0.3s;
+
+  &:focus,
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px #C7D6DF;
+  }
+
+  &::placeholder {
+    color: #88B5CC;
+  }
 }
 
 button {
-  grid-column: span 2;
+  // grid-column: span 2;
   justify-self: start;
   padding: 0.5rem 1.2rem;
   font-size: 0.95rem;
-  font-weight: 600;
-  background-color: #00c8c8;
-  color: #0d1c27;
-  border: none;
   border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+}
 
+button.gerar {
+  padding: 12px;
+  border-radius: 8px;
+  background-color: #4194C8;
+  color: #ffffff;
+  border: 1px solid #4194C8;
+  cursor: pointer;
+  transition: background-color 0.3s;
   &:hover {
-    background-color: #00e6a3;
+    background-color: #C7D6DF;
+    color: #060F0C;
+    border-color: #4194C8;
   }
 }
 
@@ -135,39 +188,102 @@ button {
   justify-content: flex-start;
 
   button {
-    background-color: #00c8c8;
-    color: #0d1c27;
-    padding: 0.6rem 2rem;
-    font-weight: bold;
+    background-color: #4194C8;
+    color: #ffffff;
     border-radius: 8px;
+    border: 1px solid #4194C8;
+    cursor: pointer;
+    transition: background-color 0.3s;
 
     &:hover {
-      background-color: #00e6a3;
+      background-color: #C7D6DF;
+      color: #060F0C;
+      border-color: #4194C8;
     }
   }
 }
 
 .color-warn {
-  background-color: #ff4d4d !important;
+  background-color: #891b25 !important;
   color: white !important;
   border-radius: 6px;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease-in-out;
 
   &:hover {
-    background-color: #ff3333 !important;
+    background-color: #d0373b !important;
   }
 
   mat-icon {
-    color: white !important;
+    color: #E4E7E8 !important;
   }
 }
 
 ::ng-deep mat-calendar {
   max-width: 100%;
   display: block;
-  background-color: #0f202a;
+  background-color: #0F2533;
   border-radius: 1rem;
-  color: #00c8c8;
+  color: #fef5e5;
+  box-sizing: border-box;
+  padding: 1rem;
+  transition: all 0.3s ease;
+}
+
+mat-form-field {
+  height: 80px;
+  display: flex;
+  align-items: center;
+}
+
+::ng-deep .mat-mdc-icon-button {
+  color: #E4E7E8 !important;
+}
+
+::ng-deep .mat-mdc-form-field-flex {
+  height: 100%;
+  align-items: center !important;
+}
+
+.input_data{
+  width: 120px;
+  background-color: transparent;
+  color:  #C7D6DF !important;
+  box-shadow: none !important;
+
+  &::placeholder {
+    color: #88B5CC !important;
+  }
+}
+
+::ng-deep .mat-mdc-form-field-flex {
+  background-color: transparent !important;
+  border-radius: 6px;
+}
+
+::ng-deep .mat-mdc-form-field-infix {
+  color: #C7D6DF;
+}
+
+::ng-deep .mat-mdc-text-field-wrapper {
+  padding: 0px;
+  background-color: #0A1822 !important;
+  box-shadow: none !important;
+  border-radius: 8px;
+}
+::ng-deep .mat-mdc-form-field-outline-gap {
+  display: none !important;
+}
+::ng-deep .field--no-label .mat-mdc-form-field-infix {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+::ng-deep mat-calendar {
+  max-width: 100%;
+  display: block;
+  background-color: #0f2533 !important;
+  border-radius: 1rem;
+  color: #fef5e5;
   box-sizing: border-box;
   padding: 1rem;
   transition: all 0.3s ease;
@@ -178,24 +294,24 @@ button {
 ::ng-deep .mat-calendar-table-header th,
 ::ng-deep .mat-calendar-body-cell,
 ::ng-deep .mat-calendar-body-cell-content {
-  color: aliceblue !important;
+  color: #fef5e5 !important;
   transition: color 0.3s ease;
 }
 
 ::ng-deep .mat-calendar-body-disabled {
-  color: rgba(0, 200, 200, 0.25) !important;
+  color: #fef5e5 !important;
 }
 
 ::ng-deep .mat-calendar-body-selected {
-  background-color: #00c8c8 !important;
-  color: #0e1b24 !important;
+  background-color: #fef5e5 !important;
+  color: #060F0C !important;
   font-weight: bold;
   transition: background-color 0.3s ease, color 0.3s ease;
   border-radius: 50%;
 }
 
 ::ng-deep .mat-calendar-body-today:not(.mat-calendar-body-selected) {
-  border: 2px solid #00c8c8 !important;
+  border: 2px solid #fef5e5 !important;
   border-radius: 50%;
   transition: border-color 0.3s ease;
 }
@@ -203,11 +319,11 @@ button {
 ::ng-deep .mat-calendar-previous-button,
 ::ng-deep .mat-calendar-next-button,
 ::ng-deep .mat-calendar-period-button {
-  color: #00c8c8 !important;
+  color: #fef5e5 !important;
   transition: color 0.3s ease;
 }
 ::ng-deep .mat-calendar-body-cell:hover .mat-calendar-body-cell-content:not(.mat-calendar-body-disabled) {
-  background-color: #00c85326;
+  background-color: #fef5e5;
   border-radius: 50%;
   cursor: pointer;
   transition: background-color 0.2s ease;

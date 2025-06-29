@@ -9,13 +9,13 @@
     <div>
       <label for="novaTarefaInput">Data de criação</label>
       <mat-form-field appearance="fill">
-        <input id="novaTarefaInput" matInput [matDatepicker]="picker" [(ngModel)]="dataChecklist">
+        <input placeholder="dd/mm/yyyy" class="input_data" id="novaTarefaInput" matInput [matDatepicker]="picker" [(ngModel)]="dataChecklist">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
     </div>
 
-    <button mat-raised-button color="primary" (click)="gerarChecklist()">Gerar Checklist</button>
+    <button class="gerar" mat-raised-button color="primary" (click)="gerarChecklist()">Gerar Checklist</button>
   </div>
 
   <div class="tarefas-scroll">

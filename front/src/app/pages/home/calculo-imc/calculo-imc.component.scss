@@ -132,6 +132,9 @@ mat-form-field {
   background-color: transparent;
   color:  #C7D6DF !important;
   box-shadow: none !important;
+  &::placeholder {
+    color: #88B5CC !important;
+  }
 }
 
 ::ng-deep .mat-mdc-form-field-flex {
@@ -160,7 +163,7 @@ mat-form-field {
 ::ng-deep mat-calendar {
   max-width: 100%;
   display: block;
-  background-color: #2b5538 !important;
+  background-color: #0f2533 !important;
   border-radius: 1rem;
   color: #fef5e5;
   box-sizing: border-box;
@@ -194,7 +197,7 @@ mat-form-field {
 }
 
 ::ng-deep .mat-calendar-body-today:not(.mat-calendar-body-selected) {
-  border: 2px solid #0a1822 !important;
+  border: 2px solid #fef5e5 !important;
   border-radius: 50%;
   transition: border-color 0.3s ease;
 }
