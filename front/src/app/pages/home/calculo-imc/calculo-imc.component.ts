@@ -34,7 +34,7 @@ export class CalculoImcComponent implements OnInit {
   classificacao: string = '';
   idade: number = 0;
   sexo: string = '';
-  maxDate: string = '';
+  maxDate: Date = new Date();
   dataChecklist: Date = new Date();
 
   constructor(private fb: FormBuilder, private http: HttpClient, private snackBar: MatSnackBar) {
@@ -43,7 +43,6 @@ export class CalculoImcComponent implements OnInit {
       peso: [null, [Validators.required, Validators.min(0.1)]],
       data_consulta: [null, [Validators.required]]
     });
-    this.maxDate = this.getLocalDate();
   }
 
   ngOnInit() {

@@ -169,15 +169,15 @@ button {
 button.gerar {
   padding: 12px;
   border-radius: 8px;
-  background-color: #4194C8;
-  color: #ffffff;
-  border: 1px solid #4194C8;
+  background-color: #000000;
+  color: #ffbd61;
+  border: 1px solid #ffbd61;
   cursor: pointer;
   transition: background-color 0.3s;
   &:hover {
     background-color: #C7D6DF;
     color: #060F0C;
-    border-color: #4194C8;
+    border-color: #000000;
   }
 }
 

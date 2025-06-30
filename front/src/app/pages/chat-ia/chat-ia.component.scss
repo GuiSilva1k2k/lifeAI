@@ -4,7 +4,6 @@
   overflow: hidden;
 }
 
-/* Container principal */
 .chat-ia-container {
   display: flex;
   flex-direction: column;
@@ -12,14 +11,13 @@
   justify-content: flex-start;
   padding: 2rem;
   height: 100vh;
-  color: #fff;
+  color: #C7D6DF;
   font-family: 'Inter', sans-serif;
   position: relative;
-  overflow: hidden; /* REMOVA o overflow-y: auto */
+  overflow: hidden;
   box-sizing: border-box;
 }
 
-/* Mensagem inicial */
 .initial-message {
   margin-bottom: 2rem;
   text-align: center;
@@ -32,7 +30,7 @@
 }
 
 .initial-message p {
-  color: #00bfa5;
+  color: #C7D6DF;
   font-size: 1rem;
   margin-bottom: 0.5rem;
 }
@@ -40,8 +38,12 @@
 .initial-message h1 {
   font-size: 2rem;
   font-weight: 600;
-  color: #fff;
+  color: #C7D6DF;
   margin: 0;
+}
+
+.initial-message p {
+  color: #3E9ED6;
 }
 
 /* Cards de opções - pirâmide invertida (3 em cima, 2 centralizados embaixo) */
@@ -56,15 +58,15 @@
 }
 
 .card-options .card {
-  background-color: #1e2a36;
-  color: #ffffff;
+  background-color: #102938;
+  color: #C7D6DF;
   padding: 1.5rem;
   border-radius: 16px;
   font-size: 1rem;
   font-weight: 500;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
   cursor: pointer;
-  transition: transform 0.2s ease, background-color 0.2s;
+  transition: transform 0.2s ease, background-color 0.3s;
   text-align: left;
   margin: 0.75rem;
   flex: 0 0 220px;
@@ -72,18 +74,18 @@
 
 .card-options .card:hover {
   transform: translateY(-5px);
-  background-color: #263544;
+  background-color: #0f2533;
 }
 
 .card-options .card h2 {
   font-size: 1.1rem;
   margin-bottom: 0.4rem;
-  color: #00bfa5;
+  color: #C7D6DF;
 }
 
 .card-options .card p {
   font-size: 0.95rem;
-  color: #ccc;
+  color: #3E9ED6;
 }
 
 /* Pirâmide invertida: 3 cards em cima */
@@ -140,16 +142,16 @@
 
 /* Mensagem do bot à esquerda */
 .bot {
-  background-color: #1e2a36;
-  color: #fff;
+  background: #143545;
+  color: #C7D6DF;
   align-self: flex-start;
   border-bottom-left-radius: 0;
 }
 
 /* Mensagem do usuário à direita */
 .user {
-  background-color: #00bfa5;
-  color: #fff;
+  background: #2FA8E0;
+  color: #ffffff;
   align-self: flex-end;
   border-bottom-right-radius: 0;
 }
@@ -187,36 +189,44 @@ input[type='text'] {
   border-radius: 30px;
   border: none;
   outline: none;
-  background-color: #1e2a36;
-  color: #fff;
+  background: #0A1822;
+  color: #C7D6DF;
   margin-right: 1rem;
   max-width: 1400px;
   box-sizing: border-box;
+  transition: box-shadow 0.3s;
+
+  &:hover{
+    outline: none;
+    box-shadow: 0 0 0 2px #C7D6DF;
+  }
 }
 
 input[type='text']::placeholder {
-  color: #aaa;
+  color: #88B5CC;
 }
 
 button {
+  background: #4194C8;
+  color: #ffffff;
+  border: 1px solid #4194C8;
   padding: 0.95rem 1.7rem;
   font-size: 1rem;
-  border: none;
   border-radius: 30px;
-  background-color: #00bfa5;
-  color: white;
   cursor: pointer;
   font-weight: 600;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
-  background-color: #009e8c;
+  background-color: #C7D6DF;
+  color: #060F0C;
+  border-color: #4194C8;
 }
 
 .timestamp {
   font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.8); 
+  color: #ffffff;
   margin-top: 0.4rem;
   text-align: right;
   opacity: 0.9; 

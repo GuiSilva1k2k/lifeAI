@@ -136,6 +136,15 @@ Formato de saída (sem nenhuma explicação, apenas o JSON):
   }
   
   salvarChecklist(): void {
+    if (this.atividades.length === 0) {
+      this.snackBar.open('Adicione ao menos uma tarefa antes de salvar o checklist!', '', {
+        duration: 3000,
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: ['snackbar-erro']
+      });
+      return;
+    }
     const data = this.dataChecklist.toISOString().split('T')[0];
 
     const novoChecklist = {

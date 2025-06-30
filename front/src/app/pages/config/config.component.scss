@@ -1,7 +1,7 @@
 .config-page {
   height: 100%;
   padding: 2rem;
-  color: #fff;
+  color: #C7D6DF;
   box-sizing: border-box;
 
   .title {
@@ -12,12 +12,12 @@
 
   .subtitle {
     font-size: 1rem;
-    color: #9ca3af;
+    color: #3E9ED6;
     margin-bottom: 2rem;
   }
 
   .setting-section {
-    background-color: #14232d;
+    background-color: #102938;
     border-radius: 0.75rem;
     border: 1px solid #1f2d36;
     margin-bottom: 1.5rem;
@@ -37,7 +37,7 @@
       user-select: none;
 
       &:hover {
-        background-color: #1a2b36;
+        background-color: #0f2533;
       }
 
       .toggle-left {
@@ -95,15 +95,15 @@
 .toggle-switch {
   width: 50px;
   height: 26px;
-  background: #1f2d36;
+  background: #0A1822;
   border-radius: 13px;
   position: relative;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  border: 1px solid #00ff9d;
+  border: 2px solid #C7D6DF;
 
   &.active {
-    background-color: #00ff9d;
+    background-color: #4194C8;
   }
 
   .toggle-circle {
@@ -115,10 +115,12 @@
     top: 2px;
     left: 2px;
     transition: left 0.3s ease;
-    border: 1px solid #00ff9d;
+    border: 2px solid #C7D6DF;
   }
 
   &.active .toggle-circle {
+    background: #4194C8;
+    border: 2px solid #C7D6DF;
     left: 26px;
   }
 }
