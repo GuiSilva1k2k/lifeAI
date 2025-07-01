@@ -59,12 +59,10 @@ export class CalculoImcComponent implements OnInit {
     });
   }
 
-  getLocalDate(): string {
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = (today.getMonth() + 1).toString().padStart(2, '0');
-    const day = today.getDate().toString().padStart(2, '0');
-    return `${year}-${month}-${day}`;
+  bloquearNotacao(event: KeyboardEvent) {
+    if (['e', 'E', '+', '-'].includes(event.key)) {
+      event.preventDefault();
+    }
   }
 
   consultaImcBase(): Observable<any> {
@@ -75,11 +73,56 @@ export class CalculoImcComponent implements OnInit {
 
   calcularIMC(): void {
     if (this.form.valid) {
-      const { peso, altura } = this.form.value;
+
+      let { peso, altura } = this.form.value;
+
+      altura = String(altura).replace(',', '.');
+      const alturaNum = parseFloat(altura);
+
+      let pesoStr = String(peso).replace(',', '.');
+      peso = parseFloat(pesoStr);
+      
       let data_consulta = this.form.value.data_consulta;
+
+      if (isNaN(peso) || peso <= 0 || peso > 400) {
+        this.snackBar.open('Peso inválido. Informe o valor em kg, ex: 70.5', '', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: ['snackbar-erro']
+        });
+        return;
+      }
+
+      if (isNaN(alturaNum) || alturaNum <= 0) {
+        this.snackBar.open('Altura inválida. Use metros ou centímetros (ex: 1.75 ou 175)', '', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: ['snackbar-erro']
+        });
+        return;
+      }
+
+      const alturaCm = alturaNum < 3 ? alturaNum * 100 : alturaNum;
+
+      if (alturaCm < 50 || alturaCm > 250) {
+        this.snackBar.open('Altura fora do intervalo esperado (50 cm a 250 cm)', '', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: ['snackbar-erro']
+        });
+        return;
+      }
+
+      altura = alturaCm / 100;
+
+
       if (data_consulta instanceof Date) {
         data_consulta = data_consulta.toISOString().split('T')[0];
       }
+
       const payload = { peso, altura, data_consulta, idade: this.idade, sexo: this.sexo };
 
       const token = localStorage.getItem('access_token');

@@ -3,14 +3,14 @@
   <form [formGroup]="form" (ngSubmit)="calcularIMC()">
 
     <label for="altura">Altura</label>
-    <input id="altura" class="altura" type="number" formControlName="altura"/>
+    <input id="altura" class="altura" placeholder="Ex: 1.75 (m) ou 175 (cm)" type="number" formControlName="altura"/>
 
     <label for="peso">Peso</label>
-    <input id="peso" class="peso" type="number" formControlName="peso"/>
+    <input id="peso" class="peso" placeholder="Ex: 70.5 (kg)" type="number" formControlName="peso"/>
     
     <label for="novaTarefaInput">Data de criação</label>
     <mat-form-field appearance="fill">
-      <input placeholder="dd/mm/yyyy" class="input_data" matInput [matDatepicker]="picker" formControlName="data_consulta" [max]="maxDate" />
+      <input placeholder="dd/mm/yyyy" class="input_data" matInput [matDatepicker]="picker" formControlName="data_consulta" (keydown)="bloquearNotacao($event)" [max]="maxDate" />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>

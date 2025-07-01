@@ -20,12 +20,12 @@
     chartValues: number[] = [];
 
     
-    getBarColor(valor: number): string {
-      if (valor <= 25) return '#b61827';
-      if (valor <= 50) return '#ffc400';
-      if (valor <= 75) return '#4caf50';
-      return '#006600';
-    }
+    // getBarColor(valor: number): string {
+    //   if (valor <= 25) return '#b61827';
+    //   if (valor <= 50) return '#ffc400';
+    //   if (valor <= 75) return '#4caf50';
+    //   return '#006600';
+    // }
 
     constructor(private graficoService: GraficoPontuacaoService) {}
 
@@ -103,7 +103,7 @@
 
     get chartData() {
       if (this.currentView === 'Desempenho Checklist') {
-        const backgroundColors = this.chartValues.map(p => this.getBarColor(p));
+        // const backgroundColors = this.chartValues.map(p => this.getBarColor(p));
 
         return {
           labels: this.chartLabels,
@@ -111,7 +111,7 @@
             {
               label: 'Porcentagem Concluída',
               data: this.chartValues,
-              backgroundColor: backgroundColors,
+              backgroundColor: '#4194C8',
               borderRadius: 6,
               maxBarThickness: 80,
               barPercentage: 0.7,

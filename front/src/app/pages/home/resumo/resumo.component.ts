@@ -42,15 +42,15 @@ export class ResumoComponent implements OnInit {
 
   obterMensagemIMC(imc: number): string {
     if (imc < 18.5) {
-      return '🌱 Abaixo do ideal. Foque em ganhar força com alimentação e treino.';
+      return '🌱 Abaixo do ideal.';
     }
     if (imc < 25) {
-      return '🏆 Equilíbrio ideal! Mantenha os bons hábitos e siga firme.';
+      return '🏆 Equilíbrio ideal!';
     }
     if (imc < 30) {
-      return '🎯 Leve sobrepeso. Ajustes leves já te colocam no rumo certo.';
+      return '🎯 Leve sobrepeso.';
     }
-      return '🚀 Acima do ideal. Comece com passos consistentes rumo ao equilíbrio.';
+      return '🚀 Acima do ideal.';
   }
 
   calcularPosicao(imc: number): number {

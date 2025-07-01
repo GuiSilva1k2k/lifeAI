@@ -92,7 +92,8 @@ export const authInterceptor: HttpInterceptorFn = (
               }
             })
           );
-        } else {
+        }
+        else {
           authService.clearToken();
           router.navigate(['/login']);
           return throwError(() => error);
