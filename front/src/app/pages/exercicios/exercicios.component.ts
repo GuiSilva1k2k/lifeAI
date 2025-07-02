@@ -41,6 +41,16 @@ export class ExerciciosComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const instrucoes = localStorage.getItem('instrucoesMarkdown');
+    const dados = localStorage.getItem('dadosMarkdown');
+    const nome = localStorage.getItem('nomeExercicio');
+
+    if (instrucoes && dados && nome) {
+      this.instrucoesMarkdown = instrucoes;
+      this.dadosMarkdown = dados;
+      this.nomeExercicio = nome;
+      this.respostaIA = `${instrucoes}\n\n${dados}`; // só para fins de referência
+    }
     this.imcBaseService.getImcBase().subscribe({
       next: data => {
         this.imcBase = data;
@@ -199,6 +209,10 @@ Código de sessão: ${this.sessaoId}
     this.dadosMarkdown = dadosTemp
       .map(d => `* **${d.label}**: ${d.valor}`)
       .join('\n');
+
+    localStorage.setItem('instrucoesMarkdown', this.instrucoesMarkdown);
+    localStorage.setItem('dadosMarkdown', this.dadosMarkdown);
+    localStorage.setItem('nomeExercicio', this.nomeExercicio);
   }
 
   alternarStatusExercicio(): void {
