@@ -3,15 +3,15 @@ version: "3.8"
 
 services:
   db:
-  image: postgres:15
-  volumes:
-    - lifeai_db:/var/lib/postgresql/data
-  environment:
-    - POSTGRES_DB=${DB_NAME}
-    - POSTGRES_USER=${DB_USER}
-    - POSTGRES_PASSWORD=${DB_PASSWORD}
-  ports:
-    - "5434:5432"
+    image: postgres:15
+    volumes:
+      - lifeai_db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    ports:
+      - "5434:5432"
 
   backapp:
     container_name: back_docker
