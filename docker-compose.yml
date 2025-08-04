@@ -1,0 +1,57 @@
+# docker-compose.yml
+version: "3.8"
+
+services:
+  db:
+  image: postgres:15
+  volumes:
+    - lifeai_db:/var/lib/postgresql/data
+  environment:
+    - POSTGRES_DB=${DB_NAME}
+    - POSTGRES_USER=${DB_USER}
+    - POSTGRES_PASSWORD=${DB_PASSWORD}
+  ports:
+    - "5434:5432"
+
+  backapp:
+    container_name: back_docker
+    build:
+      context: ./back
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./back:/back
+    command:
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    environment:
+      - DB_ENGINE=${DB_ENGINE}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - LM_API_URL=${LM_API_URL}
+      - LM_API_MODEL=${LM_API_MODEL}
+      - FRONT_HOST=${FRONT_HOST}
+    depends_on:
+      - db
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  frontapp:
+    container_name: front_docker
+    build:
+      context: ./front
+    ports:
+      - "90:90"
+    depends_on:
+      - backapp
+    networks:
+      - app-network
+
+networks:
+  app-network:
+
+volumes:
+  lifeai_db:

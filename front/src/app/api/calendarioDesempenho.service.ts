@@ -1,9 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({ providedIn: 'root' })
 export class CalendarioPontuacaoService {
-  private baseUrl = 'http://localhost:8000/pontuacoes';
+  private baseUrl = `${environment.djangoApiUrl}/pontuacoes`;
 
   constructor(private http: HttpClient) {}
 

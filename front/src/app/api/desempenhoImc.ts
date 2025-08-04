@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+import { environment } from '../../environments/environment.prod';
 export interface ImcRegistro {
   data_consulta: string;
   imc_res: number;
@@ -9,7 +9,7 @@ export interface ImcRegistro {
 
 @Injectable({ providedIn: 'root' })
 export class DesempenhoImc {
-  private readonly API_URL = 'http://localhost:8000/imc/historico/';
+  private readonly API_URL = `${environment.djangoApiUrl}/imc/historico/`;
 
   constructor(private http: HttpClient) {}
 

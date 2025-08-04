@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ScoreSaudeComponent } from './score-saude/score-saude.component';
 import html2canvas from 'html2canvas';
+import { environment } from '../../../../environments/environment.prod';
 
 @Component({
   selector: 'app-resumo',
@@ -67,7 +68,7 @@ export class ResumoComponent implements OnInit {
   consultaImcBase(): Observable<any> {
     const token = localStorage.getItem('access_token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get('http://localhost:8000/imc_base_dashboard/', { headers });
+    return this.http.get(`${environment.djangoApiUrl}/imc_base_dashboard/`, { headers });
   }
 
   async compartilharResumo() {

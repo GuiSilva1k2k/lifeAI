@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class AtividadePontuacaoService {
     });
 
     return this.http.put(
-      `http://localhost:8000/checklists/${checklistId}/atualizar-atividades/`,
+      `${environment.djangoApiUrl}/checklists/${checklistId}/atualizar-atividades/`,
       { atividades },
       { headers }
     );
@@ -28,6 +29,6 @@ export class AtividadePontuacaoService {
       Authorization: `Bearer ${token}`
     });
 
-    return this.http.post(`http://localhost:8000/checklists/${checklistId}/pontuacao/`, {}, { headers });
+    return this.http.post(`${environment.djangoApiUrl}/checklists/${checklistId}/pontuacao/`, {}, { headers });
   }
 }

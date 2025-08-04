@@ -10,6 +10,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../../../environments/environment.prod';
 
 @Component({
   selector: 'app-calculo-imc',
@@ -68,7 +69,7 @@ export class CalculoImcComponent implements OnInit {
   consultaImcBase(): Observable<any> {
     const token = localStorage.getItem('access_token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get('http://localhost:8000/imc_base_dashboard/', { headers });
+    return this.http.get(`${environment.djangoApiUrl}/imc_base_dashboard/`, { headers });
   }
 
   calcularIMC(): void {
@@ -128,7 +129,7 @@ export class CalculoImcComponent implements OnInit {
       const token = localStorage.getItem('access_token');
       const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-      this.http.post<any>('http://localhost:8000/imc/', payload, { headers }).subscribe({
+      this.http.post<any>(`${environment.djangoApiUrl}/imc/`, payload, { headers }).subscribe({
         next: (resposta) => {
           this.resultado = resposta.imc_res;
           this.classificacao = resposta.classificacao;

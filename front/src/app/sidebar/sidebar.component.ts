@@ -11,6 +11,7 @@ import { RouterModule, Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NotificacaoPanelComponent } from '../shared/notificacao-panel.component'; // ajuste o caminho se necessário
+import { environment } from '../../environments/environment.prod';
 
 @Component({
   selector: 'app-sidebar',
@@ -52,7 +53,7 @@ export class SidebarComponent implements AfterViewInit {
 
   logout(): void {
     if (confirm('Você realmente deseja sair?')) {
-      this.http.post('http://localhost:8000/logout/', {}).subscribe({
+      this.http.post(`${environment.djangoApiUrl}/logout/`, {}).subscribe({
         next: () => {
           localStorage.removeItem('access_token');
           localStorage.removeItem('refresh_token');

@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AtividadePontuacaoService } from '../../../../api/atividade_pontuacao.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { environment } from '../../../../../environments/environment.prod';
 
 export interface Atividade {
   id: number;
@@ -48,8 +49,7 @@ export class CheckinComponent implements OnChanges{
       this.carregarChecklistEAtividadesPorData(this.data);
     }
   }
-  private apiUrl = 'http://localhost:8000/checklists';
-  
+  private apiUrl = `${environment.djangoApiUrl}/checklists`;
   
   carregarChecklistEAtividadesPorData(data: Date) {
     const dataFormatada = data.toISOString().split('T')[0];

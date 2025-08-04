@@ -4,15 +4,16 @@ import { Observable, throwError, BehaviorSubject, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { loginUser, registroUser } from '../models/user';
 import { jwtDecode } from 'jwt-decode';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private apiRegistro = 'http://localhost:8000/registro/';
-  private apiLogin = 'http://localhost:8000/login/';
-  private apiLogout = 'http://localhost:8000/logout/';
-  private apiRefresh = 'http://localhost:8000/api/token/refresh/';
+  private apiRegistro = `${environment.djangoApiUrl}/registro/`;
+  private apiLogin = `${environment.djangoApiUrl}/login/;`
+  private apiLogout = `${environment.djangoApiUrl}/logout/`;
+  private apiRefresh = `${environment.djangoApiUrl}/api/token/refresh/`;
 
   private loggedIn = new BehaviorSubject<boolean>(this.hasToken());
   loggedIn$: Observable<boolean> = this.loggedIn.asObservable();

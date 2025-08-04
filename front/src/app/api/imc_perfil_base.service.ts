@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { imcBase } from '../models/user';
+import { environment } from '../../environments/environment.prod';
 
 
 interface ImcBase {
@@ -18,8 +19,8 @@ interface Exercicio {
   providedIn: 'root'
 })
 export class ImcBaseService {
-  private apiUrlPost = 'http://localhost:8000/imc_base_perfil/';
-  private apiUrlGet = 'http://localhost:8000/imc_rec/';
+  private apiUrlPost = `${environment.djangoApiUrl}/imc_base_perfil/`;
+  private apiUrlGet = `${environment.djangoApiUrl}/imc_rec/`;
   
   constructor(private http: HttpClient) {}
 

@@ -1,15 +1,16 @@
 import os
 import requests
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from collections import defaultdict
+from django.conf import settings
 
-load_dotenv()
+# load_dotenv()
 
-LM_API_URL = os.getenv("LM_API_URL")
-LM_API_MODEL = os.getenv("LM_API_MODEL")
+# LM_API_URL = os.getenv("LM_API_URL")
+# LM_API_MODEL = os.getenv("LM_API_MODEL")
 
 # Armazena o histórico de conversas em memória
 conversas_em_memoria = defaultdict(list)
@@ -28,12 +29,12 @@ def perguntar_ia_lm_studio(historico_mensagens):
     mensagens = [prompt_sistema] + historico_mensagens
 
     payload = {
-        "model": LM_API_MODEL,
+        "model": settings.LM_API_MODEL,
         "messages": mensagens,
         "temperature": 0.7
     }
 
-    resposta = requests.post(LM_API_URL, json=payload)
+    resposta = requests.post(settings.LM_API_URL, json=payload)
     resposta.raise_for_status()
     dados = resposta.json()
     return dados["choices"][0]["message"]["content"].strip()

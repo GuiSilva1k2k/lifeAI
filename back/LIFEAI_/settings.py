@@ -1,18 +1,16 @@
 from pathlib import Path
 import os
 from dotenv import load_dotenv
-from decouple import config, Csv
 
-# Caminho base
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Carregar variáveis do .env
 load_dotenv()
 
 # Segurança
-SECRET_KEY = 'django-insecure-5a@!8#w45r65*^40gfi5&dlr1solf-$mtsen+a4-g%s8r2kghp'
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "unsafe-secret-key")
 DEBUG = True
-ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.0.16', '10.31.1.244']
 
 # Aplicações
 INSTALLED_APPS = [
@@ -24,7 +22,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core',
 
-    # Terceiros
     'rest_framework',
     'django_filters',
     'corsheaders',
@@ -70,12 +67,15 @@ DATABASES = {
     'default': {
         'ENGINE': os.getenv('DB_ENGINE'),
         'NAME': os.getenv('DB_NAME'),
-        'HOST': os.getenv('DB_HOST'),
-        'PORT': os.getenv('DB_PORT'),
         'USER': os.getenv('DB_USER'),
         'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT'),
     }
 }
+
+LM_API_URL = os.getenv("LM_API_URL", "http://localhost:1234/v1/chat/completions")
+LM_API_MODEL = os.getenv("LM_API_MODEL", "meta-llama-3-8b-instruct")
 
 # Validação de senha
 AUTH_PASSWORD_VALIDATORS = [
@@ -93,19 +93,17 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# Internacionalização
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# Arquivos estáticos
 STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# CORS - permitido para o Angular
-CORS_ALLOWED_ORIGINS = config('FRONT_HOST', cast=Csv())
+# CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [os.getenv("FRONT_HOST")]
 
 # Django REST Framework - garantir suporte a JSON
 REST_FRAMEWORK = {

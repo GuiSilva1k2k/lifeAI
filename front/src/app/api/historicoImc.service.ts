@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { historicoConsultas } from '../models/user';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({ providedIn: 'root' })
 export class HistoricoConsultasService {
-  private apiUrl = 'http://localhost:8000/imc/registrosConsultas/';
-  private apiDeleteUrl = 'http://localhost:8000/imc/';
+  private apiUrl = `${environment.djangoApiUrl}/imc/registrosConsultas/`;
+  private apiDeleteUrl = `${environment.djangoApiUrl}/imc/`;
 
   constructor(private http: HttpClient) {}
 
